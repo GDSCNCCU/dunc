@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 
+import './profile/profileview.dart';
+import './tools/colors.dart';
+
 void main() {
   runApp(const MyApp());
 }
 
-const purple = Color(0xffaf57dc);
-const blue = Color(0xff7b78e2);
-const backgroundColor = Color(0xffe5e5e5);
 double? screenWidth;  // set in build of _MyHomePageState
 
 class MyApp extends StatelessWidget {
@@ -16,10 +16,13 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return const NeumorphicApp(
-      debugShowCheckedModeBanner: false,
-      title: 'dUNC',
-      home: MyHomePage(title: ''),
+    // return const NeumorphicApp(
+    //   debugShowCheckedModeBanner: false,
+    //   title: 'dUNC',
+    //   home: ProfileView(),
+    // );
+    return MaterialApp(
+      home: ProfileView(),
     );
   }
 }
