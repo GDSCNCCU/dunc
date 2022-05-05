@@ -1,4 +1,5 @@
-import './main.dart';
+import '../tools/colors.dart';
+import './following_list.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
@@ -37,7 +38,7 @@ final tmp = Scaffold(
                 child: Container(
                   decoration: const BoxDecoration(
                     shape: BoxShape.circle,
-                    color: Colors.amber,
+                    color: purple,
                   ),
                   // color: Colors.amber,
                 ),
@@ -62,7 +63,7 @@ final tmp = Scaffold(
                     const SizedBox(height: 16,),
                     Container(
                       height: 18,
-                      child: Text("user id = $user_id",
+                      child: Text("user id:$user_id",
                         textAlign: TextAlign.center,
                         style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
                       ),
@@ -99,6 +100,7 @@ final tmp = Scaffold(
         child: following_team,
       ),
       const SizedBox(height: 27,),
+      FollowingList(),
     ]
   )
 );
