@@ -21,22 +21,20 @@ class MyApp extends StatelessWidget {
     //   title: 'dUNC',
     //   home: ProfileView(),
     // );
-    return MaterialApp(
+    return const MaterialApp(
       home: ProfileView(),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
-
-  final String title;
+class SearchView extends StatefulWidget {
+  const SearchView({Key? key}) : super(key: key);
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<SearchView> createState() => _SearchViewState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _SearchViewState extends State<SearchView> {
 
   @override
   Widget build(BuildContext context) {
