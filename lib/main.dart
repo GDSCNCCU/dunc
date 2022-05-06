@@ -21,6 +21,9 @@ class MyApp extends StatelessWidget {
     //   title: 'dUNC',
     //   home: ProfileView(),
     // );
+
+    // 測試ProfileView
+    // 非正式
     return const MaterialApp(
       home: ProfileView(),
     );
