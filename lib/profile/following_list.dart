@@ -12,8 +12,8 @@ class FollowingList extends StatefulWidget {
 }
 
 class _FollowingListState extends State<FollowingList> {
-  List<bool> _selection1 = [true];
-  List<bool> _selection2 = [false];
+  final List<bool> _selection1 = [true];
+  final List<bool> _selection2 = [false];
   int _selected = 0;
 
   @override
@@ -22,7 +22,7 @@ class _FollowingListState extends State<FollowingList> {
       children: <Widget>[
         Row(
           children: [
-            SizedBox(width: 24,),
+            const SizedBox(width: 24,),
             // 用兩個ToggleButton + SizedBox實現兩個按鈕間的空格
             // Team
             SizedBox(
