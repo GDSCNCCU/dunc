@@ -9,6 +9,7 @@ void main() {
 }
 
 double? screenWidth; // set in build of _SearchViewState
+int searchTeamOrMatchToggleIndex = 0;
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -37,7 +38,6 @@ class SearchView extends StatefulWidget {
   State<SearchView> createState() => _SearchViewState();
 }
 
-int selectedIndex = 0;
 
 class _SearchViewState extends State<SearchView> {
   NeumorphicTextStyle toggleTextStyle = NeumorphicTextStyle(
@@ -67,10 +67,10 @@ class _SearchViewState extends State<SearchView> {
               child: NeumorphicToggle(
                 movingCurve: Curves.easeInBack,
                 duration: const Duration(milliseconds: 500),
-                selectedIndex: selectedIndex,
+                selectedIndex: searchTeamOrMatchToggleIndex,
                 onChanged: (int index) {
                   setState(() {
-                    selectedIndex = index;
+                    searchTeamOrMatchToggleIndex = index;
                   });
                 },
                 children: [
