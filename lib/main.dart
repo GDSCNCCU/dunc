@@ -8,7 +8,7 @@ void main() {
   runApp(const MyApp());
 }
 
-double? screenWidth; // set in build of _MyHomePageState
+double? screenWidth; // set in build of _SearchViewState
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -16,17 +16,17 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    // return const NeumorphicApp(
-    //   debugShowCheckedModeBanner: false,
-    //   title: 'dUNC',
-    //   home: ProfileView(),
-    // );
+    return const NeumorphicApp(
+      debugShowCheckedModeBanner: false,
+      title: 'dUNC',
+      home: SearchView(),
+    );
 
     // 測試ProfileView
     // 非正式
-    return const MaterialApp(
-      home: ProfileView(),
-    );
+    // return const MaterialApp(
+    //   home: ProfileView(),
+    // );
   }
 }
 
@@ -131,22 +131,25 @@ class _SearchViewState extends State<SearchView> {
               ),
               child: SizedBox(
                 width: screenWidth! - 100, // 扣掉margin、搜尋icon
+                height: 46,
                 child: TextField(
                   decoration: const InputDecoration(
                       border: InputBorder.none,
                       hintStyle: TextStyle(color: Colors.white),
-                      hintText: "輸入球隊/員",
+                      hintText: "輸入球隊/員",  //todo: 換成找比賽時要換
                       prefixIcon: Icon(
                         Icons.search,
                         size: 25,
                         color: Colors.grey,
-                      )),
+                      ),
+                      contentPadding: EdgeInsets.only(top: 13)
+                  ),
                   keyboardType: TextInputType.name,
                   textInputAction: TextInputAction.search,
                   autofocus: true,
                   cursorColor: blue,
                   style: const TextStyle(
-                      fontFamily: "GenSenRounded JP", fontSize: 20),
+                      fontFamily: "GenSenRounded JP", fontSize: 16),
                   onChanged: (str) {}, //todo
                 ),
               )),
