@@ -87,7 +87,7 @@ final tmp = Scaffold(
                   child: IconButton(
                     alignment: Alignment.center,
                     icon: const Icon(Icons.circle),onPressed: nothing, color: Colors.purple[300],
-                    iconSize: 55,
+                    iconSize: 60,
                   ),
                 )
               ),
