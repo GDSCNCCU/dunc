@@ -17,11 +17,11 @@ class _ProfileViewState extends State<ProfileView> {
   @override
   Widget build(BuildContext context) {
     // return iconList;
-    return tmp;
+    return profile;
   }
 }
 
-final tmp = Scaffold(
+final profile = Scaffold(
   body: Column(
     children: <Widget>[
       const SizedBox(
@@ -102,7 +102,32 @@ final tmp = Scaffold(
       const SizedBox(height: 27,),
       FollowingList(),
     ]
-  )
+  ),
+
+  floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+  floatingActionButton: NeumorphicButton(
+    onPressed: () {},
+    style: NeumorphicStyle(
+      shape: NeumorphicShape.flat,
+      boxShape: NeumorphicBoxShape.circle(),
+      color: Color.fromARGB(255, 233, 236, 245),
+      depth: 5,
+      intensity: 0.8,
+    ),
+    child: Icon(
+      Icons.add,
+      size: 60,
+      color: Color.fromARGB(255, 175, 87, 220),
+    ),
+  ),
+
+  // 這裡要放NavigationBar
+  // 暫時用簡易版
+  bottomNavigationBar: BottomAppBar(
+    color: Colors.yellow,
+    child: Container(height: 50,)
+  ),
+
 );
 
 final following_team = Row(
