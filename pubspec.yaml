@@ -92,3 +92,11 @@ flutter:
     - family: GenSenRounded JP
       fonts:
         - asset: assets/fonts/GenSenRounded-M.ttc
+    - family: Noto Sans TC
+      fonts:
+        - asset: assets/fonts/NotoSansTC-Regular.otf
+        - asset: assets/fonts/NotoSansTC-Bold.otf
+          weight: 700
+    - family: Lexend
+      fonts:
+        - asset: assets/fonts/Lexend-Regular.ttf

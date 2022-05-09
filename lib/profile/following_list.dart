@@ -37,7 +37,7 @@ class _FollowingListState extends State<FollowingList> {
                   height: 20,
                   child: ToggleButtons(
                     children: <Widget>[
-                      const Text('Team'),
+                      const Text('Team', style: TextStyle(fontSize: 14, fontFamily: 'Lexend'),),
                     ],
                     isSelected: _selection1,
                     onPressed: (index) {
@@ -67,7 +67,7 @@ class _FollowingListState extends State<FollowingList> {
                   height: 20,
                   child: ToggleButtons(
                     children: <Widget>[
-                      const Text('Player'),
+                      const Text('Player', style: TextStyle(fontSize: 14, fontFamily: 'Lexend'),),
                     ],
                     isSelected: _selection2,
                     onPressed: (index) {
@@ -94,11 +94,14 @@ class _FollowingListState extends State<FollowingList> {
               children: <Widget>[
                 // 編輯
                 SizedBox(
-                  width: 45,
+                  width: 50,
                   height: 35,
                   child: TextButton(
                     child: const Text('編輯', 
-                      style: TextStyle(color: Color.fromARGB(255, 62, 62, 62)),
+                      style: TextStyle(
+                        color: Color.fromARGB(255, 62, 62, 62),
+                        fontSize: 15,
+                        fontFamily: 'Noto Sans TC'),
                     ),
                     onPressed: () {},
                   ),
@@ -112,17 +115,24 @@ class _FollowingListState extends State<FollowingList> {
         const SizedBox(height: 25,),
         Row(
           children: <Widget>[
-            SizedBox(width: 37,),
+            const SizedBox(width: 37,),
             (_selected == 0) ?
             const Text('我的追蹤球隊',
-                    style: TextStyle(fontSize: 20),
+                    style: TextStyle(
+                      fontSize: 20, 
+                      color: Color.fromARGB(255, 97, 97, 97),
+                      fontFamily: 'Noto Sans TC',
+                      fontWeight: FontWeight.w700),
                   ) : 
             const Text('我的追蹤球員',
-                    style: TextStyle(fontSize: 20),
+                    style: TextStyle(fontSize: 20, 
+                    color: Color.fromARGB(255, 97, 97, 97),
+                    fontFamily: 'Noto Sans TC',
+                    fontWeight: FontWeight.w700),
                   ),
           ]
         ),
-        SizedBox(height: 34,),
+        const SizedBox(height: 34,),
         Center(child: (_selected == 0) ? teamList(_followintTeam) : playerList(_followingPlayer),)
       ],
     );
@@ -136,12 +146,16 @@ teamList(followintTeam) {
         children: <Widget>[
           Icon(
             Icons.warning_amber_rounded,
-            color: purple,
+            color: Color.fromARGB(255, 187, 155, 204),
             size: 100,
           ),
           Text(
             '目前無追蹤球隊',
-            style: TextStyle(color: purple, fontSize: 36),
+            style: TextStyle(
+              color: Color.fromARGB(255, 187, 155, 204), 
+              fontSize: 36,
+              fontFamily: 'Noto Sans TC',
+              fontWeight: FontWeight.w700),
           )
         ],
       ),
@@ -156,12 +170,16 @@ playerList(followingPlayer) {
         children: <Widget>[
           Icon(
             Icons.warning_amber_rounded,
-            color: purple,
+            color: Color.fromARGB(255, 187, 155, 204),
             size: 100,
           ),
           Text(
             '目前無追蹤球員',
-            style: TextStyle(color: purple, fontSize: 36),
+            style: TextStyle(
+              color: Color.fromARGB(255, 187, 155, 204), 
+              fontSize: 36,
+              fontFamily: 'Noto Sans TC',
+              fontWeight: FontWeight.w700),
           )
         ],
       ),
