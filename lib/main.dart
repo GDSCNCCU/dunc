@@ -46,11 +46,11 @@ class _SearchViewState extends State<SearchView> {
       fontFamily: "GenSenRounded JP",
       fontSize: 16);
 
+  String searchTeamText = "";
+
   @override
   Widget build(BuildContext context) {
     screenWidth = MediaQuery.of(context).size.width;
-    initTeam(screenWidth!);
-    initMatch(screenWidth!);
     return Scaffold(
       backgroundColor: backgroundColor,
       body: Column(
@@ -68,6 +68,8 @@ class _SearchViewState extends State<SearchView> {
                     const BorderRadius.all(Radius.circular(20))),
               ),
               child: NeumorphicToggle(
+                height: 45,
+                padding: const EdgeInsets.only(left: 7, top: 6, right: 7, bottom: 6),
                 movingCurve: Curves.easeInBack,
                 duration: const Duration(milliseconds: 500),
                 selectedIndex: searchTeamOrMatchToggleIndex,
@@ -121,8 +123,14 @@ class _SearchViewState extends State<SearchView> {
                 ),
               )),
         ] +
-            (searchTeamOrMatchToggleIndex == 0 ? teamWidgets : matchWidgets),
+            (searchTeamOrMatchToggleIndex == 0
+                ? teamWidgets(searchTeamText, searchTextUpdater, screenWidth!)
+                : matchWidgets(screenWidth!)),
       ),
     );
+  }
+
+  void searchTextUpdater(String text){
+    searchTeamText = text;
   }
 }
