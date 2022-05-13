@@ -8,21 +8,30 @@ List<Widget> teamWidgets(
   )
 {
   return [
-    Neumorphic(
-      // 搜尋
-        margin: const EdgeInsets.only(
-            left: 50, top: 12, right: 50, bottom: 12),
-        style: NeumorphicStyle(
-          color: DuncColors.mainBackground,
-          depth: -3,
-          intensity: 1,
-          surfaceIntensity: 0,
-          boxShape: NeumorphicBoxShape.roundRect(
-              const BorderRadius.all(Radius.circular(40))),
+    Stack(
+      // 搜尋欄
+      alignment: Alignment.center,
+      children: [
+        Container(
+          height: 57,
+          width: screenWidth - 110,
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topRight,
+              end: Alignment.bottomLeft,
+              colors: [DuncColors.mainCTAFrom, DuncColors.mainCTATo]
+            ),
+            borderRadius: BorderRadius.all(Radius.circular(40))
+          ),
         ),
-        child: SizedBox(
-          width: screenWidth- 100, // 扣掉margin、搜尋icon
-          height: 46,
+        Container(
+          height: 51,
+          width: screenWidth - 116,
+          decoration: const BoxDecoration(
+            borderRadius: BorderRadius.all(Radius.circular(40)),
+            color: DuncColors.mainBackground
+          ),
+          alignment: Alignment.center,
           child: TextField(
             decoration: InputDecoration(
                 border: InputBorder.none,
@@ -41,19 +50,24 @@ List<Widget> teamWidgets(
                     color: Colors.white,  //required for gradient applying
                   ),
                 ),
-                contentPadding: const EdgeInsets.only(top: 13, left: 21)
+                contentPadding: const EdgeInsets.only(top: 15, left: 23)
             ),
             keyboardType: TextInputType.name,
             textInputAction: TextInputAction.search,
             autofocus: true,
             cursorColor: DuncColors.mainCTATo,
             style: const TextStyle(
-                fontFamily: "GenSenRounded JP", fontSize: 16),
+                fontFamily: "GenSenRounded JP",
+                fontSize: 16,
+              color: DuncColors.indicatorImportant
+            ),
             controller: TextEditingController(text: searchText),
             onChanged: (str) {
               searchTextUpdater(str);
-            }, //todo: unknown, waiting for UI
+            }, //todo
           ),
-        )),
+        )
+      ],
+    ),
   ];
 }
