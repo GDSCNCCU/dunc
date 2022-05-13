@@ -13,7 +13,7 @@ List<Widget> teamWidgets(
         margin: const EdgeInsets.only(
             left: 50, top: 12, right: 50, bottom: 12),
         style: NeumorphicStyle(
-          color: backgroundColor,
+          color: DuncColors.mainBackground,
           depth: -3,
           intensity: 1,
           surfaceIntensity: 0,
@@ -24,21 +24,29 @@ List<Widget> teamWidgets(
           width: screenWidth- 100, // 扣掉margin、搜尋icon
           height: 46,
           child: TextField(
-            decoration: const InputDecoration(
+            decoration: InputDecoration(
                 border: InputBorder.none,
-                hintStyle: TextStyle(color: Colors.white),
-                hintText: "輸入球隊/員",  //todo: 換成找比賽時要換
-                prefixIcon: Icon(
-                  Icons.search,
-                  size: 25,
-                  color: Colors.grey,
+                hintStyle: const TextStyle(color: DuncColors.indicatorImportant),  //todo: 提示文字要不要暗點？
+                hintText: "輸入球隊或球員名稱",
+                suffixIcon: ShaderMask(
+                  // 搜尋按鈕的漸層
+                  shaderCallback: (bounds) => const LinearGradient(
+                    begin: Alignment.topRight,
+                    end: Alignment.bottomLeft,
+                    colors: [DuncColors.mainCTAFrom, DuncColors.mainCTATo],
+                  ).createShader(bounds),
+                  child: const Icon(
+                    Icons.search,
+                    size: 25,
+                    color: Colors.white,  //required for gradient applying
+                  ),
                 ),
-                contentPadding: EdgeInsets.only(top: 13)
+                contentPadding: const EdgeInsets.only(top: 13, left: 21)
             ),
             keyboardType: TextInputType.name,
             textInputAction: TextInputAction.search,
             autofocus: true,
-            cursorColor: blue,
+            cursorColor: DuncColors.mainCTATo,
             style: const TextStyle(
                 fontFamily: "GenSenRounded JP", fontSize: 16),
             controller: TextEditingController(text: searchText),

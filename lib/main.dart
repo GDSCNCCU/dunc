@@ -52,7 +52,7 @@ class _SearchViewState extends State<SearchView> {
   Widget build(BuildContext context) {
     screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
-      backgroundColor: backgroundColor,
+      backgroundColor: DuncColors.mainBackground,
       body: Column(
         children: <Widget>[
           Neumorphic(
@@ -88,7 +88,7 @@ class _SearchViewState extends State<SearchView> {
                     background: Center(
                       child: NeumorphicText('找球隊/球員',
                           style: const NeumorphicStyle(
-                              color: Colors.grey, depth: 0),
+                              color: DuncColors.indicatorImportant, depth: 0),
                           textStyle: toggleTextStyle),
                     ),
                   ),
@@ -102,22 +102,19 @@ class _SearchViewState extends State<SearchView> {
                       background: Center(
                         child: NeumorphicText('找比賽',
                             style: const NeumorphicStyle(
-                                color: Colors.grey, depth: 0),
+                                color: DuncColors.indicatorImportant, depth: 0),
                             textStyle: toggleTextStyle),
                       ))
                 ],
                 thumb: Container(
                   // 已被選擇的項目的樣式
                   foregroundDecoration: const BoxDecoration(
-                    gradient: LinearGradient(
-                        begin: Alignment.bottomLeft,
-                        end: Alignment.topRight,
-                        colors: [blue, purple]),
+                    color: DuncColors.secondaryCTAPurple,
                   ),
                 ),
                 style: const NeumorphicToggleStyle(
                   // 沒被選擇的項目的樣式
-                  backgroundColor: backgroundColor,
+                  backgroundColor: DuncColors.mainBackground,  // 整個toggle背景
                   lightSource: LightSource(-0.6, -0.6),
                   borderRadius: BorderRadius.all(Radius.circular(20)), // 選中項目
                 ),
