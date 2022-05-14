@@ -43,4 +43,8 @@ class DuncColors {
 
   // Indicator
   static const Color indicator = Color(0xffc0c0c0);
+
+  // shadow
+  static const Color shadowLight = Color(0xfffcfcfc);
+  static const Color shadowDark  = Color(0xffb0b0b0);
 }
