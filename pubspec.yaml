@@ -97,7 +97,7 @@ flutter:
         - asset: assets/fonts/NotoSansTC-Regular.otf
         - asset: assets/fonts/NotoSansTC-Bold.otf
           weight: 700
-        - asset: assets/fonts/NotoSansTC-Light.ttf
+        - asset: assets/fonts/NotoSansTC-Light.otf
           weight: 300
     - family: Lexend
       fonts:
