@@ -71,7 +71,6 @@ List<Widget> teamWidgets(
             ),
             keyboardType: TextInputType.name,
             textInputAction: TextInputAction.search,
-            autofocus: true,
             cursorColor: DuncColors.mainCTATo,
             style: const TextStyle(
                 fontFamily: "GenSenRounded JP",
