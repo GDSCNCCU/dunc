@@ -47,7 +47,7 @@ class _SearchViewState extends State<SearchView> {
       fontWeight: FontWeight.w700
   );
 
-  String searchTeamText = "";
+  var searchTeamTextCtrl = TextEditingController(text: "");
 
   @override
   Widget build(BuildContext context) {
@@ -123,13 +123,9 @@ class _SearchViewState extends State<SearchView> {
               )),
         ] +
             (searchTeamOrMatchToggleIndex == 0
-                ? teamWidgets(searchTeamText, searchTextUpdater, screenWidth!, screenHeight!, this)
+                ? teamWidgets(searchTeamTextCtrl, screenWidth!, screenHeight!, this)
                 : matchWidgets(screenWidth!)),
       ),
     );
-  }
-
-  void searchTextUpdater(String text){
-    searchTeamText = text;
   }
 }

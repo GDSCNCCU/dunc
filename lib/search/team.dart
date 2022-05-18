@@ -17,8 +17,7 @@ Map<int, String> _rankTeam = {
 Set<String> _teamTrack = {};
 
 List<Widget> teamWidgets(
-    String searchText,
-    void Function(String text) searchTextUpdater,
+    TextEditingController searchTextCtrl,
     double screenWidth,
     double screenHeight,
     State searchViewState
@@ -80,9 +79,9 @@ List<Widget> teamWidgets(
               fontWeight: FontWeight.w700,
               color: DuncColors.indicatorImportant
             ),
-            controller: TextEditingController(text: searchText),
+            controller: searchTextCtrl,
             onChanged: (str) {
-              searchTextUpdater(str);
+              searchTextCtrl.text = str;
             }, //todo
           ),
         )
