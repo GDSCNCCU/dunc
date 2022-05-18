@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 
 import './profile/profileview.dart';
@@ -57,8 +56,8 @@ class _SearchViewState extends State<SearchView> {
       backgroundColor: DuncColors.mainBackground,
       body: Column(
         children: <Widget>[
+          // 「找球隊/球員、找比賽」
           Neumorphic(
-              // 「找球隊/球員、找比賽」
               margin: const EdgeInsets.only(
                   left: 60, top: 50, right: 60, bottom: 12),
               style: NeumorphicStyle(
@@ -108,14 +107,14 @@ class _SearchViewState extends State<SearchView> {
                             textStyle: toggleTextStyle),
                       ))
                 ],
+                // 已被選擇的項目的樣式
                 thumb: Container(
-                  // 已被選擇的項目的樣式
                   foregroundDecoration: const BoxDecoration(
                     color: DuncColors.secondaryCTAPurple,
                   ),
                 ),
+                // 沒被選擇的項目的樣式
                 style: const NeumorphicToggleStyle(
-                  // 沒被選擇的項目的樣式
                   backgroundColor: DuncColors.mainBackground,  // 整個toggle背景
                   lightSource: LightSource(-0.6, -0.6),
                   borderRadius: BorderRadius.all(Radius.circular(20)), // 選中項目

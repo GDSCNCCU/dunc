@@ -25,8 +25,8 @@ List<Widget> teamWidgets(
   )
 {
   return [
+    // 搜尋欄
     Stack(
-      // 搜尋欄
       alignment: Alignment.center,
       children: [
         Container(
@@ -54,8 +54,8 @@ List<Widget> teamWidgets(
                 border: InputBorder.none,
                 hintStyle: const TextStyle(color: DuncColors.indicatorImportant),  //todo: 提示文字要不要暗點？
                 hintText: "輸入球隊或球員名稱",
+                // 搜尋按鈕的漸層
                 suffixIcon: ShaderMask(
-                  // 搜尋按鈕的漸層
                   shaderCallback: (bounds) => const LinearGradient(
                     begin: Alignment.topRight,
                     end: Alignment.bottomLeft,
@@ -86,8 +86,8 @@ List<Widget> teamWidgets(
       ],
     ),
     const SizedBox(height: 48,),
+    // 排名、追蹤文字
     Row(
-      // 排名、追蹤文字
       children: const [
         SizedBox(width: 36,),
         Text(
@@ -112,8 +112,8 @@ List<Widget> teamWidgets(
         SizedBox(width: 57,)
       ],
     ),
+    // 各個科系的排名
     SizedBox(
-      // 各個科系的排名
       height: screenHeight - 107 - 57 - 51 - 17,  // 高度到底部。但是以後一定會爆
       child: ListView.builder(
         padding: const EdgeInsets.only(top: 10),
@@ -163,8 +163,8 @@ List<Widget> teamWidgets(
                       disableDepth: true,
                       color: DuncColors.mainBackground
                     ),
+                    // 搜尋按鈕的漸層
                     child: ShaderMask(
-                      // 搜尋按鈕的漸層
                       shaderCallback: (bounds) => const LinearGradient(
                         begin: Alignment.topRight,
                         end: Alignment.bottomLeft,
