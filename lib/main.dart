@@ -20,17 +20,17 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return const NeumorphicApp(
-      debugShowCheckedModeBanner: false,
-      title: 'dUNC',
-      home: SearchView(),
-    );
+    // return const NeumorphicApp(
+    //   debugShowCheckedModeBanner: false,
+    //   title: 'dUNC',
+    //   home: SearchView(),
+    // );
 
     // 測試ProfileView
     // 非正式
-    // return const MaterialApp(
-    //   home: ProfileView(),
-    // );
+    return const MaterialApp(
+      home: ProfileView(),
+    );
   }
 }
 

@@ -36,8 +36,8 @@ class _FollowingListState extends State<FollowingList> {
                   width: 53,
                   height: 20,
                   child: ToggleButtons(
-                    children: <Widget>[
-                      const Text('Team', style: TextStyle(fontSize: 14, fontFamily: 'Lexend'),),
+                    children: const <Widget>[
+                      Text('Team', style: TextStyle(fontSize: 14, fontFamily: 'Lexend'),),
                     ],
                     isSelected: _selection1,
                     onPressed: (index) {
@@ -66,8 +66,8 @@ class _FollowingListState extends State<FollowingList> {
                   width: 53,
                   height: 20,
                   child: ToggleButtons(
-                    children: <Widget>[
-                      const Text('Player', style: TextStyle(fontSize: 14, fontFamily: 'Lexend'),),
+                    children: const <Widget>[
+                      Text('Player', style: TextStyle(fontSize: 14, fontFamily: 'Lexend'),),
                     ],
                     isSelected: _selection2,
                     onPressed: (index) {

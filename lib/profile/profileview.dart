@@ -1,8 +1,10 @@
 import '../tools/colors.dart';
 import './following_list.dart';
+import 'add_following_button.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+
 
 class ProfileView extends StatefulWidget {
   const ProfileView({Key? key}) : super(key: key);
@@ -105,21 +107,7 @@ final profile = Scaffold(
   ),
 
   floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
-  floatingActionButton: NeumorphicButton(
-    onPressed: () {},
-    style: NeumorphicStyle(
-      shape: NeumorphicShape.flat,
-      boxShape: NeumorphicBoxShape.circle(),
-      color: Color.fromARGB(255, 233, 236, 245),
-      depth: 5,
-      intensity: 0.8,
-    ),
-    child: Icon(
-      Icons.add,
-      size: 60,
-      color: Color.fromARGB(255, 175, 87, 220),
-    ),
-  ),
+  floatingActionButton: const AddFollowingButton(),
 
   // 這裡要放NavigationBar
   // 暫時用簡易版
