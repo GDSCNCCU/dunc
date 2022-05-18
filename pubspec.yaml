@@ -102,3 +102,6 @@ flutter:
     - family: Lexend
       fonts:
         - asset: assets/fonts/Lexend-Regular.ttf
+    - family: Inter
+      fonts: 
+        - asset: assets/fonts/Inter-Regular.ttf

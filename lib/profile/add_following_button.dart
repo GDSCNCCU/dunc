@@ -78,6 +78,7 @@ class _AddFollowingButtonState extends State<AddFollowingButton> {
                     ),
                     style: TextStyle(
                       fontSize: 20,
+                      fontFamily: 'Inter',
                     ),
                   ),
                 ),
@@ -99,6 +100,7 @@ class _AddFollowingButtonState extends State<AddFollowingButton> {
                     ),
                     style: TextStyle(
                       fontSize: 20,
+                      fontFamily: 'Inter',
                     ),
                   ),
                 ),
@@ -120,6 +122,7 @@ class _AddFollowingButtonState extends State<AddFollowingButton> {
                     ),
                     style: TextStyle(
                       fontSize: 20,
+                      fontFamily: 'Inter',
                     ),
                   ),
                 ),
