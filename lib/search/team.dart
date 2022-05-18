@@ -29,6 +29,7 @@ List<Widget> teamWidgets(
     Stack(
       alignment: Alignment.center,
       children: [
+        // 漸層外框
         Container(
           height: 57,
           width: screenWidth - 110,
@@ -41,6 +42,7 @@ List<Widget> teamWidgets(
             borderRadius: BorderRadius.all(Radius.circular(40))
           ),
         ),
+        // 輸入框
         Container(
           height: 51,
           width: screenWidth - 116,
@@ -67,14 +69,15 @@ List<Widget> teamWidgets(
                     color: Colors.white,  //required for gradient applying
                   ),
                 ),
-                contentPadding: const EdgeInsets.only(top: 15, left: 23)
+                contentPadding: const EdgeInsets.only(top: 11, left: 23)
             ),
             keyboardType: TextInputType.name,
             textInputAction: TextInputAction.search,
             cursorColor: DuncColors.mainCTATo,
             style: const TextStyle(
-                fontFamily: "GenSenRounded JP",
-                fontSize: 16,
+              fontFamily: "Lexend",
+              fontSize: 16,
+              fontWeight: FontWeight.w700,
               color: DuncColors.indicatorImportant
             ),
             controller: TextEditingController(text: searchText),

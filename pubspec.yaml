@@ -89,9 +89,6 @@ flutter:
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
   fonts:
-    - family: GenSenRounded JP
-      fonts:
-        - asset: assets/fonts/GenSenRounded-M.ttc
     - family: Noto Sans TC
       fonts:
         - asset: assets/fonts/NotoSansTC-Regular.otf

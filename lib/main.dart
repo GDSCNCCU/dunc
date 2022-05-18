@@ -19,17 +19,17 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    // return const NeumorphicApp(
-    //   debugShowCheckedModeBanner: false,
-    //   title: 'dUNC',
-    //   home: SearchView(),
-    // );
+    return const NeumorphicApp(
+      debugShowCheckedModeBanner: false,
+      title: 'dUNC',
+      home: SearchView(),
+    );
 
     // 測試ProfileView
     // 非正式
-    return const MaterialApp(
-      home: ProfileView(),
-    );
+    // return const MaterialApp(
+    //   home: ProfileView(),
+    // );
   }
 }
 
@@ -42,9 +42,10 @@ class SearchView extends StatefulWidget {
 
 class _SearchViewState extends State<SearchView> {
   NeumorphicTextStyle toggleTextStyle = NeumorphicTextStyle(
-      fontWeight: FontWeight.bold,
-      fontFamily: "GenSenRounded JP",
-      fontSize: 16);
+      fontFamily: "Lexend",
+      fontSize: 16,
+      fontWeight: FontWeight.w700
+  );
 
   String searchTeamText = "";
 
