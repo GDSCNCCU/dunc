@@ -1,6 +1,5 @@
-import '../tools/colors.dart';
-import './following_list.dart';
-import 'add_following_button.dart';
+import 'stacklayer.dart';
+import 'following_match.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
@@ -19,90 +18,26 @@ class _ProfileViewState extends State<ProfileView> {
   @override
   Widget build(BuildContext context) {
     // return iconList;
-    return profile;
+    return profileScaffold;
   }
 }
 
-final profile = Scaffold(
+final profileScaffold = Scaffold(
   body: Column(
     children: <Widget>[
       const SizedBox(
         height: 69,
       ),
-      Stack(
-        children: <Widget>[
-          Row(
-            children : <Widget> [
-              const SizedBox(width: 28),
-              SizedBox(
-                width: 97,
-                height: 97,
-                child: Container(
-                  decoration: const BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: purple,
-                  ),
-                  // color: Colors.amber,
-                ),
-              ),
-              const SizedBox(width: 23,),
-              SizedBox(
-                height: 97,
-                width: 149,
-                child: Column(
-                  children: <Widget>[
-                    const SizedBox(height: 23),
-                    Container(
-                      height: 40,
-                      child: const Text(
-                        "中文系", textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontSize: 32,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 16,),
-                    Container(
-                      height: 18,
-                      child: Text("user id:$user_id",
-                        textAlign: TextAlign.center,
-                        style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
-                      ),
-                    )
-                  ],
-                ),
-              ),
-              const SizedBox(width: 40,),
-              const SizedBox(
-                child: IconButton(onPressed: nothing, icon: Icon(Icons.arrow_forward_ios_rounded))
-              )
-            ]
-          ),
-          Row(
-            children: <Widget>[
-              const SizedBox(width: 28,),
-              SizedBox(
-                width: 97, height: 97,
-                child: Visibility(
-                  visible: false,
-                  child: IconButton(
-                    alignment: Alignment.center,
-                    icon: const Icon(Icons.circle),onPressed: nothing, color: Colors.purple[300],
-                    iconSize: 60,
-                  ),
-                )
-              ),
-            ],
-          )
-        ],
-      ),
+      stacklayer,
       const SizedBox(height: 30,),
+      const SizedBox(
+        height: 29, width: 320,
+        child: Text("我的追蹤", textAlign: TextAlign.left,),
+      ),
       SizedBox(
-        child: following_team,
+        child: following_match,
       ),
       const SizedBox(height: 27,),
-      FollowingList(),
     ]
   ),
 
@@ -183,9 +118,10 @@ final following_team = Row(
     ),
     const SizedBox(width: 24,),
   ],
+  )
 );
 
 nothing() {
   print("toggle");
 }
-String user_id = "12345678";
+String user_name = "我的名字";
