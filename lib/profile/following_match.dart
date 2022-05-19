@@ -1,62 +1,62 @@
-import 'package:flutter/material.dart';
+import 'package:dunc/tools/colors.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
-import 'profileview.dart';
 
-final following_match = Row(
+
+final followingMatch = Row(
   children: <Widget>[
     const SizedBox(width: 24,),
     Neumorphic(
       style: NeumorphicStyle(
-        shape: NeumorphicShape.concave,
-        boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(12)), 
-        depth: -5,
+        shape: NeumorphicShape.flat,
+        boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(11)), 
+        depth: -3,
         lightSource: LightSource.topLeft,
-        color: Colors.white70
+        color: DuncColors.mainBackground,
+        shadowLightColor: DuncColors.shadowLight,
+        shadowDarkColor: DuncColors.shadowDark,
       ),
-      child: Stack(
-        children: <Widget>[
-          const SizedBox(height: 121, width: 342,),
-          Row(
-            children: <Widget>[
-              Container(
-                alignment: Alignment.center,
-                width: 342,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    const SizedBox(height: 30,),
-                    Container(alignment: Alignment.center ,
-                      child: Icon(Icons.warning_amber_rounded,color: Colors.purple[200],)
-                    ),
-                    Container(
-                      alignment: Alignment.center,
-                      child: NeumorphicText( "目前無追蹤球隊",
-                        style: NeumorphicStyle(
-                          color: Colors.purple[300],
-                        ),
-                        textStyle: NeumorphicTextStyle(
-                          fontSize: 20,
-                        ),
-                      ),
-                    ),
-                    Container(
-                      alignment: Alignment.center,
-                      child: NeumorphicText( "請至搜尋功能查詢比賽",
-                        style: NeumorphicStyle(
-                          color: Colors.purple[300],
-                        ),
-                        textStyle: NeumorphicTextStyle(
-                          fontSize: 10,
-                        ),
-                      ),
-                    ),
-                  ],
+      child: Container(
+        alignment: Alignment.center,
+        width: 342,
+        height: 121,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Container(
+              alignment: Alignment.center ,
+              child: const Icon(
+                Icons.warning_amber_rounded,
+                color: DuncColors.indicatorImportant,
+                size: 27,
+              ),
+            ),
+            Container(
+              alignment: Alignment.center,
+              child: const Text(
+                '目前無追蹤球賽',
+                style: TextStyle(
+                  color: DuncColors.indicatorImportant,
+                  fontSize: 20,
+                  fontFamily: 'Noto Sans TC',
+                  fontWeight: FontWeight.w700
                 ),
               ),
-            ],
-          ),
-        ]
+            ),
+            Container(
+              alignment: Alignment.center,
+              child: const Text(
+                '請至搜尋功能查找比賽',
+                style: TextStyle(
+                  color: DuncColors.indicatorImportant,
+                  fontSize: 12,
+                  fontFamily: 'Noto Sans TC',
+                  fontWeight: FontWeight.w400
+                ),
+              ),
+            ),
+          ]
+        ),
       ),
     ),
     const SizedBox(width: 24,),

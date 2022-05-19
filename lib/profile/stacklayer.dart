@@ -33,7 +33,7 @@ final firstlayer = Row(
       height: 41,
       width: 149,
       child: Text(
-        user_name, textAlign: TextAlign.start,
+        userName, textAlign: TextAlign.start,
         style: const TextStyle(
           fontSize: 32,
           fontWeight: FontWeight.w700,
@@ -61,8 +61,8 @@ final secondlayer = Row(
   children: <Widget>[
     const SizedBox(width: 28,),
     SizedBox(
-      height: 97, 
-      width: 97,
+      height: 79, 
+      width: 79,
       child: Container(
         alignment: Alignment.center,
         child: const Opacity(
