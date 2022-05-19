@@ -1,7 +1,10 @@
+import 'package:dunc/tools/colors.dart';
+
 import 'stacklayer.dart';
 import 'following_match.dart';
+import 'add_following_button.dart';
+import 'following_list.dart';
 
-import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 
 
@@ -23,6 +26,7 @@ class _ProfileViewState extends State<ProfileView> {
 }
 
 final profileScaffold = Scaffold(
+  backgroundColor: DuncColors.mainBackground,
   body: Column(
     children: <Widget>[
       const SizedBox(
@@ -38,6 +42,7 @@ final profileScaffold = Scaffold(
         child: following_match,
       ),
       const SizedBox(height: 27,),
+      const FollowingList(),
     ]
   ),
 
@@ -62,7 +67,7 @@ final following_team = Row(
           // boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(12)), 
           depth: 8,
           lightSource: LightSource.topLeft,
-          color: Colors.white10
+          color: DuncColors.mainBackground,
       ),
       child: Row(
         children: <Widget>[
@@ -118,7 +123,6 @@ final following_team = Row(
     ),
     const SizedBox(width: 24,),
   ],
-  )
 );
 
 nothing() {
