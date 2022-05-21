@@ -119,8 +119,26 @@ List<Widget> teamWidgets(
       height: screenHeight - 107 - 57 - 51 - 17,  // 高度到底部。但是以後一定會爆
       child: ListView.builder(
         padding: const EdgeInsets.only(top: 10),
-        itemCount: 2 * _rankTeam.length - 1,
+        itemCount: 2 * _rankTeam.length,
         itemBuilder: (context, i){
+          if(i == _rankTeam.length * 2 - 1){
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: const [
+                Text(
+                  '-無更多隊伍-',
+                  style: TextStyle(
+                    color: DuncColors.indicatorImportant,
+                    fontSize: 20,
+                    fontWeight: FontWeight.w300,
+                    fontFamily: 'Lexend',
+                    height: 5,
+                    letterSpacing: 5
+                  ),
+                )
+              ],
+            );
+          }
           if(i.isOdd){
             return const SizedBox(height: 8,);
           }
