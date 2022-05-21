@@ -14,13 +14,12 @@ Map<int, String> _rankTeam = {
   8: '財政系'
 };
 
-Set<String> _teamTrack = {};
-
 List<Widget> teamWidgets(
     TextEditingController searchTextCtrl,
     double screenWidth,
     double screenHeight,
-    State searchViewState
+    State searchViewState,
+    Set<String> teamTrack
   )
 {
   return [
@@ -192,7 +191,7 @@ List<Widget> teamWidgets(
                       ).createShader(bounds),
                       child: Icon(
                         // todo:追蹤中的icon不太一樣
-                        _teamTrack.contains(_rankTeam[index])
+                        teamTrack.contains(_rankTeam[index])
                             ? Icons.subscriptions
                             : Icons.subscriptions_outlined,
                         size: 25,
@@ -201,10 +200,10 @@ List<Widget> teamWidgets(
                     ),
                     onPressed: (){
                       searchViewState.setState((){
-                        if(_teamTrack.contains(_rankTeam[index]!)){
-                          _teamTrack.remove(_rankTeam[index]!);
+                        if(teamTrack.contains(_rankTeam[index]!)){
+                          teamTrack.remove(_rankTeam[index]!);
                         }else{
-                          _teamTrack.add(_rankTeam[index]!);
+                          teamTrack.add(_rankTeam[index]!);
                         }
                       });
                     },

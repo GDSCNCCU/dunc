@@ -49,6 +49,7 @@ class _SearchViewState extends State<SearchView> {
   );
 
   var searchTeamTextCtrl = TextEditingController(text: "");
+  Set<String> teamTrack = {};
 
   @override
   Widget build(BuildContext context) {
@@ -124,8 +125,8 @@ class _SearchViewState extends State<SearchView> {
               )),
         ] +
             (searchTeamOrMatchToggleIndex == 0
-                ? teamWidgets(searchTeamTextCtrl, screenWidth!, screenHeight!, this)
-                : matchWidgets(screenWidth!)),
+                ? teamWidgets(searchTeamTextCtrl, screenWidth!, screenHeight!, this, teamTrack)
+                : matchWidgets(screenWidth!, teamTrack)),
       ),
     );
   }
