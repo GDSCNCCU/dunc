@@ -22,7 +22,8 @@ class MyApp extends StatelessWidget {
     return const NeumorphicApp(
       debugShowCheckedModeBanner: false,
       title: 'dUNC',
-      home: ProfileView(),
+      home: SearchView(),
+      // home: ProfileView(),
     );
 
     // 測試ProfileView
