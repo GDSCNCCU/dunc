@@ -6,7 +6,7 @@ enum MatchType{
   /// 明星賽
   allStar,
   /// 積分賽
-  points,
+  pointsMatch,
 }
 
 ///一場比賽所有資訊
@@ -57,23 +57,32 @@ class MatchTeamInfo{
   Fraction? penalty;
 // todo: Figma看不到下面還有什麼
 
-  /// if there is null, it will be replaced with 0/80
+  /// if there is null, it will be replaced with 0/0
   MatchTeamInfo({this.shots, this.triple, this.penalty}){
-    shots ??= Fraction(0, 80);
-    triple ??= Fraction(0, 80);
-    penalty ??= Fraction(0, 80);
+    shots ??= Fraction(0, 0);
+    triple ??= Fraction(0, 0);
+    penalty ??= Fraction(0, 0);
   }
 }
 
 class PlayerInfo{
   final String name;
+  /// 球衣號碼
+  final int number;
   int fgma;
   final String team;
   int score;
+  /// 抄截
+  int steal;
+  /// 籃板
+  int rebound;
 
-  PlayerInfo({required this.name, this.fgma = 0, required this.team, this.score = 0}){
+  PlayerInfo({required this.name, required this.number, this.fgma = 0, required this.team, this.score = 0, this.steal = 0, this.rebound = 0}){
+    assert(number >= 0);
     assert(fgma >= 0);
     assert(score >= 0);
+    assert(steal >= 0);
+    assert(rebound >= 0);
   }
 }
 
