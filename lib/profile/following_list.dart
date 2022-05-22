@@ -1,4 +1,4 @@
-import 'package:dunc/profile/profileview.dart';
+import 'package:dunc/tools/gradient_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 
@@ -13,9 +13,7 @@ class FollowingList extends StatefulWidget {
 }
 
 class _FollowingListState extends State<FollowingList> {
-  final List<bool> _selection1 = [true];
-  final List<bool> _selection2 = [false];
-  int _selected = 0;
+  final List<bool> _selection = [false, false];
 
   final List<Text> _followintTeam = [];
   final List<Text> _followingPlayer = [];
@@ -29,63 +27,146 @@ class _FollowingListState extends State<FollowingList> {
           children: <Widget>[
             Row(
               children: [
-                const SizedBox(width: 32,),
-                // 用兩個ToggleButton + SizedBox實現兩個按鈕間的空格
-                // Team
-                SizedBox(
-                  width: 53,
-                  height: 20,
-                  child: ToggleButtons(
-                    children: const <Widget>[
-                      Text('Team', style: TextStyle(fontSize: 14, fontFamily: 'Lexend'),),
-                    ],
-                    isSelected: _selection1,
-                    onPressed: (index) {
-                      if (!_selection1[0]) {
-                        setState(() {
-                          _selection1[0] = true;
-                          _selection2[0] = false;
-                          _selected = 0;
-                        });
+                SizedBox(width: 31,),
+                Container(
+                  padding: const EdgeInsets.only(
+                    left: 6,
+                    right: 6,
+                    top: 0,
+                    bottom: 0,
+                  ),
+                  width: (_selection[0]) ? 66 : 52,
+                  height: 23,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(31),
+                    ),
+                    gradient: LinearGradient(
+                      colors: (_selection[0]) ?
+                        [DuncColors.mainCTAFrom, DuncColors.mainCTATo] :
+                        [Colors.white, Colors.white],
+                    ),
+                    border: Border.all(
+                      color: DuncColors.mainCTAFrom,
+                      width: 1
+                    ),
+                  ),
+                  child: TextButton(
+                    onPressed: () {
+                      if (_selection[0]) {
+                        _selection[0] = false;
+                      } else {
+                        _selection[0] = true;
                       }
+                      setState(() {});
                     },
-                    color: secondPurple,
-                    selectedColor: Colors.white,
-                    fillColor: secondPurple,
-                    borderRadius: BorderRadius.circular(10),
-                    selectedBorderColor: secondPurple,
-                    borderColor: secondPurple,
-                    borderWidth: 2,
+                    style: TextButton.styleFrom(
+                      padding: EdgeInsets.all(0), 
+                    ),
+                    child: (_selection[0]) ?
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: const <Widget>[
+                          Icon(
+                            Icons.close,
+                            color: Colors.white,
+                            size: 15,
+                          ),
+                          Text(
+                            '球隊',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 13,
+                              fontFamily: 'Noto Sans TC',
+                              fontWeight: FontWeight.w400,
+                            ),
+                            textAlign: TextAlign.center,
+                          )
+                        ],
+                      ) : 
+                      GradientText(
+                        '球隊',
+                        gradient: LinearGradient(
+                          colors: [DuncColors.mainCTAFrom, DuncColors.mainCTATo],
+                        ),
+                        style: TextStyle(
+                          fontSize: 13,
+                          fontFamily: 'Noto Sans TC',
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
                   ),
                 ),
 
                 const SizedBox(width: 14,),
 
-                // Player
-                SizedBox(
-                  width: 53,
-                  height: 20,
-                  child: ToggleButtons(
-                    children: const <Widget>[
-                      Text('Player', style: TextStyle(fontSize: 14, fontFamily: 'Lexend'),),
-                    ],
-                    isSelected: _selection2,
-                    onPressed: (index) {
-                      if (!_selection2[0]) {
-                        setState(() {
-                          _selection2[0] = true;
-                          _selection1[0] = false;
-                          _selected = 1;
-                        });
+                Container(
+                  padding: const EdgeInsets.only(
+                    left: 6,
+                    right: 6,
+                    top: 0,
+                    bottom: 0,
+                  ),
+                  width: (_selection[1]) ? 66 : 52,
+                  height: 23,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(11.5),
+                    ),
+                    gradient: LinearGradient(
+                      colors: (_selection[1]) ?
+                        [DuncColors.mainCTAFrom, DuncColors.mainCTATo] :
+                        [Colors.white, Colors.white],
+                    ),
+                    border: Border.all(
+                      color: DuncColors.mainCTAFrom,
+                      width: 1
+                    ),
+                  ),
+                  child: TextButton(
+                    onPressed: () {
+                      if (_selection[1]) {
+                        _selection[1] = false;
+                      } else {
+                        _selection[1] = true;
                       }
+                      setState(() {});
                     },
-                    color: secondPurple,
-                    selectedColor: Colors.white,
-                    fillColor: secondPurple,
-                    borderRadius: BorderRadius.circular(10),
-                    selectedBorderColor: secondPurple,
-                    borderColor: secondPurple,
-                    borderWidth: 2,
+                    style: TextButton.styleFrom(
+                      padding: EdgeInsets.all(0), 
+                    ),
+                    child: (_selection[1]) ?
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: const <Widget>[
+                          Icon(
+                            Icons.close,
+                            color: Colors.white,
+                            size: 15,
+                          ),
+                          Text(
+                            '球員',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 13,
+                              fontFamily: 'Noto Sans TC',
+                              fontWeight: FontWeight.w400,
+                            ),
+                            textAlign: TextAlign.center,
+                          )
+                        ],
+                      ) : 
+                      GradientText(
+                        '球員',
+                        gradient: LinearGradient(
+                          colors: [DuncColors.mainCTAFrom, DuncColors.mainCTATo],
+                        ),
+                        style: TextStyle(
+                          fontSize: 13,
+                          fontFamily: 'Noto Sans TC',
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
                   ),
                 ),
               ],
@@ -113,76 +194,7 @@ class _FollowingListState extends State<FollowingList> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
         ),
         const SizedBox(height: 25,),
-        Row(
-          children: <Widget>[
-            const SizedBox(width: 37,),
-            (_selected == 0) ?
-            const Text('我的追蹤球隊',
-                    style: TextStyle(
-                      fontSize: 20, 
-                      color: Color.fromARGB(255, 97, 97, 97),
-                      fontFamily: 'Noto Sans TC',
-                      fontWeight: FontWeight.w700),
-                  ) : 
-            const Text('我的追蹤球員',
-                    style: TextStyle(fontSize: 20, 
-                    color: Color.fromARGB(255, 97, 97, 97),
-                    fontFamily: 'Noto Sans TC',
-                    fontWeight: FontWeight.w700),
-                  ),
-          ]
-        ),
-        const SizedBox(height: 34,),
-        Center(child: (_selected == 0) ? teamList(_followintTeam) : playerList(_followingPlayer),)
       ],
     );
   }
-}
-
-teamList(followintTeam) {
-  if (followintTeam.length == 0) {
-    return Center(
-      child: Column(
-        children: <Widget>[
-          Icon(
-            Icons.warning_amber_rounded,
-            color: Color.fromARGB(255, 187, 155, 204),
-            size: 100,
-          ),
-          Text(
-            '目前無追蹤球隊',
-            style: TextStyle(
-              color: Color.fromARGB(255, 187, 155, 204), 
-              fontSize: 36,
-              fontFamily: 'Noto Sans TC',
-              fontWeight: FontWeight.w700),
-          )
-        ],
-      ),
-    );
-  }
-}
-
-playerList(followingPlayer) {
-  if (followingPlayer.length == 0) {
-    return Center(
-      child: Column(
-        children: <Widget>[
-          Icon(
-            Icons.warning_amber_rounded,
-            color: Color.fromARGB(255, 187, 155, 204),
-            size: 100,
-          ),
-          Text(
-            '目前無追蹤球員',
-            style: TextStyle(
-              color: Color.fromARGB(255, 187, 155, 204), 
-              fontSize: 36,
-              fontFamily: 'Noto Sans TC',
-              fontWeight: FontWeight.w700),
-          )
-        ],
-      ),
-    );
-  } 
 }
