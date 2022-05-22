@@ -51,7 +51,20 @@ final profileScaffold = Scaffold(
       SizedBox(
         child: followingMatch,
       ),
-      const SizedBox(height: 27,),
+      const SizedBox(height: 23,),
+      const SizedBox(
+        height: 29, width: 320,
+        child: Text(
+          "我的追蹤",
+          textAlign: TextAlign.left,
+          style: TextStyle(
+            color: DuncColors.indicatorImportant,
+            fontSize: 20,
+            fontFamily: 'Noto Sans TC',
+            fontWeight: FontWeight.w700,
+          ),
+        ),
+      ),
       const FollowingList(),
     ]
   ),
