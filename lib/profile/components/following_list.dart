@@ -1,3 +1,4 @@
+import 'package:dunc/profile/components/following_player.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 
@@ -17,15 +18,39 @@ class FollowingList extends StatefulWidget {
 class _FollowingListState extends State<FollowingList> {
   final List<bool> _selection = [false, false];
 
-  final List<String> _followingTeam = ['資科系'];
-  final List<Text> _followingPlayer = [];
+  final List<String> _followingTeam = [
+    '中文系',
+    '廣電系',
+    '地政系',
+    '廣告系',
+    '資科系',
+    '資管系'
+  ];
+
+  final List<List<String>> _followingPlayer = [
+    [
+      '資科系',
+      '74',
+      '亞洲董神'
+    ],
+    [
+      '糖豆系',
+      '7',
+      '力量人'
+    ],
+    [
+      '中文系',
+      '10',
+      '王小明'
+    ]
+  ];
 
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
-        SizedBox(height: 14,),
+        const SizedBox(height: 14,),
         Row(
           children: <Widget>[
             Row(
@@ -207,13 +232,30 @@ class _FollowingListState extends State<FollowingList> {
         const EmptyFollowingList() : 
 
         (_selection[0] && !_selection[1]) ?
-        ListView.builder(
-          itemCount: _followingTeam.length,
-          itemBuilder: (context, index) {
-            return FollowingTeam(_followingTeam[index]);
-          },
+        Column(
+          children: List<Widget>.generate(_followingTeam.length,
+            (index) => Column(
+              children: <Widget>[
+                FollowingTeam(_followingTeam[index]),
+                const SizedBox(height: 17,),
+              ],
+            )
+          ),
         ) : 
-        FollowingTeam('資科系'),
+        Column(
+          children: List<Widget>.generate(_followingPlayer.length,
+            (index) => Column(
+              children: <Widget>[
+                FollowingPlayer(
+                  department: _followingPlayer[index][0],
+                  num: _followingPlayer[index][1],
+                  name: _followingPlayer[index][2],
+                ),
+                const SizedBox(height: 17,),
+              ],
+            )
+          ),
+        ),
       ],
     );
   }

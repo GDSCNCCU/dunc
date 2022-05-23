@@ -4,7 +4,7 @@ import '../../tools/colors.dart';
 
 
 class FollowingTeam extends StatelessWidget {
-  const FollowingTeam(String this._name, {Key? key}) : super(key: key);
+  const FollowingTeam(this._name, {Key? key}) : super(key: key);
 
   final String _name;
 
@@ -20,11 +20,11 @@ class FollowingTeam extends StatelessWidget {
           shadowLightColor: DuncColors.shadowLight,
           shadowDarkColor: DuncColors.shadowDark,
       ),
-      padding: EdgeInsets.all(0),
+      padding: const EdgeInsets.all(0),
       child: Container(
         width: 343,
         height: 60,
-        padding: EdgeInsets.all(0),
+        padding: const EdgeInsets.all(0),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[

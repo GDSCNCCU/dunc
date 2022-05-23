@@ -27,43 +27,45 @@ class _ProfileViewState extends State<ProfileView> {
 
 final profileScaffold = Scaffold(
   backgroundColor: DuncColors.mainBackground,
-  body: Column(
+  body: ListView(
     children: <Widget>[
-      const SizedBox(
-        height: 69,
-      ),
+      const SizedBox(height: 41,),
       stacklayer,
       const SizedBox(height: 30,),
-      const SizedBox(
-        height: 29, width: 320,
-        child: Text(
-          "我的球賽",
-          textAlign: TextAlign.left,
-          style: TextStyle(
-            color: DuncColors.indicatorImportant,
-            fontSize: 20,
-            fontFamily: 'Noto Sans TC',
-            fontWeight: FontWeight.w700,
+      Row(
+        children: const <Widget>[
+          SizedBox(width: 31,),
+          Text(
+            "我的球賽",
+            style: TextStyle(
+              color: DuncColors.indicatorImportant,
+              fontSize: 20,
+              fontFamily: 'Noto Sans TC',
+              fontWeight: FontWeight.w700,
+            ),
           ),
-        ),
+        ],
       ),
       const SizedBox(height: 13,),
       SizedBox(
         child: followingMatch,
       ),
       const SizedBox(height: 23,),
-      const SizedBox(
-        height: 29, width: 320,
-        child: Text(
-          "我的追蹤",
-          textAlign: TextAlign.left,
-          style: TextStyle(
-            color: DuncColors.indicatorImportant,
-            fontSize: 20,
-            fontFamily: 'Noto Sans TC',
-            fontWeight: FontWeight.w700,
+
+      Row(
+        children: const <Widget>[
+          SizedBox(width: 31,),
+          Text(
+            "我的追蹤",
+            textAlign: TextAlign.left,
+            style: TextStyle(
+              color: DuncColors.indicatorImportant,
+              fontSize: 20,
+              fontFamily: 'Noto Sans TC',
+              fontWeight: FontWeight.w700,
+            ),
           ),
-        ),
+        ]
       ),
       const FollowingList(),
     ]
