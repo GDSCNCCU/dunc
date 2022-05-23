@@ -1,8 +1,10 @@
-import 'package:dunc/tools/gradient_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 
+import 'package:dunc/tools/gradient_text.dart';
 import '../../tools/colors.dart';
+import './empty_following_list.dart';
+import './following_team.dart';
 
 
 class FollowingList extends StatefulWidget {
@@ -15,13 +17,13 @@ class FollowingList extends StatefulWidget {
 class _FollowingListState extends State<FollowingList> {
   final List<bool> _selection = [false, false];
 
-  final List<Text> _followintTeam = [];
+  final List<String> _followingTeam = ['資科系'];
   final List<Text> _followingPlayer = [];
 
   @override
   Widget build(BuildContext context) {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
         SizedBox(height: 14,),
         Row(
@@ -185,7 +187,7 @@ class _FollowingListState extends State<FollowingList> {
                     child: const Text(
                       '編輯', 
                       style: TextStyle(
-                        color: Color.fromARGB(255, 62, 62, 62),
+                        color: DuncColors.indicatorImportant,
                         fontSize: 15,
                         fontFamily: 'Noto Sans TC'
                       ),
@@ -200,6 +202,18 @@ class _FollowingListState extends State<FollowingList> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
         ),
         const SizedBox(height: 25,),
+
+        (!_selection[0] && !_selection[1]) ? 
+        const EmptyFollowingList() : 
+
+        (_selection[0] && !_selection[1]) ?
+        ListView.builder(
+          itemCount: _followingTeam.length,
+          itemBuilder: (context, index) {
+            return FollowingTeam(_followingTeam[index]);
+          },
+        ) : 
+        FollowingTeam('資科系'),
       ],
     );
   }

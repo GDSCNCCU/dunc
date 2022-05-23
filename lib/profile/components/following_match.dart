@@ -28,7 +28,7 @@ final followingMatch = Row(
               child: const Icon(
                 Icons.warning_amber_rounded,
                 color: DuncColors.indicatorImportant,
-                size: 27,
+                size: 30,
               ),
             ),
             Container(
@@ -46,7 +46,7 @@ final followingMatch = Row(
             Container(
               alignment: Alignment.center,
               child: const Text(
-                '請至搜尋功能查找比賽',
+                '請至搜尋功能查詢比賽',
                 style: TextStyle(
                   color: DuncColors.indicatorImportant,
                   fontSize: 12,
