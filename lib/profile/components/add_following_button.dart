@@ -1,8 +1,8 @@
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 
-import '../tools/colors.dart';
-import '../tools/gradient_text.dart';
-import '../tools/gradient_icon.dart';
+import '../../tools/colors.dart';
+import '../../tools/gradient_text.dart';
+import '../../tools/gradient_icon.dart';
 
 
 class AddFollowingButton extends StatefulWidget {

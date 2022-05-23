@@ -2,7 +2,7 @@ import 'package:dunc/tools/gradient_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 
-import '../tools/colors.dart';
+import '../../tools/colors.dart';
 
 
 class FollowingList extends StatefulWidget {
@@ -23,11 +23,14 @@ class _FollowingListState extends State<FollowingList> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
+        SizedBox(height: 14,),
         Row(
           children: <Widget>[
             Row(
               children: [
-                SizedBox(width: 31,),
+                const SizedBox(width: 31,),
+
+                // 球隊Button
                 Container(
                   padding: const EdgeInsets.only(
                     left: 6,
@@ -38,7 +41,7 @@ class _FollowingListState extends State<FollowingList> {
                   width: (_selection[0]) ? 66 : 52,
                   height: 23,
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(
+                    borderRadius: const BorderRadius.all(
                       Radius.circular(31),
                     ),
                     gradient: LinearGradient(
@@ -61,7 +64,7 @@ class _FollowingListState extends State<FollowingList> {
                       setState(() {});
                     },
                     style: TextButton.styleFrom(
-                      padding: EdgeInsets.all(0), 
+                      padding: const EdgeInsets.all(0), 
                     ),
                     child: (_selection[0]) ?
                       Row(
@@ -84,7 +87,7 @@ class _FollowingListState extends State<FollowingList> {
                           )
                         ],
                       ) : 
-                      GradientText(
+                      const GradientText(
                         '球隊',
                         gradient: LinearGradient(
                           colors: [DuncColors.mainCTAFrom, DuncColors.mainCTATo],
@@ -100,6 +103,7 @@ class _FollowingListState extends State<FollowingList> {
 
                 const SizedBox(width: 14,),
 
+                // 球員Button
                 Container(
                   padding: const EdgeInsets.only(
                     left: 6,
@@ -110,7 +114,7 @@ class _FollowingListState extends State<FollowingList> {
                   width: (_selection[1]) ? 66 : 52,
                   height: 23,
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(
+                    borderRadius: const BorderRadius.all(
                       Radius.circular(11.5),
                     ),
                     gradient: LinearGradient(
@@ -133,7 +137,7 @@ class _FollowingListState extends State<FollowingList> {
                       setState(() {});
                     },
                     style: TextButton.styleFrom(
-                      padding: EdgeInsets.all(0), 
+                      padding: const EdgeInsets.all(0), 
                     ),
                     child: (_selection[1]) ?
                       Row(
@@ -156,7 +160,7 @@ class _FollowingListState extends State<FollowingList> {
                           )
                         ],
                       ) : 
-                      GradientText(
+                      const GradientText(
                         '球員',
                         gradient: LinearGradient(
                           colors: [DuncColors.mainCTAFrom, DuncColors.mainCTATo],
@@ -178,11 +182,13 @@ class _FollowingListState extends State<FollowingList> {
                   width: 50,
                   height: 35,
                   child: TextButton(
-                    child: const Text('編輯', 
+                    child: const Text(
+                      '編輯', 
                       style: TextStyle(
                         color: Color.fromARGB(255, 62, 62, 62),
                         fontSize: 15,
-                        fontFamily: 'Noto Sans TC'),
+                        fontFamily: 'Noto Sans TC'
+                      ),
                     ),
                     onPressed: () {},
                   ),
