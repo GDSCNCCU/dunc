@@ -18,7 +18,7 @@ class BottomBar extends StatefulWidget {
 }
 
 class _BottomBarState extends State<BottomBar> {
-  int _selectedIndex = 1;
+  int _selectedIndex = 0;
 
   List pages = [
     const SearchView(),

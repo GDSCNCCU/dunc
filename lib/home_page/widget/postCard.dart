@@ -28,7 +28,7 @@ class postCard extends StatelessWidget {
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: const Image(
-                      image: AssetImage("assets/cubl.jpg"), fit: BoxFit.fill),
+                      image: AssetImage("assets/img/cubl.jpg"), fit: BoxFit.fill),
                 ),
                 const SizedBox(
                   height: 10,

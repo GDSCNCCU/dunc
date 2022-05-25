@@ -15,11 +15,11 @@ class _CarouselState extends State<Carousel> {
   late PageController _pageController;
 
   List<String> imageList = [
-    'assets/kawhi.jpg',
-    'assets/kobe.jpg',
-    'assets/mj.jpg',
-    'assets/duncan.jpg',
-    'assets/leflop.jpeg',
+    'assets/img/kawhi.jpg',
+    'assets/img/kobe.jpg',
+    'assets/img/mj.jpg',
+    'assets/img/duncan.jpg',
+    'assets/img/leflop.jpeg',
   ];
 
   int activePage = 0;
