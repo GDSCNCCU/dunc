@@ -1,7 +1,7 @@
 import '../../tools/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
-import '../profileview.dart';
+import '../profile_view.dart';
 
 final stacklayer = Stack(
   children: <Widget>[
