@@ -1,9 +1,9 @@
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 
-import './profile/profileview.dart';
+import './profile_page/profileview.dart';
 import './tools/colors.dart';
-import 'search/team.dart';
-import 'search/match.dart';
+import 'search_page/team.dart';
+import 'search_page/match.dart';
 
 void main() {
   runApp(const MyApp());
