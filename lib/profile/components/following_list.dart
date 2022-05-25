@@ -1,8 +1,8 @@
-import 'package:dunc/profile/components/following_player.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 
-import 'package:dunc/tools/gradient_text.dart';
+import './following_player.dart';
+import '../../tools/gradient_text.dart';
 import '../../tools/colors.dart';
 import './empty_following_list.dart';
 import './following_team.dart';

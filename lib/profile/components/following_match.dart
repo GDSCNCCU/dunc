@@ -1,4 +1,5 @@
-import 'package:dunc/tools/colors.dart';
+import '../../tools/colors.dart';
+
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 
 

@@ -1,9 +1,8 @@
-import 'package:dunc/tools/colors.dart';
-
-import 'components/stacklayer.dart';
-import 'components/following_match.dart';
-import 'components/add_following_button.dart';
-import 'components/following_list.dart';
+import '../tools/colors.dart';
+import './components/stacklayer.dart';
+import './components/following_match.dart';
+import './components/add_following_button.dart';
+import './components/following_list.dart';
 
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 
