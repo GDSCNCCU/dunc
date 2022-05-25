@@ -1,7 +1,6 @@
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 
-import 'profile_page/profile_view.dart';
-import 'search_page/search_view.dart';
+import './bottombar.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,16 +16,22 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const NeumorphicApp(
       debugShowCheckedModeBanner: false,
-      title: 'dUNC',
-      home: SearchView(),
-      // home: ProfileView(),
+      title: 'Neumorphic App',
+      themeMode: ThemeMode.light,
+      theme: NeumorphicThemeData(
+        baseColor: Color(0xFFFFFFFF),
+        lightSource: LightSource.topLeft,
+        depth: 10,
+      ),
+      darkTheme: NeumorphicThemeData(
+        baseColor: Color(0xFF3E3E3E),
+        lightSource: LightSource.topLeft,
+        depth: 6,
+      ),
+      home: BottomBar(
+        title: "",
+      ),
     );
-
-    // 測試ProfileView
-    // 非正式
-    // return const MaterialApp(
-    //   home: ProfileView(),
-    // );
   }
 }
 
