@@ -5,8 +5,6 @@ import './search_page/search_view.dart';
 import './profile_page/profile_view.dart';
 import '../tools/colors.dart';
 
-const purple = Color.fromARGB(255, 254, 114, 254);
-const blue = Color.fromARGB(255, 140, 107, 248);
 
 class BottomBar extends StatefulWidget {
   const BottomBar({Key? key, required this.title}) : super(key: key);
@@ -18,20 +16,10 @@ class BottomBar extends StatefulWidget {
 }
 
 class _BottomBarState extends State<BottomBar> {
-  int _selectedIndex = 0;
+  int _selectedIndex = 1;
 
-  List pages = [
-    const SearchView(),
-    const HomePage(),
-    const ProfileView()
-  ];
-/*
-  void onTap(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
-*/
+  List pages = [const SearchView(), const HomePage(), const ProfileView()];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -60,9 +48,10 @@ class _BottomBarState extends State<BottomBar> {
                 boxShape: NeumorphicBoxShape.stadium(),
               ),
               child: NeumorphicToggle(
+                duration: Duration(milliseconds: 350),
                 selectedIndex: _selectedIndex,
-                padding:
-                  const EdgeInsets.only(top: 9, bottom: 9, left: 11, right: 11),
+                padding: const EdgeInsets.only(
+                    top: 9, bottom: 9, left: 11, right: 11),
                 onChanged: (int index) {
                   setState(() {
                     _selectedIndex = index;
@@ -75,9 +64,9 @@ class _BottomBarState extends State<BottomBar> {
                       child: ShaderMask(
                         blendMode: BlendMode.srcATop,
                         shaderCallback: (bounds) => const LinearGradient(
-                          begin: Alignment.centerLeft,
-                          end: Alignment.topRight,
-                          colors: [blue, purple]).createShader(bounds),
+                            begin: Alignment.centerLeft,
+                            end: Alignment.topRight,
+                            colors: [DuncColors.mainCTATo, DuncColors.mainCTAFrom]).createShader(bounds),
                         child: const Icon(
                           Icons.search,
                           size: 45,
@@ -97,9 +86,9 @@ class _BottomBarState extends State<BottomBar> {
                       child: ShaderMask(
                         blendMode: BlendMode.srcATop,
                         shaderCallback: (bounds) => const LinearGradient(
-                          begin: Alignment.centerLeft,
-                          end: Alignment.topRight,
-                          colors: [blue, purple]).createShader(bounds),
+                            begin: Alignment.centerLeft,
+                            end: Alignment.topRight,
+                            colors: [DuncColors.mainCTATo, DuncColors.mainCTAFrom]).createShader(bounds),
                         child: const Icon(
                           Icons.home_filled,
                           size: 42,
@@ -119,10 +108,9 @@ class _BottomBarState extends State<BottomBar> {
                       child: ShaderMask(
                         blendMode: BlendMode.srcATop,
                         shaderCallback: (bounds) => const LinearGradient(
-                          begin: Alignment.centerLeft,
-                          end: Alignment.topRight,
-                          colors: [blue, purple]
-                        ).createShader(bounds),
+                            begin: Alignment.centerLeft,
+                            end: Alignment.topRight,
+                            colors: [DuncColors.mainCTATo, DuncColors.mainCTAFrom]).createShader(bounds),
                         child: const Icon(
                           Icons.subscriptions,
                           size: 42,
