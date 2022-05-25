@@ -14,6 +14,8 @@ class MatchInfo extends StatefulWidget {
 }
 
 class _MatchInfoState extends State<MatchInfo> {
+  int summaryOrBoxScoreIndex = 0;
+
   // 這一頁有用到Navigator.pop以及page route
   @override
   Widget build(BuildContext context) {
@@ -60,6 +62,7 @@ class _MatchInfoState extends State<MatchInfo> {
       ),
       body: Column(
         children: [
+          // toggle上方的所有物件
           Container(
             width: MediaQuery.of(context).size.width,
             height: 151,
@@ -145,15 +148,93 @@ class _MatchInfoState extends State<MatchInfo> {
               ],
             ),
             // todo: temporary border
-            decoration: const BoxDecoration(
-              border: Border(
-                top: BorderSide(color: Colors.black),
-                bottom: BorderSide(color: Colors.black),
-                left: BorderSide(color: Colors.black),
-                right: BorderSide(color: Colors.black)
-              ),
+            decoration: BoxDecoration(
+              border: Border.all(color: Colors.grey),
             ),
           ),
+          Neumorphic(
+            margin: const EdgeInsets.only(top: 25, bottom: 16, left: 13, right: 13),
+            style: NeumorphicStyle(
+              color: DuncColors.indicatorImportant,
+              depth: -3,
+              boxShape: NeumorphicBoxShape.roundRect(
+                  const BorderRadius.all(Radius.circular(20))),
+            ),
+            child: NeumorphicToggle(
+              height: 44,
+              padding: const EdgeInsets.all(5),
+              selectedIndex: summaryOrBoxScoreIndex,
+              duration: const Duration(milliseconds: 500),
+              movingCurve: Curves.easeInBack,
+              // 已被選擇的項目的樣式
+              thumb: Container(
+                foregroundDecoration: const BoxDecoration(
+                  color: DuncColors.secondaryCTAPurple,
+                ),
+              ),
+              // 沒被選擇的項目的樣式
+              style: const NeumorphicToggleStyle(
+                backgroundColor: DuncColors.mainBackground,  // 整個toggle背景
+                lightSource: LightSource(-0.6, -0.6),
+                borderRadius: BorderRadius.all(Radius.circular(20)), // 選中項目
+              ),
+              children: [
+                ToggleElement(
+                    foreground: const Center(
+                      child: Text(
+                        'Summary',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontFamily: 'Lexend',
+                            fontWeight: FontWeight.w400,
+                            fontSize: 15
+                        ),
+                      ),
+                    ),
+                    background: const Center(
+                      child: Text(
+                        'Summary',
+                        style: TextStyle(
+                            color: DuncColors.indicatorImportant,
+                            fontFamily: 'Lexend',
+                            fontWeight: FontWeight.w400,
+                            fontSize: 15
+                        ),
+                      ),
+                    )
+                ),
+                ToggleElement(
+                    foreground: const Center(
+                      child: Text(
+                        'Box Score',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontFamily: 'Lexend',
+                            fontWeight: FontWeight.w400,
+                            fontSize: 15
+                        ),
+                      ),
+                    ),
+                    background: const Center(
+                      child: Text(
+                        'Box Score',
+                        style: TextStyle(
+                            color: DuncColors.indicatorImportant,
+                            fontFamily: 'Lexend',
+                            fontWeight: FontWeight.w400,
+                            fontSize: 15
+                        ),
+                      ),
+                    )
+                )
+              ],
+              onChanged: (int index){
+                setState((){
+                  summaryOrBoxScoreIndex = index;
+                });
+              },
+            ),
+          )
         ],
       ),
     );
