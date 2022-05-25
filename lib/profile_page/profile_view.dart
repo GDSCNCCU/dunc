@@ -77,7 +77,7 @@ final profileScaffold = Scaffold(
   // 暫時用簡易版
   bottomNavigationBar: BottomAppBar(
     color: Colors.yellow,
-    child: Container(height: 50,)
+    child: Container(height: 73,)
   ),
 
 );
