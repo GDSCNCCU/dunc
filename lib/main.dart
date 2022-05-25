@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
         lightSource: LightSource.topLeft,
         depth: 6,
       ),
-      home: MyHomePage(
+      home: BottomBar(
         title: "",
       ),
     );
