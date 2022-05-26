@@ -1,5 +1,6 @@
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import '../tools/colors.dart';
+import '../tools/pair.dart';
 import 'lib_match_info.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'example_match.dart';
@@ -387,6 +388,129 @@ List<Widget> _summary(final Match match){
     ],
   );
 
+  Container bestPlayerCard({
+    required final Pair<PlayerInfo?, PlayerInfo?> players,
+    required final int leftNum,
+    required final String title,
+    required final int rightNum,
+  }){
+    Stack cloth(final int num) => Stack(
+      alignment: Alignment.center,
+      children: [
+        // todo: 不曉得愷祐什麼時候會給我圖
+        const Icon(
+          Icons.accessibility_new_outlined,
+          color: DuncColors.secondaryCTAPurple,
+          size: 60,
+        ),
+        Text(
+          '#$num',
+          style: const TextStyle(
+            color: Colors.black,
+            fontFamily: 'Lexend',
+            fontSize: 11
+          ),
+        )
+      ],
+    );
+
+    const TextStyle grayTxtStyle = TextStyle(
+      color: DuncColors.matchInfo,
+      fontFamily: 'Lexend',
+      fontSize: 12,
+      letterSpacing: 1.3
+    );
+
+    return Container(
+      padding: const EdgeInsets.only(left: 10, right: 10, top: 7, bottom: 7),
+      alignment: Alignment.center,
+      child: Neumorphic(
+        style: summaryInfoCardStyle,
+        child: Container(
+          padding: const EdgeInsets.only(left: 20, right: 20, top: 7, bottom: 7),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              cloth(players.first?.number ?? 0),
+              const SizedBox(width: 5,),
+              // 左側名字與科系
+              Column(
+                children: [
+                  Text(
+                    players.first?.name ?? '未知',
+                    style: grayTxtStyle,
+                  ),
+                  Container(
+                    height: 1,
+                    width: 28.5,
+                    color: DuncColors.matchInfo,
+                  ),
+                  Text(
+                    players.first?.team ?? '未知',
+                    style: grayTxtStyle,
+                  )
+                ],
+              ),
+              const Spacer(),
+              // 左側數字
+              Text(
+                leftNum.toString(),
+                style: const TextStyle(
+                    color: DuncColors.secondaryCTAPurple,
+                    fontFamily: 'Lexend',
+                    fontWeight: FontWeight.w700,
+                    fontSize: 30
+                ),
+              ),
+              const SizedBox(width: 7,),
+              // 中央文字
+              Text(
+                title,
+                style: grayTxtStyle,
+              ),
+              const SizedBox(width: 7,),
+              // 右側數字
+              Text(
+                rightNum.toString(),
+                style: const TextStyle(
+                    color: DuncColors.secondaryCTAPurple,
+                    fontFamily: 'Lexend',
+                    fontWeight: FontWeight.w700,
+                    fontSize: 30
+                ),
+              ),
+              const Spacer(),
+              // 右側名字與科系
+              Column(
+                children: [
+                  Text(
+                    players.second?.name ?? '未知',
+                    style: grayTxtStyle,
+                  ),
+                  Container(
+                    height: 1,
+                    width: 28.5,
+                    color: DuncColors.matchInfo,
+                  ),
+                  Text(
+                    players.second?.team ?? '未知',
+                    style: grayTxtStyle,
+                  )
+                ],
+              ),
+              const SizedBox(width: 5,),
+              cloth(players.second?.number ?? 0),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  final maxScorePlayers = match.maxScorePlayers;
+  final maxStealPlayers = match.maxStealPlayers;
+  final maxReboundPlayers = match.maxReboundPlayers;
+
   return [
     // 各節比分
     Neumorphic(
@@ -651,6 +775,74 @@ List<Widget> _summary(final Match match){
         ],
       ),
     ),
+    // 最佳球員、查看全部文字
+    Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        summaryTitle('最佳球員'),
+        const Spacer(),
+        // 最佳球員右邊的查看全部
+        Container(
+          height: 81,
+          padding: const EdgeInsets.only(right: 19),
+          child: Column(
+            children: [
+              const Spacer(flex: 40,),
+              LayoutBuilder(
+                builder: (context, rect) => RawMaterialButton(
+                  constraints: const BoxConstraints(
+                      minHeight: 15
+                  ),
+                  child: const Text(
+                    '查看全部',
+                    style: TextStyle(
+                        color: DuncColors.secondaryCTAPurple,
+                        fontFamily: 'Lexend',
+                        fontSize: 12,
+                        letterSpacing: 1.5
+                    ),
+                  ),
+                  onPressed: (){
+                    // todo: Figma上沒有相應的內容
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text("敬請期待"),
+                        duration: Duration(milliseconds: 1500),
+                      )
+                    );
+                  },
+                ),
+              ),
+              const Spacer(flex: 19,)
+            ],
+          ),
+        )
+      ],
+    ),
+    // 最佳球員
+    Column(
+      children: [
+        bestPlayerCard(
+            players: maxScorePlayers,
+            leftNum: maxScorePlayers.first?.score ?? 0,
+            title: '得分',
+            rightNum: maxScorePlayers.second?.score ?? 0,
+        ),
+        bestPlayerCard(
+            players: maxStealPlayers,
+            leftNum: maxStealPlayers.first?.steal ?? 0,
+            title: '抄截',
+            rightNum: maxStealPlayers.second?.steal ?? 0,
+        ),
+        bestPlayerCard(
+            players: maxReboundPlayers,
+            leftNum: maxReboundPlayers.first?.rebound ?? 0,
+            title: '籃板',
+            rightNum: maxReboundPlayers.second?.rebound ?? 0,
+        ),
+      ],
+    ),
+    const SizedBox(height: 40,),
   ];
 }
 
