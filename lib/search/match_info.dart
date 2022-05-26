@@ -1,6 +1,7 @@
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import '../tools/colors.dart';
 import 'lib_match_info.dart';
+import 'package:fl_chart/fl_chart.dart';
 import 'example_match.dart';
 
 Set<String> _track = {};
@@ -14,9 +15,10 @@ class MatchInfo extends StatefulWidget {
 }
 
 class _MatchInfoState extends State<MatchInfo> {
+  // 這一頁有用到Navigator.pop以及page route
+
   int summaryOrBoxScoreIndex = 0;
 
-  // 這一頁有用到Navigator.pop以及page route
   @override
   Widget build(BuildContext context) {
     // id toward one single match
@@ -138,10 +140,10 @@ class _MatchInfoState extends State<MatchInfo> {
                 Text(
                   '${match.date.month}/${match.date.day}‧${match.place}',
                   style: const TextStyle(
-                    fontFamily: 'Lexend',
-                    fontWeight: FontWeight.w600,
-                    fontSize: 15,
-                    color: DuncColors.matchInfo
+                      fontFamily: 'Lexend',
+                      fontWeight: FontWeight.w600,
+                      fontSize: 15,
+                      color: DuncColors.matchInfo
                   ),
                 ),
                 const Spacer(flex: 4,)
@@ -152,6 +154,7 @@ class _MatchInfoState extends State<MatchInfo> {
               border: Border.all(color: Colors.grey),
             ),
           ),
+          // 中央toggle
           Neumorphic(
             margin: const EdgeInsets.only(top: 25, bottom: 16, left: 13, right: 13),
             style: NeumorphicStyle(
@@ -234,9 +237,113 @@ class _MatchInfoState extends State<MatchInfo> {
                 });
               },
             ),
+          ),
+          // toggle下方的所有物件
+          Flexible(
+            child: ListView(
+              padding: const EdgeInsets.only(left: 7, right: 7),
+              children: summaryOrBoxScoreIndex == 0 ? _summary(match) : _boxScore(match),
+            ),
           )
         ],
       ),
     );
   }
 }
+
+List<Widget> _summary(final Match match){
+  const TextStyle titleTextStyle = TextStyle(
+    color: DuncColors.matchInfo,
+    fontFamily: 'Lexend',
+    fontWeight: FontWeight.w600,
+    fontSize: 15
+  );
+  Container summaryTitle(final String title){
+    return Container(
+      alignment: Alignment.topLeft,
+      padding: const EdgeInsets.only(left: 17),
+      child: Column(
+        children: [
+          const SizedBox(height: 40,),
+          Text(
+            title,
+            style: titleTextStyle,
+          ),
+          const SizedBox(height: 19,)
+        ],
+      ),
+    );
+  }
+  return [
+    Neumorphic(
+      style: _summaryInfoCardStyle,
+      child: SizedBox(
+        height: 229,
+        child: Column(
+          children: [
+            SizedBox(
+              height: 59,
+            ),
+            // 圖表
+            Flexible(
+              child: LayoutBuilder(
+                builder: (context, boxConstrains){
+                  return SizedBox(
+                    width: boxConstrains.maxWidth - 96,
+                    height: boxConstrains.maxHeight - 30,
+                    child: LineChart(
+                        LineChartData(
+                            lineBarsData: List.generate(
+                                2,  // two teams
+                                    (teamIndex) {
+                                  return LineChartBarData(
+                                    spots: List.generate(
+                                        teamIndex == 0 ?
+                                        match.quarterScore1?.length ?? 0 : // return the value if it isn't null
+                                        match.quarterScore2?.length ?? 0,
+                                            (quarterIndex){
+                                          return FlSpot(
+                                              quarterIndex * 1.0,
+                                              (teamIndex == 0
+                                                  ? match.quarterScore1![quarterIndex]
+                                                  : match.quarterScore2![quarterIndex]
+                                              ) * 1.0
+                                          );
+                                        }
+                                    ),
+                                    color: teamIndex == 0
+                                        ? DuncColors.playoffs
+                                        : DuncColors.pointsMatch,
+                                    barWidth: 1,
+                                    shadow: const Shadow(
+                                        color: Color(0x298a8989),
+                                        offset: Offset(0, 10)
+                                    ),
+                                  );
+                                }
+                            )
+                        )
+                    ),
+                  );
+                },
+              ),
+            ),
+          ],
+        ),
+      ),
+    ),
+    summaryTitle('兩隊比較')
+  ];
+}
+
+List<Widget> _boxScore(final Match match){
+  return [];
+}
+
+final _summaryInfoCardStyle = NeumorphicStyle(
+    color: DuncColors.mainBackground,
+    boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(20)),
+    shadowLightColor: DuncColors.shadowLight,
+    shadowDarkColor: DuncColors.shadowDark,
+    depth: 4
+);

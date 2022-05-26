@@ -49,5 +49,5 @@ class DuncColors {
   static const Color shadowDark  = Color(0xffb0b0b0);
 
   // 比賽詳細資訊
-static const Color matchInfo = Color(0xff707585);
+  static const Color matchInfo = Color(0xff707585);
 }
