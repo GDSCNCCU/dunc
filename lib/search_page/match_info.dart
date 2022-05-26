@@ -296,7 +296,7 @@ List<Widget> _summary(final Match match){
                   ),
                   const Spacer(),
                   Text(
-                    '${match.score1}：${match.score2}',
+                    '${match.score1} : ${match.score2}',
                     style: const TextStyle(
                       fontFamily: 'Lexend',
                       fontWeight: FontWeight.w400,
@@ -381,6 +381,10 @@ List<Widget> _summary(final Match match){
                                   ),
                                   // 資料點樣式
                                   dotData: FlDotData(
+                                    // 要不要顯示資料點
+                                    checkToShowDot: (flSpot, _){
+                                      return flSpot.x.toInt().isEven;
+                                    },
                                     getDotPainter: (_, __, ___, ____) => FlDotCirclePainter(
                                       color: DuncColors.mainBackground,
                                       radius: 1.5,
