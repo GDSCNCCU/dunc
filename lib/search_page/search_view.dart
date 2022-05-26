@@ -4,8 +4,6 @@ import '../tools/colors.dart';
 import './team.dart';
 import './match.dart';
 
-double? screenWidth; // set in build of _SearchViewState
-double? screenHeight; // set in build of _SearchViewState
 int searchTeamOrMatchToggleIndex = 0;
 
 class SearchView extends StatefulWidget {
@@ -26,8 +24,6 @@ class _SearchViewState extends State<SearchView> {
 
   @override
   Widget build(BuildContext context) {
-    screenWidth = MediaQuery.of(context).size.width;
-    screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       backgroundColor: DuncColors.mainBackground,
       body: Column(
@@ -98,8 +94,8 @@ class _SearchViewState extends State<SearchView> {
               )),
         ] +
             (searchTeamOrMatchToggleIndex == 0
-                ? teamWidgets(searchTeamTextCtrl, screenWidth!, screenHeight!, this)
-                : matchWidgets(screenWidth!)),
+                ? teamWidgets(searchTeamTextCtrl, this)
+                : matchWidgets()),
       ),
     );
   }

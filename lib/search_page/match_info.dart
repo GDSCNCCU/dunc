@@ -24,6 +24,7 @@ class _MatchInfoState extends State<MatchInfo> {
     // id toward one single match
     final id = ModalRoute.of(context)!.settings.arguments as String;
     final match = matches[id]!;
+    
     return Scaffold(
       backgroundColor: DuncColors.mainBackground,
       appBar: AppBar(
@@ -66,7 +67,6 @@ class _MatchInfoState extends State<MatchInfo> {
         children: [
           // toggle上方的所有物件
           Container(
-            width: MediaQuery.of(context).size.width,
             height: 151,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -258,6 +258,7 @@ List<Widget> _summary(final Match match){
     fontWeight: FontWeight.w600,
     fontSize: 15
   );
+
   Container summaryTitle(final String title){
     return Container(
       alignment: Alignment.topLeft,
@@ -274,6 +275,7 @@ List<Widget> _summary(final Match match){
       ),
     );
   }
+
   return [
     // 各節比分
     Neumorphic(
@@ -294,15 +296,16 @@ List<Widget> _summary(final Match match){
                     width: boxConstrains.maxWidth - 96,
                     child: LineChart(
                         LineChartData(
-                          // 實際的資料點
+                          // 資料點
                           lineBarsData: List.generate(
                               2,  // two teams
                               (teamIndex) {
                                 return LineChartBarData(
+                                  // xy值
                                   spots: List.generate(
-                                      teamIndex == 0 ?
-                                      match.quarterScore1?.length ?? 0 : // return the value if it isn't null
-                                      match.quarterScore2?.length ?? 0,
+                                      teamIndex == 0
+                                        ? match.quarterScore1?.length ?? 0  // return the value if it isn't null
+                                        : match.quarterScore2?.length ?? 0,
                                       (quarterIndex){
                                         return FlSpot(
                                             quarterIndex * 1.0,
@@ -321,8 +324,20 @@ List<Widget> _summary(final Match match){
                                       color: DuncColors.notSelectableText.withAlpha(41),
                                       offset: const Offset(0, 10)
                                   ),
+                                  // 資料點樣式
+                                  dotData: FlDotData(
+                                    getDotPainter: (_, __, ___, ____) => FlDotCirclePainter(
+                                      color: DuncColors.mainBackground,
+                                      radius: 1.5,
+                                      strokeColor: teamIndex == 0
+                                        ? DuncColors.playoffs
+                                        : DuncColors.pointsMatch,
+                                      strokeWidth: 1.5
+                                    )
+                                  ),
                                 );
-                              }
+                              },
+                              growable: false
                             ),
                           titlesData: FlTitlesData(
                             leftTitles: AxisTitles(
@@ -345,24 +360,51 @@ List<Widget> _summary(final Match match){
                             bottomTitles: AxisTitles(
                               sideTitles: SideTitles(
                                 showTitles: true,
-                                reservedSize: 30,
+                                reservedSize: 33,
                                 interval: 2,
                                 getTitlesWidget: (value, meta) => Flexible(
                                   child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [Text(
-                                      'Q${value ~/ 2 + 1}',
-                                      style: const TextStyle(
-                                          color: DuncColors.notSelectableText,
-                                          fontFamily: 'Lexend',
-                                          fontWeight: FontWeight.w400,
-                                          fontSize: 12
+                                    children: [
+                                      const Spacer(),
+                                      Text(
+                                        'Q${value ~/ 2 + 1}',
+                                        style: const TextStyle(
+                                            color: DuncColors.notSelectableText,
+                                            fontFamily: 'Lexend',
+                                            fontWeight: FontWeight.w400,
+                                            fontSize: 12
+                                        ),
                                       ),
-                                    )],
+                                      const Spacer(flex: 2,)
+                                    ],
                                   ),
-                                )                              )
+                                )
+                              )
+                            ),
+                            topTitles: AxisTitles(sideTitles: SideTitles(showTitles: false))
+                          ),
+                          borderData: FlBorderData(
+                            show: true,
+                            border: Border(
+                              bottom: BorderSide(
+                                color: DuncColors.notSelectableText.withAlpha(41),
+                                width: 1
+                              )
                             )
-                          )
+                          ),
+                          // 點擊資料點後的樣式
+                          lineTouchData: LineTouchData(
+                            enabled: true,
+                            touchTooltipData: LineTouchTooltipData(
+                              tooltipBgColor: Colors.white,
+                              tooltipPadding: const EdgeInsets.all(12),
+                              tooltipRoundedRadius: 8,
+                            ),
+                          ),
+                          minX: 0,
+                          minY: 0,
+                          // 資料點的對齊線
+                          gridData: FlGridData(show: false),
                         )
                     ),
                   );
