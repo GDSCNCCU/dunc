@@ -297,15 +297,16 @@ List<Widget> _summary(final Match match){
                     width: boxConstrains.maxWidth - 96,
                     child: LineChart(
                         LineChartData(
-                          // 實際的資料點
+                          // 資料點
                           lineBarsData: List.generate(
                               2,  // two teams
                               (teamIndex) {
                                 return LineChartBarData(
+                                  // xy值
                                   spots: List.generate(
-                                      teamIndex == 0 ?
-                                      match.quarterScore1?.length ?? 0 : // return the value if it isn't null
-                                      match.quarterScore2?.length ?? 0,
+                                      teamIndex == 0
+                                        ? match.quarterScore1?.length ?? 0  // return the value if it isn't null
+                                        : match.quarterScore2?.length ?? 0,
                                       (quarterIndex){
                                         return FlSpot(
                                             quarterIndex * 1.0,
@@ -324,8 +325,20 @@ List<Widget> _summary(final Match match){
                                       color: DuncColors.notSelectableText.withAlpha(41),
                                       offset: const Offset(0, 10)
                                   ),
+                                  // 資料點樣式
+                                  dotData: FlDotData(
+                                    getDotPainter: (_, __, ___, ____) => FlDotCirclePainter(
+                                      color: DuncColors.mainBackground,
+                                      radius: 1.5,
+                                      strokeColor: teamIndex == 0
+                                        ? DuncColors.playoffs
+                                        : DuncColors.pointsMatch,
+                                      strokeWidth: 1.5
+                                    )
+                                  ),
                                 );
-                              }
+                              },
+                              growable: false
                             ),
                           titlesData: FlTitlesData(
                             leftTitles: AxisTitles(
@@ -375,11 +388,24 @@ List<Widget> _summary(final Match match){
                             show: true,
                             border: Border(
                               bottom: BorderSide(
-                                color: DuncColors.notSelectableText.withAlpha(31),
+                                color: DuncColors.notSelectableText.withAlpha(41),
                                 width: 1
                               )
                             )
-                          )
+                          ),
+                          // 點擊資料點後的樣式
+                          lineTouchData: LineTouchData(
+                            enabled: true,
+                            touchTooltipData: LineTouchTooltipData(
+                              tooltipBgColor: Colors.white,
+                              tooltipPadding: const EdgeInsets.all(12),
+                              tooltipRoundedRadius: 8,
+                            ),
+                          ),
+                          minX: 0,
+                          minY: 0,
+                          // 資料點的對齊線
+                          gridData: FlGridData(show: false),
                         )
                     ),
                   );
