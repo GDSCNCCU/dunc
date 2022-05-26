@@ -3,6 +3,7 @@ import '../tools/colors.dart';
 import 'lib_match_info.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'example_match.dart';
+import 'dart:math';
 
 Set<String> _track = {};
 Map<String, Match> matches = {'example': exampleMatch};
@@ -256,7 +257,8 @@ List<Widget> _summary(final Match match){
     color: DuncColors.matchInfo,
     fontFamily: 'Lexend',
     fontWeight: FontWeight.w600,
-    fontSize: 15
+    fontSize: 15,
+    letterSpacing: 1.5
   );
 
   Container summaryTitle(final String title){
@@ -276,10 +278,119 @@ List<Widget> _summary(final Match match){
     );
   }
 
+  final summaryInfoCardStyle = NeumorphicStyle(
+      color: DuncColors.mainBackground,
+      boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(20)),
+      shadowLightColor: DuncColors.shadowLight,
+      shadowDarkColor: DuncColors.shadowDark,
+      depth: 4
+  );
+
+  Column singleTeamInfo(final String title, final Fraction left, final Fraction right) => Column(
+    children: [
+      // 文字
+      SizedBox(
+        height: 23.1,
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            Text(
+              '${left.first}/${left.second}(${(left.first / left.second * 100).toStringAsFixed(1)}%)',
+              style: const TextStyle(
+                fontFamily: 'Lexend',
+                fontWeight: FontWeight.w400,
+                fontSize: 12,
+                color: DuncColors.matchInfo
+              ),
+            ),
+            const Spacer(),
+            LayoutBuilder(
+              builder: (context, constraint) =>
+                SizedBox(
+                  height: constraint.maxHeight,
+                  child: Text(
+                    title,
+                    style: const TextStyle(
+                        fontFamily: 'Lexend',
+                        fontWeight: FontWeight.w400,
+                        fontSize: 12,
+                        color: DuncColors.matchInfo
+                    ),
+                  ),
+                ),
+            ),
+            const Spacer(),
+            Text(
+              '${right.first}/${right.second}(${(right.first / right.second * 100).toStringAsFixed(1)}%)',
+              style: const TextStyle(
+                  fontFamily: 'Lexend',
+                  fontWeight: FontWeight.w400,
+                  fontSize: 12,
+                  color: DuncColors.matchInfo
+              ),
+            )
+          ],
+        ),
+      ),
+      // 顏色條
+      LayoutBuilder(
+        builder: (context, rect) => SizedBox(
+          // width: rect.maxWidth,
+          child: Row(
+            children: [
+              // 左邊的條
+              Container(
+                width: rect.maxWidth / 2 - 9,
+                height: 16,
+                alignment: Alignment.bottomCenter,
+                child: NeumorphicProgress(
+                  percent: left.first / left.second,
+                  style: const ProgressStyle(
+                    depth: 4,
+                    accent: DuncColors.playoffs,
+                    variant: DuncColors.playoffs,
+                    border: NeumorphicBorder(
+                        color: Colors.white,
+                        width: 3
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(width: 18,),
+              // 右邊的條
+              Container(
+                width: rect.maxWidth / 2 - 9,
+                height: 16,
+                alignment: Alignment.bottomCenter,
+                child: Transform(
+                  alignment: Alignment.center,
+                  transform: Matrix4.rotationY(pi),
+                  child: NeumorphicProgress(
+                    percent: right.first / right.second,
+                    style: const ProgressStyle(
+                      depth: 4,
+                      accent: DuncColors.pointsMatch,
+                      variant: DuncColors.pointsMatch,
+                      border: NeumorphicBorder(
+                          color: Colors.white,
+                          width: 3
+                      ),
+                    ),
+                  ),
+                ),
+              )
+            ],
+          ),
+        ),
+      ),
+      const SizedBox(height: 23,)
+    ],
+  );
+
   return [
     // 各節比分
     Neumorphic(
-      style: _summaryInfoCardStyle,
+      style: summaryInfoCardStyle,
       child: SizedBox(
         height: 229,
         child: Column(
@@ -474,18 +585,75 @@ List<Widget> _summary(final Match match){
         ),
       ),
     ),
-    summaryTitle('兩隊比較')
+    summaryTitle('兩隊比較'),
+    Neumorphic(
+      style: summaryInfoCardStyle,
+      child: Stack(
+        alignment: Alignment.topCenter,
+        children: [
+          // 背景兩個大字
+          Row(
+            children: List.generate(
+              3,
+              (index){
+                if(index == 1){
+                  return const Spacer();
+                }
+                return ShaderMask(
+                  shaderCallback: (rect) => LinearGradient(
+                    begin: Alignment.topRight,
+                    end: Alignment.bottomLeft,
+                    colors: [
+                      DuncColors.mainCTAFrom.withAlpha(94),
+                      DuncColors.mainCTATo.withAlpha(120)
+                    ]
+                  ).createShader(rect),
+                  child: Text(
+                    index == 0 ? match.team1NickName : match.team2NickName,
+                    style: const TextStyle(
+                        fontFamily: 'Noto Sans TC',
+                        fontWeight: FontWeight.w700,
+                        fontSize: 105,
+                        color: Colors.white // required for gradient applying
+                    ),
+                  ),
+                );
+              }
+            ),
+          ),
+          // 隊伍的資訊
+          LayoutBuilder(
+            builder: (context, constraint) => SizedBox(
+              width: constraint.maxWidth - 50,
+              child: Column(
+                children: [
+                  const SizedBox(height: 67.87,),
+                  singleTeamInfo(
+                      '投籃數',
+                      match.teamCmp1?.shots ?? Fraction(0, 0),
+                      match.teamCmp2?.shots ?? Fraction(0, 0)
+                  ),
+                  singleTeamInfo(
+                      '三分球',
+                      match.teamCmp1?.triple ?? Fraction(0, 0),
+                      match.teamCmp2?.triple ?? Fraction(0, 0)
+                  ),
+                  singleTeamInfo(
+                      '罰球命中率',
+                      match.teamCmp1?.penalty ?? Fraction(0, 0),
+                      match.teamCmp2?.penalty ?? Fraction(0, 0)
+                  ),
+                  const SizedBox(height: 23,)
+                ],
+              ),
+            ),
+          )
+        ],
+      ),
+    ),
   ];
 }
 
 List<Widget> _boxScore(final Match match){
   return [];
 }
-
-final _summaryInfoCardStyle = NeumorphicStyle(
-    color: DuncColors.mainBackground,
-    boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(20)),
-    shadowLightColor: DuncColors.shadowLight,
-    shadowDarkColor: DuncColors.shadowDark,
-    depth: 4
-);
