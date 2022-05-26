@@ -67,7 +67,6 @@ class _MatchInfoState extends State<MatchInfo> {
         children: [
           // toggle上方的所有物件
           Container(
-            width: MediaQuery.of(context).size.width,
             height: 151,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
