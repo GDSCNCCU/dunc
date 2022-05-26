@@ -24,6 +24,7 @@ class _MatchInfoState extends State<MatchInfo> {
     // id toward one single match
     final id = ModalRoute.of(context)!.settings.arguments as String;
     final match = matches[id]!;
+    
     return Scaffold(
       backgroundColor: DuncColors.mainBackground,
       appBar: AppBar(
@@ -258,6 +259,7 @@ List<Widget> _summary(final Match match){
     fontWeight: FontWeight.w600,
     fontSize: 15
   );
+
   Container summaryTitle(final String title){
     return Container(
       alignment: Alignment.topLeft,
@@ -274,6 +276,7 @@ List<Widget> _summary(final Match match){
       ),
     );
   }
+
   return [
     // 各節比分
     Neumorphic(
@@ -345,22 +348,36 @@ List<Widget> _summary(final Match match){
                             bottomTitles: AxisTitles(
                               sideTitles: SideTitles(
                                 showTitles: true,
-                                reservedSize: 30,
+                                reservedSize: 33,
                                 interval: 2,
                                 getTitlesWidget: (value, meta) => Flexible(
                                   child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [Text(
-                                      'Q${value ~/ 2 + 1}',
-                                      style: const TextStyle(
-                                          color: DuncColors.notSelectableText,
-                                          fontFamily: 'Lexend',
-                                          fontWeight: FontWeight.w400,
-                                          fontSize: 12
+                                    children: [
+                                      const Spacer(),
+                                      Text(
+                                        'Q${value ~/ 2 + 1}',
+                                        style: const TextStyle(
+                                            color: DuncColors.notSelectableText,
+                                            fontFamily: 'Lexend',
+                                            fontWeight: FontWeight.w400,
+                                            fontSize: 12
+                                        ),
                                       ),
-                                    )],
+                                      const Spacer(flex: 2,)
+                                    ],
                                   ),
-                                )                              )
+                                )
+                              )
+                            ),
+                            topTitles: AxisTitles(sideTitles: SideTitles(showTitles: false))
+                          ),
+                          borderData: FlBorderData(
+                            show: true,
+                            border: Border(
+                              bottom: BorderSide(
+                                color: DuncColors.notSelectableText.withAlpha(31),
+                                width: 1
+                              )
                             )
                           )
                         )

@@ -82,7 +82,7 @@ List<Widget> teamWidgets(
             controller: searchTextCtrl,
             onChanged: (str) {
               searchTextCtrl.text = str;
-            }, //todo
+            }, //todo: 要可以真的搜尋
           ),
         )
       ],
@@ -93,7 +93,7 @@ List<Widget> teamWidgets(
       children: const [
         SizedBox(width: 36,),
         Text(
-            '排名',
+          '排名',
           style: TextStyle(
             color: DuncColors.indicatorImportant,
             fontSize: 14,
@@ -116,7 +116,7 @@ List<Widget> teamWidgets(
     ),
     // 各個科系的排名
     SizedBox(
-      height: screenHeight - 107 - 57 - 51 - 17,  // 高度到底部。但是以後一定會爆
+      height: screenHeight - 107 - 57 - 51 - 17,  //todo: 高度到底部。但是以後一定會爆
       child: ListView.builder(
         padding: const EdgeInsets.only(top: 10),
         itemCount: 2 * _rankTeam.length,
