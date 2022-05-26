@@ -284,9 +284,64 @@ List<Widget> _summary(final Match match){
         height: 229,
         child: Column(
           children: [
-            // todo
+            // 圖表上方資訊
             SizedBox(
               height: 59,
+              child: Row(
+                children: [
+                  const SizedBox(width: 31,),
+                  const Text(
+                    '各節比分',
+                    style: titleTextStyle,
+                  ),
+                  const Spacer(),
+                  Text(
+                    '${match.score1}：${match.score2}',
+                    style: const TextStyle(
+                      fontFamily: 'Lexend',
+                      fontWeight: FontWeight.w400,
+                      fontSize: 24,
+                      color: DuncColors.matchInfo
+                    ),
+                  ),
+                  const Spacer(),
+                  // 圖例
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: List.generate(
+                      3,
+                      (teamIndex){
+                        if(teamIndex == 1){
+                          return const SizedBox(height: 6,);
+                        }
+                        return Row(
+                          children: [
+                            Text(
+                              teamIndex == 0 ? match.team1 : match.team2,
+                              style: const TextStyle(
+                                  fontFamily: 'Noto Sans TC',
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 10,
+                                  color: DuncColors.matchInfo
+                              ),
+                            ),
+                            const SizedBox(width: 11,),
+                            Container(
+                              height: 1,
+                              width: 34,
+                              color: teamIndex == 0
+                                  ? DuncColors.playoffs
+                                  : DuncColors.pointsMatch,
+                            )
+                          ],
+                        );
+                      },
+                      growable: false
+                    ),
+                  ),
+                  const SizedBox(width: 31,)
+                ],
+              ),
             ),
             // 圖表
             Flexible(
