@@ -275,6 +275,7 @@ List<Widget> _summary(final Match match){
     );
   }
   return [
+    // 各節比分
     Neumorphic(
       style: _summaryInfoCardStyle,
       child: SizedBox(
@@ -290,38 +291,77 @@ List<Widget> _summary(final Match match){
                 builder: (context, boxConstrains){
                   return SizedBox(
                     width: boxConstrains.maxWidth - 96,
-                    height: boxConstrains.maxHeight - 30,
                     child: LineChart(
                         LineChartData(
-                            lineBarsData: List.generate(
-                                2,  // two teams
-                                    (teamIndex) {
-                                  return LineChartBarData(
-                                    spots: List.generate(
-                                        teamIndex == 0 ?
-                                        match.quarterScore1?.length ?? 0 : // return the value if it isn't null
-                                        match.quarterScore2?.length ?? 0,
-                                            (quarterIndex){
-                                          return FlSpot(
-                                              quarterIndex * 1.0,
-                                              (teamIndex == 0
-                                                  ? match.quarterScore1![quarterIndex]
-                                                  : match.quarterScore2![quarterIndex]
-                                              ) * 1.0
-                                          );
-                                        }
-                                    ),
-                                    color: teamIndex == 0
-                                        ? DuncColors.playoffs
-                                        : DuncColors.pointsMatch,
-                                    barWidth: 1,
-                                    shadow: const Shadow(
-                                        color: Color(0x298a8989),
-                                        offset: Offset(0, 10)
-                                    ),
-                                  );
-                                }
+                          // 實際的資料點
+                          lineBarsData: List.generate(
+                              2,  // two teams
+                              (teamIndex) {
+                                return LineChartBarData(
+                                  spots: List.generate(
+                                      teamIndex == 0 ?
+                                      match.quarterScore1?.length ?? 0 : // return the value if it isn't null
+                                      match.quarterScore2?.length ?? 0,
+                                      (quarterIndex){
+                                        return FlSpot(
+                                            quarterIndex * 1.0,
+                                            (teamIndex == 0
+                                                ? match.quarterScore1![quarterIndex]
+                                                : match.quarterScore2![quarterIndex]
+                                            ) * 1.0
+                                        );
+                                      }
+                                  ),
+                                  color: teamIndex == 0
+                                      ? DuncColors.playoffs
+                                      : DuncColors.pointsMatch,
+                                  barWidth: 1,
+                                  shadow: Shadow(
+                                      color: DuncColors.notSelectableText.withAlpha(41),
+                                      offset: const Offset(0, 10)
+                                  ),
+                                );
+                              }
+                            ),
+                          titlesData: FlTitlesData(
+                            leftTitles: AxisTitles(
+                              sideTitles: SideTitles(
+                                showTitles: true,
+                                reservedSize: 21,
+                                interval: 20,
+                                getTitlesWidget: (value, meta) => Text(
+                                  value.toInt().toString(),
+                                  style: const TextStyle(
+                                    color: DuncColors.notSelectableText,
+                                    fontFamily: 'Lexend',
+                                    fontWeight: FontWeight.w400,
+                                    fontSize: 12
+                                  ),
+                                )
+                              )
+                            ),
+                            rightTitles: AxisTitles(sideTitles: SideTitles(showTitles: false,)),
+                            bottomTitles: AxisTitles(
+                              sideTitles: SideTitles(
+                                showTitles: true,
+                                reservedSize: 30,
+                                interval: 2,
+                                getTitlesWidget: (value, meta) => Flexible(
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [Text(
+                                      'Q${value ~/ 2 + 1}',
+                                      style: const TextStyle(
+                                          color: DuncColors.notSelectableText,
+                                          fontFamily: 'Lexend',
+                                          fontWeight: FontWeight.w400,
+                                          fontSize: 12
+                                      ),
+                                    )],
+                                  ),
+                                )                              )
                             )
+                          )
                         )
                     ),
                   );

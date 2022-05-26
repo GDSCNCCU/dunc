@@ -50,4 +50,6 @@ class DuncColors {
 
   // 比賽詳細資訊
   static const Color matchInfo = Color(0xff707585);
+  // 無選文字
+  static const Color notSelectableText = Color(0xff8a8989);
 }
