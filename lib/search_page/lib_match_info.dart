@@ -138,6 +138,38 @@ class MatchTeamInfo{
   }
 }
 
+enum PlayerInfoFields{
+  name,
+  number,
+  fgma,
+  team,
+  score,
+  steal,
+  rebound,
+  isFormal
+}
+
+String playerInfoFieldToString(final PlayerInfoFields field){
+  switch(field){
+    case PlayerInfoFields.name:
+      return '姓名';
+    case PlayerInfoFields.number:
+      return '球號';
+    case PlayerInfoFields.fgma:
+      return 'FGM-A';
+    case PlayerInfoFields.team:
+      return '隊伍';
+    case PlayerInfoFields.score:
+      return '得分';
+    case PlayerInfoFields.steal:
+      return '抄截';
+    case PlayerInfoFields.rebound:
+      return '籃板';
+    case PlayerInfoFields.isFormal:
+      return '正式/板凳';
+  }
+}
+
 class PlayerInfo{
   final String name;
   /// 球衣號碼
@@ -151,6 +183,40 @@ class PlayerInfo{
   int rebound;
   /// 正式球員/板凳球員
   final bool isFormal;
+  // 增加欄位時記得改PlayerInfoFields、下方get fields，並且請讓PlayerInfoFields的第一項是name、最後一項是isFormal
+
+  List<dynamic> get fields{
+    List<dynamic> ret = [];
+    for(var oneField in PlayerInfoFields.values){
+      switch(oneField){
+        case PlayerInfoFields.name:
+          ret.add(name);
+          break;
+        case PlayerInfoFields.number:
+          ret.add(number);
+          break;
+        case PlayerInfoFields.fgma:
+          ret.add(fgma);
+          break;
+        case PlayerInfoFields.team:
+          ret.add(team);
+          break;
+        case PlayerInfoFields.score:
+          ret.add(score);
+          break;
+        case PlayerInfoFields.steal:
+          ret.add(steal);
+          break;
+        case PlayerInfoFields.rebound:
+          ret.add(rebound);
+          break;
+        case PlayerInfoFields.isFormal:
+          ret.add(isFormal);
+          break;
+      }
+    }
+    return ret;
+  }
 
   PlayerInfo({required this.name, required this.number, this.fgma = 0, required this.team, this.score = 0, this.steal = 0, this.rebound = 0, required this.isFormal}){
     assert(name.isNotEmpty);

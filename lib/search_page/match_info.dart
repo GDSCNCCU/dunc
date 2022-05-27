@@ -67,7 +67,7 @@ class _MatchInfoState extends State<MatchInfo> {
         )],
       ),
       body: ListView(
-        padding: const EdgeInsets.only(left: 8, right: 8),
+        padding: const EdgeInsets.only(left: 18, right: 18),
         children: [
           // toggle上方的所有物件
           Container(
@@ -160,7 +160,7 @@ class _MatchInfoState extends State<MatchInfo> {
           ),
           // 中央toggle
           Neumorphic(
-            margin: const EdgeInsets.only(top: 25, bottom: 16, left: 13, right: 13),
+            margin: const EdgeInsets.only(top: 25, bottom: 16,),
             style: NeumorphicStyle(
               color: DuncColors.indicatorImportant,
               depth: -3,
@@ -243,39 +243,27 @@ class _MatchInfoState extends State<MatchInfo> {
             ),
           ),
           // toggle下方的所有物件
-          summaryOrBoxScoreIndex == 0 ? _summary(match) : _BoxScore(match)
+          Container(
+            child: summaryOrBoxScoreIndex == 0 ? _Summary(match) : _BoxScore(match),
+          )
         ],
       ),
     );
   }
 }
 
-Column _summary(final Match match){
-  const TextStyle titleTextStyle = TextStyle(
-    color: DuncColors.matchInfo,
-    fontFamily: 'Lexend',
-    fontWeight: FontWeight.w600,
-    fontSize: 15,
-    letterSpacing: 1.5
-  );
+class _Summary extends StatefulWidget {
+  const _Summary(this.match, {Key? key}) : super(key: key);
+  final Match match;
 
-  Container summaryTitle(final String title){
-    return Container(
-      alignment: Alignment.topLeft,
-      padding: const EdgeInsets.only(left: 17),
-      child: Column(
-        children: [
-          const SizedBox(height: 40,),
-          Text(
-            title,
-            style: titleTextStyle,
-          ),
-          const SizedBox(height: 19,)
-        ],
-      ),
-    );
-  }
+  @override
+  State<_Summary> createState() => _SummaryState();
+}
 
+class _SummaryState extends State<_Summary> {
+  late Pair<PlayerInfo?, PlayerInfo?> maxScorePlayers;
+  late Pair<PlayerInfo?, PlayerInfo?> maxStealPlayers;
+  late Pair<PlayerInfo?, PlayerInfo?> maxReboundPlayers;
   final summaryInfoCardStyle = NeumorphicStyle(
       color: DuncColors.mainBackground,
       boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(20)),
@@ -283,232 +271,24 @@ Column _summary(final Match match){
       shadowDarkColor: DuncColors.shadowDark,
       depth: 4
   );
-
-  Column singleTeamInfo(final String title, final Fraction left, final Fraction right) => Column(
-    children: [
-      // 文字
-      SizedBox(
-        height: 23.1,
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            Text(
-              '${left.first}/${left.second}(${(left.first / left.second * 100).toStringAsFixed(1)}%)',
-              style: const TextStyle(
-                fontFamily: 'Lexend',
-                fontWeight: FontWeight.w400,
-                fontSize: 12,
-                color: DuncColors.matchInfo
-              ),
-            ),
-            const Spacer(),
-            LayoutBuilder(
-              builder: (context, constraint) =>
-                SizedBox(
-                  height: constraint.maxHeight,
-                  child: Text(
-                    title,
-                    style: const TextStyle(
-                        fontFamily: 'Lexend',
-                        fontWeight: FontWeight.w400,
-                        fontSize: 12,
-                        color: DuncColors.matchInfo
-                    ),
-                  ),
-                ),
-            ),
-            const Spacer(),
-            Text(
-              '${right.first}/${right.second}(${(right.first / right.second * 100).toStringAsFixed(1)}%)',
-              style: const TextStyle(
-                  fontFamily: 'Lexend',
-                  fontWeight: FontWeight.w400,
-                  fontSize: 12,
-                  color: DuncColors.matchInfo
-              ),
-            )
-          ],
-        ),
-      ),
-      // 顏色條
-      LayoutBuilder(
-        builder: (context, rect) => SizedBox(
-          // width: rect.maxWidth,
-          child: Row(
-            children: [
-              // 左邊的條
-              Container(
-                width: rect.maxWidth / 2 - 9,
-                height: 16,
-                alignment: Alignment.bottomCenter,
-                child: NeumorphicProgress(
-                  percent: left.first / left.second,
-                  style: const ProgressStyle(
-                    depth: 4,
-                    accent: DuncColors.playoffs,
-                    variant: DuncColors.playoffs,
-                    border: NeumorphicBorder(
-                        color: Colors.white,
-                        width: 3
-                    ),
-                  ),
-                ),
-              ),
-              const SizedBox(width: 18,),
-              // 右邊的條
-              Container(
-                width: rect.maxWidth / 2 - 9,
-                height: 16,
-                alignment: Alignment.bottomCenter,
-                child: Transform(
-                  alignment: Alignment.center,
-                  transform: Matrix4.rotationY(pi),
-                  child: NeumorphicProgress(
-                    percent: right.first / right.second,
-                    style: const ProgressStyle(
-                      depth: 4,
-                      accent: DuncColors.pointsMatch,
-                      variant: DuncColors.pointsMatch,
-                      border: NeumorphicBorder(
-                          color: Colors.white,
-                          width: 3
-                      ),
-                    ),
-                  ),
-                ),
-              )
-            ],
-          ),
-        ),
-      ),
-      const SizedBox(height: 23,)
-    ],
-  );
-
-  Container bestPlayerCard({
-    required final Pair<PlayerInfo?, PlayerInfo?> players,
-    required final int leftNum,
-    required final String title,
-    required final int rightNum,
-  }){
-    Stack cloth(final int num) => Stack(
-      alignment: Alignment.center,
-      children: [
-        // todo: 不曉得愷祐什麼時候會給我圖
-        const Icon(
-          Icons.accessibility_new_outlined,
-          color: DuncColors.secondaryCTAPurple,
-          size: 60,
-        ),
-        Text(
-          '#$num',
-          style: const TextStyle(
-            color: Colors.black,
-            fontFamily: 'Lexend',
-            fontSize: 11
-          ),
-        )
-      ],
-    );
-
-    const TextStyle grayTxtStyle = TextStyle(
+  static const TextStyle titleTextStyle = TextStyle(
       color: DuncColors.matchInfo,
       fontFamily: 'Lexend',
-      fontSize: 12,
-      letterSpacing: 1.3
-    );
+      fontWeight: FontWeight.w600,
+      fontSize: 15,
+      letterSpacing: 1.5
+  );
 
-    return Container(
-      padding: const EdgeInsets.only(left: 10, right: 10, top: 7, bottom: 7),
-      alignment: Alignment.center,
-      child: Neumorphic(
-        style: summaryInfoCardStyle,
-        child: Container(
-          padding: const EdgeInsets.only(left: 20, right: 20, top: 7, bottom: 7),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              cloth(players.first?.number ?? 0),
-              const SizedBox(width: 5,),
-              // 左側名字與科系
-              Column(
-                children: [
-                  Text(
-                    players.first?.name ?? '未知',
-                    style: grayTxtStyle,
-                  ),
-                  Container(
-                    height: 1,
-                    width: 28.5,
-                    color: DuncColors.matchInfo,
-                  ),
-                  Text(
-                    players.first?.team ?? '未知',
-                    style: grayTxtStyle,
-                  )
-                ],
-              ),
-              const Spacer(),
-              // 左側數字
-              Text(
-                leftNum.toString(),
-                style: const TextStyle(
-                    color: DuncColors.secondaryCTAPurple,
-                    fontFamily: 'Lexend',
-                    fontWeight: FontWeight.w700,
-                    fontSize: 30
-                ),
-              ),
-              const SizedBox(width: 7,),
-              // 中央文字
-              Text(
-                title,
-                style: grayTxtStyle,
-              ),
-              const SizedBox(width: 7,),
-              // 右側數字
-              Text(
-                rightNum.toString(),
-                style: const TextStyle(
-                    color: DuncColors.secondaryCTAPurple,
-                    fontFamily: 'Lexend',
-                    fontWeight: FontWeight.w700,
-                    fontSize: 30
-                ),
-              ),
-              const Spacer(),
-              // 右側名字與科系
-              Column(
-                children: [
-                  Text(
-                    players.second?.name ?? '未知',
-                    style: grayTxtStyle,
-                  ),
-                  Container(
-                    height: 1,
-                    width: 28.5,
-                    color: DuncColors.matchInfo,
-                  ),
-                  Text(
-                    players.second?.team ?? '未知',
-                    style: grayTxtStyle,
-                  )
-                ],
-              ),
-              const SizedBox(width: 5,),
-              cloth(players.second?.number ?? 0),
-            ],
-          ),
-        ),
-      ),
-    );
+  @override
+  void initState(){
+    super.initState();
+    maxScorePlayers = widget.match.maxScorePlayers;
+    maxStealPlayers = widget.match.maxStealPlayers;
+    maxReboundPlayers = widget.match.maxReboundPlayers;
   }
 
-  final maxScorePlayers = match.maxScorePlayers;
-  final maxStealPlayers = match.maxStealPlayers;
-  final maxReboundPlayers = match.maxReboundPlayers;
-
-  return Column(
+  @override
+  Widget build(BuildContext context) => Column(
     children: [
       // 各節比分
       Neumorphic(
@@ -529,7 +309,7 @@ Column _summary(final Match match){
                     ),
                     const Spacer(),
                     Text(
-                      '${match.score1} : ${match.score2}',
+                      '${widget.match.score1} : ${widget.match.score2}',
                       style: const TextStyle(
                           fontFamily: 'Lexend',
                           fontWeight: FontWeight.w400,
@@ -550,7 +330,7 @@ Column _summary(final Match match){
                             return Row(
                               children: [
                                 Text(
-                                  teamIndex == 0 ? match.team1 : match.team2,
+                                  teamIndex == 0 ? widget.match.team1 : widget.match.team2,
                                   style: const TextStyle(
                                       fontFamily: 'Noto Sans TC',
                                       fontWeight: FontWeight.w400,
@@ -592,14 +372,14 @@ Column _summary(final Match match){
                                     // xy值
                                     spots: List.generate(
                                         teamIndex == 0
-                                            ? match.quarterScore1?.length ?? 0  // return the value if it isn't null
-                                            : match.quarterScore2?.length ?? 0,
+                                            ? widget.match.quarterScore1?.length ?? 0  // return the value if it isn't null
+                                            : widget.match.quarterScore2?.length ?? 0,
                                             (quarterIndex){
                                           return FlSpot(
                                               quarterIndex * 1.0,
                                               (teamIndex == 0
-                                                  ? match.quarterScore1![quarterIndex]
-                                                  : match.quarterScore2![quarterIndex]
+                                                  ? widget.match.quarterScore1![quarterIndex]
+                                                  : widget.match.quarterScore2![quarterIndex]
                                               ) * 1.0
                                           );
                                         }
@@ -707,7 +487,7 @@ Column _summary(final Match match){
           ),
         ),
       ),
-      summaryTitle('兩隊比較'),
+      const _SummaryTitle('兩隊比較', style: titleTextStyle,),
       Neumorphic(
         style: summaryInfoCardStyle,
         child: Stack(
@@ -731,7 +511,7 @@ Column _summary(final Match match){
                           ]
                       ).createShader(rect),
                       child: Text(
-                        index == 0 ? match.team1NickName : match.team2NickName,
+                        index == 0 ? widget.match.team1NickName : widget.match.team2NickName,
                         style: const TextStyle(
                             fontFamily: 'Noto Sans TC',
                             fontWeight: FontWeight.w700,
@@ -750,20 +530,20 @@ Column _summary(final Match match){
                 child: Column(
                   children: [
                     const SizedBox(height: 67.87,),
-                    singleTeamInfo(
-                        '投籃數',
-                        match.teamCmp1?.shots ?? Fraction(0, 0),
-                        match.teamCmp2?.shots ?? Fraction(0, 0)
+                    _SummarySingleTeamInfo(
+                      title: '投籃數',
+                      left: widget.match.teamCmp1?.shots ?? const Fraction(0, 0),
+                      right: widget.match.teamCmp2?.shots ?? const Fraction(0, 0),
                     ),
-                    singleTeamInfo(
-                        '三分球',
-                        match.teamCmp1?.triple ?? Fraction(0, 0),
-                        match.teamCmp2?.triple ?? Fraction(0, 0)
+                    _SummarySingleTeamInfo(
+                      title: '三分球',
+                      left: widget.match.teamCmp1?.triple ?? const Fraction(0, 0),
+                      right: widget.match.teamCmp2?.triple ?? const Fraction(0, 0),
                     ),
-                    singleTeamInfo(
-                        '罰球命中率',
-                        match.teamCmp1?.penalty ?? Fraction(0, 0),
-                        match.teamCmp2?.penalty ?? Fraction(0, 0)
+                    _SummarySingleTeamInfo(
+                      title: '罰球命中率',
+                      left: widget.match.teamCmp1?.penalty ?? const Fraction(0, 0),
+                      right: widget.match.teamCmp2?.penalty ?? const Fraction(0, 0),
                     ),
                     const SizedBox(height: 23,)
                   ],
@@ -777,7 +557,7 @@ Column _summary(final Match match){
       Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          summaryTitle('最佳球員'),
+          const _SummaryTitle('最佳球員', style: titleTextStyle,),
           const Spacer(),
           // 最佳球員右邊的查看全部
           Container(
@@ -820,27 +600,291 @@ Column _summary(final Match match){
       // 最佳球員
       Column(
         children: [
-          bestPlayerCard(
+          _SummaryBestPlayerCard(
             players: maxScorePlayers,
             leftNum: maxScorePlayers.first?.score ?? 0,
             title: '得分',
             rightNum: maxScorePlayers.second?.score ?? 0,
+            cardStyle: summaryInfoCardStyle,
           ),
-          bestPlayerCard(
+          _SummaryBestPlayerCard(
             players: maxStealPlayers,
             leftNum: maxStealPlayers.first?.steal ?? 0,
             title: '抄截',
             rightNum: maxStealPlayers.second?.steal ?? 0,
+            cardStyle: summaryInfoCardStyle,
           ),
-          bestPlayerCard(
+          _SummaryBestPlayerCard(
             players: maxReboundPlayers,
             leftNum: maxReboundPlayers.first?.rebound ?? 0,
             title: '籃板',
             rightNum: maxReboundPlayers.second?.rebound ?? 0,
+            cardStyle: summaryInfoCardStyle,
           ),
         ],
       ),
       const SizedBox(height: 40,),
+    ],
+  );
+}
+
+class _SummaryTitle extends StatelessWidget {
+  const _SummaryTitle(this.title, {Key? key, required this.style}) : super(key: key);
+  final TextStyle style;
+  final String title;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      alignment: Alignment.topLeft,
+      padding: const EdgeInsets.only(left: 17),
+      child: Column(
+        children: [
+          const SizedBox(height: 40,),
+          Text(
+            title,
+            style: style,
+          ),
+          const SizedBox(height: 19,)
+        ],
+      ),
+    );
+  }
+}
+
+class _SummarySingleTeamInfo extends StatelessWidget {
+  const _SummarySingleTeamInfo({Key? key, required this.title, required this.left, required this.right}) : super(key: key);
+  final String title;
+  final Fraction left;
+  final Fraction right;
+
+  @override
+  Widget build(BuildContext context) => Column(
+    children: [
+      // 文字
+      SizedBox(
+        height: 23.1,
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            Text(
+              '${left.first}/${left.second}(${(left.first / left.second * 100).toStringAsFixed(1)}%)',
+              style: const TextStyle(
+                  fontFamily: 'Lexend',
+                  fontWeight: FontWeight.w400,
+                  fontSize: 12,
+                  color: DuncColors.matchInfo
+              ),
+            ),
+            const Spacer(),
+            LayoutBuilder(
+              builder: (context, constraint) =>
+                  SizedBox(
+                    height: constraint.maxHeight,
+                    child: Text(
+                      title,
+                      style: const TextStyle(
+                          fontFamily: 'Lexend',
+                          fontWeight: FontWeight.w400,
+                          fontSize: 12,
+                          color: DuncColors.matchInfo
+                      ),
+                    ),
+                  ),
+            ),
+            const Spacer(),
+            Text(
+              '${right.first}/${right.second}(${(right.first / right.second * 100).toStringAsFixed(1)}%)',
+              style: const TextStyle(
+                  fontFamily: 'Lexend',
+                  fontWeight: FontWeight.w400,
+                  fontSize: 12,
+                  color: DuncColors.matchInfo
+              ),
+            )
+          ],
+        ),
+      ),
+      // 顏色條
+      LayoutBuilder(
+        builder: (context, rect) => SizedBox(
+          // width: rect.maxWidth,
+          child: Row(
+            children: [
+              // 左邊的條
+              Container(
+                width: rect.maxWidth / 2 - 9,
+                height: 16,
+                alignment: Alignment.bottomCenter,
+                child: NeumorphicProgress(
+                  percent: left.first / left.second,
+                  style: const ProgressStyle(
+                    depth: 4,
+                    accent: DuncColors.playoffs,
+                    variant: DuncColors.playoffs,
+                    border: NeumorphicBorder(
+                        color: Colors.white,
+                        width: 3
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(width: 18,),
+              // 右邊的條
+              Container(
+                width: rect.maxWidth / 2 - 9,
+                height: 16,
+                alignment: Alignment.bottomCenter,
+                child: Transform(
+                  alignment: Alignment.center,
+                  transform: Matrix4.rotationY(pi),
+                  child: NeumorphicProgress(
+                    percent: right.first / right.second,
+                    style: const ProgressStyle(
+                      depth: 4,
+                      accent: DuncColors.pointsMatch,
+                      variant: DuncColors.pointsMatch,
+                      border: NeumorphicBorder(
+                          color: Colors.white,
+                          width: 3
+                      ),
+                    ),
+                  ),
+                ),
+              )
+            ],
+          ),
+        ),
+      ),
+      const SizedBox(height: 23,)
+    ],
+  );
+}
+
+class _SummaryBestPlayerCard extends StatelessWidget {
+  const _SummaryBestPlayerCard({Key? key, required this.players, required this.leftNum, required this.title, required this.rightNum, required this.cardStyle}) : super(key: key);
+  final Pair<PlayerInfo?, PlayerInfo?> players;
+  final int leftNum;
+  final String title;
+  final int rightNum;
+  final NeumorphicStyle cardStyle;
+
+  static const TextStyle grayTxtStyle = TextStyle(
+      color: DuncColors.matchInfo,
+      fontFamily: 'Lexend',
+      fontSize: 12,
+      letterSpacing: 1.3
+  );
+
+  @override
+  Widget build(BuildContext context) => Container(
+    padding: const EdgeInsets.only(top: 7, bottom: 7),
+    alignment: Alignment.center,
+    child: Neumorphic(
+      style: cardStyle,
+      child: Container(
+        padding: const EdgeInsets.only(left: 20, right: 20, top: 7, bottom: 7),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            _SummaryBottomCloth(players.first?.number ?? 0),
+            const SizedBox(width: 5,),
+            // 左側名字與科系
+            Column(
+              children: [
+                Text(
+                  players.first?.name ?? '未知',
+                  style: grayTxtStyle,
+                ),
+                Container(
+                  height: 1,
+                  width: 28.5,
+                  color: DuncColors.matchInfo,
+                ),
+                Text(
+                  players.first?.team ?? '未知',
+                  style: grayTxtStyle,
+                )
+              ],
+            ),
+            const Spacer(),
+            // 左側數字
+            Text(
+              leftNum.toString(),
+              style: const TextStyle(
+                  color: DuncColors.secondaryCTAPurple,
+                  fontFamily: 'Lexend',
+                  fontWeight: FontWeight.w700,
+                  fontSize: 30
+              ),
+            ),
+            const SizedBox(width: 7,),
+            // 中央文字
+            Text(
+              title,
+              style: grayTxtStyle,
+            ),
+            const SizedBox(width: 7,),
+            // 右側數字
+            Text(
+              rightNum.toString(),
+              style: const TextStyle(
+                  color: DuncColors.secondaryCTAPurple,
+                  fontFamily: 'Lexend',
+                  fontWeight: FontWeight.w700,
+                  fontSize: 30
+              ),
+            ),
+            const Spacer(),
+            // 右側名字與科系
+            Column(
+              children: [
+                Text(
+                  players.second?.name ?? '未知',
+                  style: grayTxtStyle,
+                ),
+                Container(
+                  height: 1,
+                  width: 28.5,
+                  color: DuncColors.matchInfo,
+                ),
+                Text(
+                  players.second?.team ?? '未知',
+                  style: grayTxtStyle,
+                )
+              ],
+            ),
+            const SizedBox(width: 5,),
+            _SummaryBottomCloth(players.second?.number ?? 0),
+          ],
+        ),
+      ),
+    ),
+  );
+}
+
+class _SummaryBottomCloth extends StatelessWidget {
+  const _SummaryBottomCloth(this.num, {Key? key}) : super(key: key);
+  final int num;
+
+  @override
+  Widget build(BuildContext context) => Stack(
+    alignment: Alignment.center,
+    children: [
+      // todo: 不曉得愷祐什麼時候會給我圖
+      const Icon(
+        Icons.accessibility_new_outlined,
+        color: DuncColors.secondaryCTAPurple,
+        size: 60,
+      ),
+      Text(
+        '#$num',
+        style: const TextStyle(
+            color: Colors.black,
+            fontFamily: 'Lexend',
+            fontSize: 11
+        ),
+      )
     ],
   );
 }
@@ -868,6 +912,58 @@ class _BoxScoreState extends State<_BoxScore> {
       fontSize: 15,
       color: DuncColors.matchInfo.withAlpha(122)
   );
+  late final Pair<List<PlayerInfo>, List<PlayerInfo>> formalPlayers;
+  late final Pair<List<List<dynamic>>, List<List<dynamic>>> _formalPlayersFields;
+  late final Pair<List<PlayerInfo>, List<PlayerInfo>> benchPlayers;
+  late final Pair<List<List<dynamic>>, List<List<dynamic>>> _benchPlayersFields;
+  
+  @override
+  void initState(){
+    super.initState();
+    formalPlayers = Pair(
+        widget.match.playerInfo1?.where(
+            (element) => element.isFormal
+        ).toList(growable: false) ?? [],
+        widget.match.playerInfo2?.where(
+            (element) => element.isFormal
+        ).toList(growable: false) ?? []
+    );
+
+    _formalPlayersFields = Pair(
+        List.generate(
+            formalPlayers.first.length,
+                (index) => formalPlayers.first[index].fields,
+            growable: false
+        ),
+        List.generate(
+            formalPlayers.second.length,
+                (index) => formalPlayers.second[index].fields,
+            growable: false
+        )
+    );
+
+    benchPlayers = Pair(
+        widget.match.playerInfo1?.where(
+                (element) => !element.isFormal
+        ).toList(growable: false) ?? [],
+        widget.match.playerInfo2?.where(
+                (element) => !element.isFormal
+        ).toList(growable: false) ?? []
+    );
+
+    _benchPlayersFields = Pair(
+        List.generate(
+            benchPlayers.first.length,
+                (index) => benchPlayers.first[index].fields,
+            growable: false
+        ),
+        List.generate(
+            benchPlayers.second.length,
+                (index) => benchPlayers.second[index].fields,
+            growable: false
+        )
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -898,8 +994,140 @@ class _BoxScoreState extends State<_BoxScore> {
           selectedTextStyle: selectedTextStyle,
           unSelectedTextStyle: unSelectedTextStyle,
           selectedIndex: selectedTeamIndex,
-        )
+        ),
+        const SizedBox(height: 28.75,),
+        SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Column(
+            children: <Widget>[
+              // 正式球員標題列
+              _BoxScoreHorizontalData<String>(
+                heightOfTitleBg: 35,
+                title: '正式球員',
+                data: List.generate(
+                    PlayerInfoFields.values.length - 2,  // 去除姓名、正式/板凳
+                        (index) => playerInfoFieldToString(PlayerInfoFields.values[index + 1])  // 去除姓名
+                ),
+                bgColor: DuncColors.secondaryCTAPurple,
+                txtColor: Colors.white,
+              )
+            ] // 正式球員們
+                + List.generate(
+                    selectedTeamIndex == 0 ? formalPlayers.first.length : formalPlayers.second.length,
+                    (playerIndex) => _BoxScoreHorizontalData(
+                      heightOfTitleBg: 32.43,
+                      title: selectedTeamIndex == 0 ? formalPlayers.first[playerIndex].name : formalPlayers.second[playerIndex].name,
+                      data: List.generate(
+                          PlayerInfoFields.values.length - 2,  // 去除姓名、正式/板凳
+                              (fieldIndex) => selectedTeamIndex == 0 ? _formalPlayersFields.first[playerIndex][fieldIndex + 1] : _formalPlayersFields.second[playerIndex][fieldIndex + 1],  // 去除姓名
+                          growable: false
+                      ),
+                      bgColor: playerIndex.isEven ? Colors.white : DuncColors.notSelectableText.withAlpha(30),
+                      txtColor: Colors.black,
+                    ),
+                    growable: false
+                )
+                + [  // 板凳球員標題列
+                  _BoxScoreHorizontalData<String>(
+                    heightOfTitleBg: 35,
+                    title: '板凳球員',
+                    data: List.generate(
+                        PlayerInfoFields.values.length - 2,  // 去除姓名、正式/板凳
+                            (index) => playerInfoFieldToString(PlayerInfoFields.values[index + 1])  // 去除姓名
+                    ),
+                    bgColor: DuncColors.secondaryCTAPurple,
+                    txtColor: Colors.white,
+                  )
+                ]  //板凳球員們
+                + List.generate(
+                    selectedTeamIndex == 0 ? benchPlayers.first.length : benchPlayers.second.length,
+                    (playerIndex) => _BoxScoreHorizontalData(
+                      heightOfTitleBg: 32.43,
+                      title: selectedTeamIndex == 0 ? benchPlayers.first[playerIndex].name : benchPlayers.second[playerIndex].name,
+                      data: List.generate(
+                          PlayerInfoFields.values.length - 2,  // 去除姓名、正式/板凳
+                              (fieldIndex) => selectedTeamIndex == 0 ? _benchPlayersFields.first[playerIndex][fieldIndex + 1] : _benchPlayersFields.second[playerIndex][fieldIndex + 1],  // 去除姓名
+                          growable: false
+                      ),
+                      bgColor: playerIndex.isEven ? Colors.white : DuncColors.notSelectableText.withAlpha(30),
+                      txtColor: Colors.black,
+                    ),
+                    growable: false
+                ),
+          ),
+        ),
       ],
+    );
+  }
+}
+
+/// 用來建立選擇隊伍的[GroupedTextRadioButton]下方的一條資訊
+///
+/// 可指定除了最左側格子右邊資訊的型態
+class _BoxScoreHorizontalData<T> extends StatelessWidget {
+  const _BoxScoreHorizontalData({Key? key, required this.heightOfTitleBg, required this.title, required this.data, required this.bgColor, required this.txtColor}) : super(key: key);
+  final double heightOfTitleBg;
+  final String title;
+  final List<T> data;
+  final Color bgColor;
+  final Color txtColor;
+
+  @override
+  Widget build(BuildContext context) {
+    final txtStyle = TextStyle(
+      color: txtColor,
+      fontFamily: 'Noto Sans TC',
+      fontWeight: FontWeight.w400,
+      fontSize: 12
+    );
+    final borderRadius = BorderRadius.circular(8);
+
+    return SizedBox(
+      height: 48,
+      child: Row(
+        children: [
+          // 左側標題、人名
+          Container(
+            height: heightOfTitleBg,
+            width: 129,
+            alignment: Alignment.center,
+            decoration: BoxDecoration(
+              borderRadius: borderRadius,
+              color: bgColor
+            ),
+            child: Text(
+              title,
+              style: txtStyle,
+            ),
+          ),
+          const SizedBox(width: 12.17,),
+          // 右側表格內容
+          Container(
+            decoration: BoxDecoration(
+              color: bgColor,
+              borderRadius: borderRadius
+            ),
+            child: Row(
+              children: List.generate(  // 右側表格內容
+                  data.length,
+                  (index) => Container(
+                    height: 35,
+                    width: 79,
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                        color: bgColor,
+                        borderRadius: borderRadius
+                    ),
+                    child: Text(
+                      '${data[index]}',
+                      style: txtStyle,
+                    ),
+                  )
+              ),
+            ),
+          )
+        ],
+      ),
     );
   }
 }
