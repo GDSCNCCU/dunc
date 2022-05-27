@@ -1015,19 +1015,16 @@ class _BoxScoreState extends State<_BoxScore> {
             ] // 正式球員們
                 + List.generate(
                     selectedTeamIndex == 0 ? formalPlayers.first.length : formalPlayers.second.length,
-                    (playerIndex) => SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: _BoxScoreHorizontalData(
-                        heightOfTitleBg: 32.43,
-                        title: selectedTeamIndex == 0 ? formalPlayers.first[playerIndex].name : formalPlayers.second[playerIndex].name,
-                        data: List.generate(
-                            PlayerInfoFields.values.length - 2,  // 去除姓名、正式/板凳
-                                (fieldIndex) => selectedTeamIndex == 0 ? _formalPlayersFields.first[playerIndex][fieldIndex + 1] : _formalPlayersFields.second[playerIndex][fieldIndex + 1],  // 去除姓名
-                            growable: false
-                        ),
-                        bgColor: playerIndex.isEven ? Colors.white : DuncColors.notSelectableText.withAlpha(30),
-                        txtColor: Colors.black,
+                    (playerIndex) => _BoxScoreHorizontalData(
+                      heightOfTitleBg: 32.43,
+                      title: selectedTeamIndex == 0 ? formalPlayers.first[playerIndex].name : formalPlayers.second[playerIndex].name,
+                      data: List.generate(
+                          PlayerInfoFields.values.length - 2,  // 去除姓名、正式/板凳
+                              (fieldIndex) => selectedTeamIndex == 0 ? _formalPlayersFields.first[playerIndex][fieldIndex + 1] : _formalPlayersFields.second[playerIndex][fieldIndex + 1],  // 去除姓名
+                          growable: false
                       ),
+                      bgColor: playerIndex.isEven ? Colors.white : DuncColors.notSelectableText.withAlpha(30),
+                      txtColor: Colors.black,
                     ),
                     growable: false
                 )
@@ -1045,19 +1042,16 @@ class _BoxScoreState extends State<_BoxScore> {
                 ]  //板凳球員們
                 + List.generate(
                     selectedTeamIndex == 0 ? benchPlayers.first.length : benchPlayers.second.length,
-                        (playerIndex) => SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: _BoxScoreHorizontalData(
-                        heightOfTitleBg: 32.43,
-                        title: selectedTeamIndex == 0 ? benchPlayers.first[playerIndex].name : benchPlayers.second[playerIndex].name,
-                        data: List.generate(
-                            PlayerInfoFields.values.length - 2,  // 去除姓名、正式/板凳
-                                (fieldIndex) => selectedTeamIndex == 0 ? _benchPlayersFields.first[playerIndex][fieldIndex + 1] : _benchPlayersFields.second[playerIndex][fieldIndex + 1],  // 去除姓名
-                            growable: false
-                        ),
-                        bgColor: playerIndex.isEven ? Colors.white : DuncColors.notSelectableText.withAlpha(30),
-                        txtColor: Colors.black,
+                    (playerIndex) => _BoxScoreHorizontalData(
+                      heightOfTitleBg: 32.43,
+                      title: selectedTeamIndex == 0 ? benchPlayers.first[playerIndex].name : benchPlayers.second[playerIndex].name,
+                      data: List.generate(
+                          PlayerInfoFields.values.length - 2,  // 去除姓名、正式/板凳
+                              (fieldIndex) => selectedTeamIndex == 0 ? _benchPlayersFields.first[playerIndex][fieldIndex + 1] : _benchPlayersFields.second[playerIndex][fieldIndex + 1],  // 去除姓名
+                          growable: false
                       ),
+                      bgColor: playerIndex.isEven ? Colors.white : DuncColors.notSelectableText.withAlpha(30),
+                      txtColor: Colors.black,
                     ),
                     growable: false
                 ),
