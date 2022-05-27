@@ -183,7 +183,7 @@ class PlayerInfo{
   int rebound;
   /// 正式球員/板凳球員
   final bool isFormal;
-  // 增加欄位時記得改[PlayerInfoFields、下方get fields、]
+  // 增加欄位時記得改PlayerInfoFields、下方get fields，並且請讓PlayerInfoFields的第一項是name、最後一項是isFormal
 
   List<dynamic> get fields{
     List<dynamic> ret = [];

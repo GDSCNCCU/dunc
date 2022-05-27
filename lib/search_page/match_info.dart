@@ -1006,7 +1006,7 @@ class _BoxScoreState extends State<_BoxScore> {
                 heightOfTitleBg: 35,
                 title: '正式球員',
                 data: List.generate(
-                    PlayerInfoFields.values.length - 1,
+                    PlayerInfoFields.values.length - 2,  // 去除姓名、正式/板凳
                         (index) => playerInfoFieldToString(PlayerInfoFields.values[index + 1])  // 去除姓名
                 ),
                 bgColor: DuncColors.secondaryCTAPurple,
@@ -1021,7 +1021,7 @@ class _BoxScoreState extends State<_BoxScore> {
                         heightOfTitleBg: 32.43,
                         title: selectedTeamIndex == 0 ? formalPlayers.first[playerIndex].name : formalPlayers.second[playerIndex].name,
                         data: List.generate(
-                            PlayerInfoFields.values.length - 1,
+                            PlayerInfoFields.values.length - 2,  // 去除姓名、正式/板凳
                                 (fieldIndex) => selectedTeamIndex == 0 ? _formalPlayersFields.first[playerIndex][fieldIndex + 1] : _formalPlayersFields.second[playerIndex][fieldIndex + 1],  // 去除姓名
                             growable: false
                         ),
@@ -1036,7 +1036,7 @@ class _BoxScoreState extends State<_BoxScore> {
                     heightOfTitleBg: 35,
                     title: '板凳球員',
                     data: List.generate(
-                        PlayerInfoFields.values.length - 1,
+                        PlayerInfoFields.values.length - 2,  // 去除姓名、正式/板凳
                             (index) => playerInfoFieldToString(PlayerInfoFields.values[index + 1])  // 去除姓名
                     ),
                     bgColor: DuncColors.secondaryCTAPurple,
@@ -1051,7 +1051,7 @@ class _BoxScoreState extends State<_BoxScore> {
                         heightOfTitleBg: 32.43,
                         title: selectedTeamIndex == 0 ? benchPlayers.first[playerIndex].name : benchPlayers.second[playerIndex].name,
                         data: List.generate(
-                            PlayerInfoFields.values.length - 1,
+                            PlayerInfoFields.values.length - 2,  // 去除姓名、正式/板凳
                                 (fieldIndex) => selectedTeamIndex == 0 ? _benchPlayersFields.first[playerIndex][fieldIndex + 1] : _benchPlayersFields.second[playerIndex][fieldIndex + 1],  // 去除姓名
                             growable: false
                         ),
