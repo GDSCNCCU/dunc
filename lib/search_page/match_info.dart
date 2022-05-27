@@ -913,6 +913,23 @@ class _BoxScoreState extends State<_BoxScore> {
       fontSize: 15,
       color: DuncColors.matchInfo.withAlpha(122)
   );
+  late final List<PlayerInfo> formalPlayers;
+  late final List<List<dynamic>> _formalPlayersFields;
+  var scrollCtrl = ScrollController(keepScrollOffset: false);
+  
+  @override
+  void initState(){
+    super.initState();
+    formalPlayers = widget.match.playerInfo1?.where(
+            (element) => element.isFormal
+    ).toList(growable: false) ?? [];
+
+    _formalPlayersFields = List.generate(
+      formalPlayers.length,
+      (index) => formalPlayers[index].fields,
+      growable: false
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -943,8 +960,114 @@ class _BoxScoreState extends State<_BoxScore> {
           selectedTextStyle: selectedTextStyle,
           unSelectedTextStyle: unSelectedTextStyle,
           selectedIndex: selectedTeamIndex,
-        )
-      ],
+        ),
+        const SizedBox(height: 28.75,),
+        // 正式球員標題列
+        SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          controller: scrollCtrl,
+          child: _BoxScoreHorizontalData<String>(
+            heightOfTitleBg: 35,
+            title: '正式球員',
+            data: List.generate(
+                PlayerInfoFields.values.length - 1,
+                (index) => playerInfoFieldToString(PlayerInfoFields.values[index + 1])  // 去除姓名
+            ),
+            bgColor: DuncColors.secondaryCTAPurple,
+            txtColor: Colors.white,
+          ),
+        ),
+      ] // 正式球員們
+      + List.generate(
+          formalPlayers.length,
+          (playerIndex) => SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            controller: scrollCtrl,
+            child: _BoxScoreHorizontalData(
+              heightOfTitleBg: 32.43,
+              title: formalPlayers[playerIndex].name,
+              data: List.generate(
+                  PlayerInfoFields.values.length - 1,
+                      (fieldIndex) => _formalPlayersFields[playerIndex][fieldIndex + 1],  // 去除姓名
+                  growable: false
+              ),
+              bgColor: playerIndex.isEven ? Colors.white : DuncColors.notSelectableText.withAlpha(30),
+              txtColor: Colors.black,
+            ),
+          ),
+          growable: false
+        ),
+    );
+  }
+}
+
+/// 用來建立選擇隊伍的[GroupedTextRadioButton]下方的一條資訊
+///
+/// 可指定除了最左側格子右邊資訊的型態
+class _BoxScoreHorizontalData<T> extends StatelessWidget {
+  const _BoxScoreHorizontalData({Key? key, required this.heightOfTitleBg, required this.title, required this.data, required this.bgColor, required this.txtColor}) : super(key: key);
+  final double heightOfTitleBg;
+  final String title;
+  final List<T> data;
+  final Color bgColor;
+  final Color txtColor;
+
+  @override
+  Widget build(BuildContext context) {
+    final txtStyle = TextStyle(
+      color: txtColor,
+      fontFamily: 'Noto Sans TC',
+      fontWeight: FontWeight.w400,
+      fontSize: 12
+    );
+    final borderRadius = BorderRadius.circular(8);
+
+    return SizedBox(
+      height: 48,
+      child: Row(
+        children: [
+          // 左側標題、人名
+          Container(
+            height: heightOfTitleBg,
+            width: 129,
+            alignment: Alignment.center,
+            decoration: BoxDecoration(
+              borderRadius: borderRadius,
+              color: bgColor
+            ),
+            child: Text(
+              title,
+              style: txtStyle,
+            ),
+          ),
+          const SizedBox(width: 12.17,),
+          // 右側表格內容
+          Container(
+            decoration: BoxDecoration(
+              color: bgColor,
+              borderRadius: borderRadius
+            ),
+            child: Row(
+              children: List.generate(  // 右側表格內容
+                  data.length,
+                  (index) => Container(
+                    height: 35,
+                    width: 79,
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                        color: bgColor,
+                        borderRadius: borderRadius
+                    ),
+                    child: Text(
+                      '${data[index]}',
+                      style: txtStyle,
+                    ),
+                  )
+              ),
+            ),
+          )
+        ],
+      ),
     );
   }
 }
