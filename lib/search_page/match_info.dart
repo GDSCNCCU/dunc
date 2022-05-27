@@ -962,41 +962,44 @@ class _BoxScoreState extends State<_BoxScore> {
           selectedIndex: selectedTeamIndex,
         ),
         const SizedBox(height: 28.75,),
-        // 正式球員標題列
         SingleChildScrollView(
           scrollDirection: Axis.horizontal,
-          controller: scrollCtrl,
-          child: _BoxScoreHorizontalData<String>(
-            heightOfTitleBg: 35,
-            title: '正式球員',
-            data: List.generate(
-                PlayerInfoFields.values.length - 1,
-                (index) => playerInfoFieldToString(PlayerInfoFields.values[index + 1])  // 去除姓名
-            ),
-            bgColor: DuncColors.secondaryCTAPurple,
-            txtColor: Colors.white,
+          child: Column(
+            children: <Widget>[
+              // 正式球員標題列
+              _BoxScoreHorizontalData<String>(
+                heightOfTitleBg: 35,
+                title: '正式球員',
+                data: List.generate(
+                    PlayerInfoFields.values.length - 1,
+                        (index) => playerInfoFieldToString(PlayerInfoFields.values[index + 1])  // 去除姓名
+                ),
+                bgColor: DuncColors.secondaryCTAPurple,
+                txtColor: Colors.white,
+              )
+            ] // 正式球員們
+                + List.generate(
+                    formalPlayers.length,
+                        (playerIndex) => SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      controller: scrollCtrl,
+                      child: _BoxScoreHorizontalData(
+                        heightOfTitleBg: 32.43,
+                        title: formalPlayers[playerIndex].name,
+                        data: List.generate(
+                            PlayerInfoFields.values.length - 1,
+                                (fieldIndex) => _formalPlayersFields[playerIndex][fieldIndex + 1],  // 去除姓名
+                            growable: false
+                        ),
+                        bgColor: playerIndex.isEven ? Colors.white : DuncColors.notSelectableText.withAlpha(30),
+                        txtColor: Colors.black,
+                      ),
+                    ),
+                    growable: false
+                ),
           ),
         ),
-      ] // 正式球員們
-      + List.generate(
-          formalPlayers.length,
-          (playerIndex) => SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            controller: scrollCtrl,
-            child: _BoxScoreHorizontalData(
-              heightOfTitleBg: 32.43,
-              title: formalPlayers[playerIndex].name,
-              data: List.generate(
-                  PlayerInfoFields.values.length - 1,
-                      (fieldIndex) => _formalPlayersFields[playerIndex][fieldIndex + 1],  // 去除姓名
-                  growable: false
-              ),
-              bgColor: playerIndex.isEven ? Colors.white : DuncColors.notSelectableText.withAlpha(30),
-              txtColor: Colors.black,
-            ),
-          ),
-          growable: false
-        ),
+      ],
     );
   }
 }
