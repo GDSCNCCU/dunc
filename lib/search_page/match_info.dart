@@ -67,7 +67,7 @@ class _MatchInfoState extends State<MatchInfo> {
         )],
       ),
       body: ListView(
-        padding: const EdgeInsets.only(left: 8, right: 8),
+        padding: const EdgeInsets.only(left: 18, right: 18),
         children: [
           // toggle上方的所有物件
           Container(
@@ -160,7 +160,7 @@ class _MatchInfoState extends State<MatchInfo> {
           ),
           // 中央toggle
           Neumorphic(
-            margin: const EdgeInsets.only(top: 25, bottom: 16, left: 10, right: 10),
+            margin: const EdgeInsets.only(top: 25, bottom: 16,),
             style: NeumorphicStyle(
               color: DuncColors.indicatorImportant,
               depth: -3,
@@ -244,7 +244,6 @@ class _MatchInfoState extends State<MatchInfo> {
           ),
           // toggle下方的所有物件
           Container(
-            margin: const EdgeInsets.only(left: 10, right: 10),
             child: summaryOrBoxScoreIndex == 0 ? _Summary(match) : _BoxScore(match),
           )
         ],
