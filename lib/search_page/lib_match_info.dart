@@ -1,4 +1,6 @@
 import '../tools/pair.dart';
+import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import '../tools/colors.dart';
 
 enum MatchType{
   /// 季後賽
@@ -54,7 +56,7 @@ class Match{
     List<PlayerInfo?> ret = List.filled(2, null, growable: false);
 
     if(playerInfo1 != null){
-      ret[0] = PlayerInfo(name: '', number: 0, team: '', isFormal: false);
+      ret[0] = PlayerInfo(name: '?', number: 0, team: '?', isFormal: false);
       for(var player in playerInfo1!){
         if(player.score >= ret[0]!.score){
           ret[0] = player;
@@ -63,7 +65,7 @@ class Match{
     }
 
     if(playerInfo2 != null){
-      ret[1] = PlayerInfo(name: '', number: 0, team: '', isFormal: false);
+      ret[1] = PlayerInfo(name: '?', number: 0, team: '?', isFormal: false);
       for(var player in playerInfo2!){
         if(player.score >= ret[1]!.score){
           ret[1] = player;
@@ -77,7 +79,7 @@ class Match{
     List<PlayerInfo?> ret = List.filled(2, null, growable: false);
 
     if(playerInfo1 != null){
-      ret[0] = PlayerInfo(name: '', number: 0, team: '', isFormal: false);
+      ret[0] = PlayerInfo(name: '?', number: 0, team: '?', isFormal: false);
       for(var player in playerInfo1!){
         if(player.steal >= ret[0]!.steal){
           ret[0] = player;
@@ -86,7 +88,7 @@ class Match{
     }
 
     if(playerInfo2 != null){
-      ret[1] = PlayerInfo(name: '', number: 0, team: '', isFormal: false);
+      ret[1] = PlayerInfo(name: '?', number: 0, team: '?', isFormal: false);
       for(var player in playerInfo2!){
         if(player.steal >= ret[1]!.steal){
           ret[1] = player;
@@ -96,11 +98,11 @@ class Match{
     return Pair(ret[0], ret[1]);
   }
 
-  Pair<PlayerInfo?, PlayerInfo?> get maxReboundPlayers{
+  Pair<PlayerInfo?, PlayerInfo?> get maxReboundPlayers {
     List<PlayerInfo?> ret = List.filled(2, null, growable: false);
 
     if(playerInfo1 != null){
-      ret[0] = PlayerInfo(name: '', number: 0, team: '', isFormal: false);
+      ret[0] = PlayerInfo(name: '?', number: 0, team: '?', isFormal: false);
       for(var player in playerInfo1!){
         if(player.rebound >= ret[0]!.rebound){
           ret[0] = player;
@@ -109,7 +111,7 @@ class Match{
     }
 
     if(playerInfo2 != null){
-      ret[1] = PlayerInfo(name: '', number: 0, team: '', isFormal: false);
+      ret[1] = PlayerInfo(name: '?', number: 0, team: '?', isFormal: false);
       for(var player in playerInfo2!){
         if(player.rebound >= ret[1]!.rebound){
           ret[1] = player;
