@@ -915,9 +915,8 @@ class _BoxScoreState extends State<_BoxScore> {
   );
   late final Pair<List<PlayerInfo>, List<PlayerInfo>> formalPlayers;
   late final Pair<List<List<dynamic>>, List<List<dynamic>>> _formalPlayersFields;
-  // late final List<PlayerInfo> formalPlayersOld;
-  // late final List<List<dynamic>> _formalPlayersFieldsOld;
-  var scrollCtrl = ScrollController(keepScrollOffset: false);
+  late final Pair<List<PlayerInfo>, List<PlayerInfo>> benchPlayers;
+  late final Pair<List<List<dynamic>>, List<List<dynamic>>> _benchPlayersFields;
   
   @override
   void initState(){
@@ -940,6 +939,28 @@ class _BoxScoreState extends State<_BoxScore> {
         List.generate(
             formalPlayers.second.length,
                 (index) => formalPlayers.second[index].fields,
+            growable: false
+        )
+    );
+
+    benchPlayers = Pair(
+        widget.match.playerInfo1?.where(
+                (element) => !element.isFormal
+        ).toList(growable: false) ?? [],
+        widget.match.playerInfo2?.where(
+                (element) => !element.isFormal
+        ).toList(growable: false) ?? []
+    );
+
+    _benchPlayersFields = Pair(
+        List.generate(
+            benchPlayers.first.length,
+                (index) => benchPlayers.first[index].fields,
+            growable: false
+        ),
+        List.generate(
+            benchPlayers.second.length,
+                (index) => benchPlayers.second[index].fields,
             growable: false
         )
     );
@@ -996,13 +1017,42 @@ class _BoxScoreState extends State<_BoxScore> {
                     selectedTeamIndex == 0 ? formalPlayers.first.length : formalPlayers.second.length,
                     (playerIndex) => SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
-                      controller: scrollCtrl,
                       child: _BoxScoreHorizontalData(
                         heightOfTitleBg: 32.43,
                         title: selectedTeamIndex == 0 ? formalPlayers.first[playerIndex].name : formalPlayers.second[playerIndex].name,
                         data: List.generate(
                             PlayerInfoFields.values.length - 1,
                                 (fieldIndex) => selectedTeamIndex == 0 ? _formalPlayersFields.first[playerIndex][fieldIndex + 1] : _formalPlayersFields.second[playerIndex][fieldIndex + 1],  // 去除姓名
+                            growable: false
+                        ),
+                        bgColor: playerIndex.isEven ? Colors.white : DuncColors.notSelectableText.withAlpha(30),
+                        txtColor: Colors.black,
+                      ),
+                    ),
+                    growable: false
+                )
+                + [  // 板凳球員標題列
+                  _BoxScoreHorizontalData<String>(
+                    heightOfTitleBg: 35,
+                    title: '板凳球員',
+                    data: List.generate(
+                        PlayerInfoFields.values.length - 1,
+                            (index) => playerInfoFieldToString(PlayerInfoFields.values[index + 1])  // 去除姓名
+                    ),
+                    bgColor: DuncColors.secondaryCTAPurple,
+                    txtColor: Colors.white,
+                  )
+                ]  //板凳球員們
+                + List.generate(
+                    selectedTeamIndex == 0 ? benchPlayers.first.length : benchPlayers.second.length,
+                        (playerIndex) => SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: _BoxScoreHorizontalData(
+                        heightOfTitleBg: 32.43,
+                        title: selectedTeamIndex == 0 ? benchPlayers.first[playerIndex].name : benchPlayers.second[playerIndex].name,
+                        data: List.generate(
+                            PlayerInfoFields.values.length - 1,
+                                (fieldIndex) => selectedTeamIndex == 0 ? _benchPlayersFields.first[playerIndex][fieldIndex + 1] : _benchPlayersFields.second[playerIndex][fieldIndex + 1],  // 去除姓名
                             growable: false
                         ),
                         bgColor: playerIndex.isEven ? Colors.white : DuncColors.notSelectableText.withAlpha(30),
