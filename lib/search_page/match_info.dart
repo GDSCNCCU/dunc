@@ -160,7 +160,7 @@ class _MatchInfoState extends State<MatchInfo> {
           ),
           // 中央toggle
           Neumorphic(
-            margin: const EdgeInsets.only(top: 25, bottom: 16, left: 13, right: 13),
+            margin: const EdgeInsets.only(top: 25, bottom: 16, left: 10, right: 10),
             style: NeumorphicStyle(
               color: DuncColors.indicatorImportant,
               depth: -3,
@@ -243,7 +243,10 @@ class _MatchInfoState extends State<MatchInfo> {
             ),
           ),
           // toggle下方的所有物件
-          summaryOrBoxScoreIndex == 0 ? _Summary(match) : _BoxScore(match)
+          Container(
+            margin: const EdgeInsets.only(left: 10, right: 10),
+            child: summaryOrBoxScoreIndex == 0 ? _Summary(match) : _BoxScore(match),
+          )
         ],
       ),
     );
@@ -776,7 +779,7 @@ class _SummaryBestPlayerCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Container(
-    padding: const EdgeInsets.only(left: 10, right: 10, top: 7, bottom: 7),
+    padding: const EdgeInsets.only(top: 7, bottom: 7),
     alignment: Alignment.center,
     child: Neumorphic(
       style: cardStyle,
