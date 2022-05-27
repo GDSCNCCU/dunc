@@ -65,7 +65,8 @@ class _MatchInfoState extends State<MatchInfo> {
           },
         )],
       ),
-      body: Column(
+      body: ListView(
+        padding: const EdgeInsets.only(left: 8, right: 8),
         children: [
           // toggle上方的所有物件
           Container(
@@ -241,19 +242,14 @@ class _MatchInfoState extends State<MatchInfo> {
             ),
           ),
           // toggle下方的所有物件
-          Flexible(
-            child: ListView(
-              padding: const EdgeInsets.only(left: 7, right: 7),
-              children: summaryOrBoxScoreIndex == 0 ? _summary(match) : _boxScore(match),
-            ),
-          )
+          summaryOrBoxScoreIndex == 0 ? _summary(match) : _boxScore(match)
         ],
       ),
     );
   }
 }
 
-List<Widget> _summary(final Match match){
+Column _summary(final Match match){
   const TextStyle titleTextStyle = TextStyle(
     color: DuncColors.matchInfo,
     fontFamily: 'Lexend',
@@ -511,341 +507,343 @@ List<Widget> _summary(final Match match){
   final maxStealPlayers = match.maxStealPlayers;
   final maxReboundPlayers = match.maxReboundPlayers;
 
-  return [
-    // 各節比分
-    Neumorphic(
-      style: summaryInfoCardStyle,
-      child: SizedBox(
-        height: 229,
-        child: Column(
-          children: [
-            // 圖表上方資訊
-            SizedBox(
-              height: 59,
-              child: Row(
-                children: [
-                  const SizedBox(width: 31,),
-                  const Text(
-                    '各節比分',
-                    style: titleTextStyle,
-                  ),
-                  const Spacer(),
-                  Text(
-                    '${match.score1} : ${match.score2}',
-                    style: const TextStyle(
-                      fontFamily: 'Lexend',
-                      fontWeight: FontWeight.w400,
-                      fontSize: 24,
-                      color: DuncColors.matchInfo
+  return Column(
+    children: [
+      // 各節比分
+      Neumorphic(
+        style: summaryInfoCardStyle,
+        child: SizedBox(
+          height: 229,
+          child: Column(
+            children: [
+              // 圖表上方資訊
+              SizedBox(
+                height: 59,
+                child: Row(
+                  children: [
+                    const SizedBox(width: 31,),
+                    const Text(
+                      '各節比分',
+                      style: titleTextStyle,
                     ),
-                  ),
-                  const Spacer(),
-                  // 圖例
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: List.generate(
-                      3,
-                      (teamIndex){
-                        if(teamIndex == 1){
-                          return const SizedBox(height: 6,);
-                        }
-                        return Row(
-                          children: [
-                            Text(
-                              teamIndex == 0 ? match.team1 : match.team2,
-                              style: const TextStyle(
-                                  fontFamily: 'Noto Sans TC',
-                                  fontWeight: FontWeight.w400,
-                                  fontSize: 10,
-                                  color: DuncColors.matchInfo
-                              ),
-                            ),
-                            const SizedBox(width: 11,),
-                            Container(
-                              height: 1,
-                              width: 34,
-                              color: teamIndex == 0
-                                  ? DuncColors.playoffs
-                                  : DuncColors.pointsMatch,
-                            )
-                          ],
-                        );
-                      },
-                      growable: false
+                    const Spacer(),
+                    Text(
+                      '${match.score1} : ${match.score2}',
+                      style: const TextStyle(
+                          fontFamily: 'Lexend',
+                          fontWeight: FontWeight.w400,
+                          fontSize: 24,
+                          color: DuncColors.matchInfo
+                      ),
                     ),
-                  ),
-                  const SizedBox(width: 31,)
-                ],
-              ),
-            ),
-            // 圖表
-            Flexible(
-              child: LayoutBuilder(
-                builder: (context, boxConstrains){
-                  return SizedBox(
-                    width: boxConstrains.maxWidth - 96,
-                    child: LineChart(
-                        LineChartData(
-                          // 資料點
-                          lineBarsData: List.generate(
-                              2,  // two teams
-                              (teamIndex) {
-                                return LineChartBarData(
-                                  // xy值
-                                  spots: List.generate(
-                                      teamIndex == 0
-                                        ? match.quarterScore1?.length ?? 0  // return the value if it isn't null
-                                        : match.quarterScore2?.length ?? 0,
-                                      (quarterIndex){
-                                        return FlSpot(
-                                            quarterIndex * 1.0,
-                                            (teamIndex == 0
-                                                ? match.quarterScore1![quarterIndex]
-                                                : match.quarterScore2![quarterIndex]
-                                            ) * 1.0
-                                        );
-                                      }
+                    const Spacer(),
+                    // 圖例
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: List.generate(
+                          3,
+                              (teamIndex){
+                            if(teamIndex == 1){
+                              return const SizedBox(height: 6,);
+                            }
+                            return Row(
+                              children: [
+                                Text(
+                                  teamIndex == 0 ? match.team1 : match.team2,
+                                  style: const TextStyle(
+                                      fontFamily: 'Noto Sans TC',
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: 10,
+                                      color: DuncColors.matchInfo
                                   ),
+                                ),
+                                const SizedBox(width: 11,),
+                                Container(
+                                  height: 1,
+                                  width: 34,
                                   color: teamIndex == 0
                                       ? DuncColors.playoffs
                                       : DuncColors.pointsMatch,
-                                  barWidth: 1,
-                                  shadow: Shadow(
-                                      color: DuncColors.notSelectableText.withAlpha(41),
-                                      offset: const Offset(0, 10)
-                                  ),
-                                  // 資料點樣式
-                                  dotData: FlDotData(
-                                    // 要不要顯示資料點
-                                    checkToShowDot: (flSpot, _){
-                                      return flSpot.x.toInt().isEven;
-                                    },
-                                    getDotPainter: (_, __, ___, ____) => FlDotCirclePainter(
-                                      color: DuncColors.mainBackground,
-                                      radius: 1.5,
-                                      strokeColor: teamIndex == 0
+                                )
+                              ],
+                            );
+                          },
+                          growable: false
+                      ),
+                    ),
+                    const SizedBox(width: 31,)
+                  ],
+                ),
+              ),
+              // 圖表
+              Flexible(
+                child: LayoutBuilder(
+                  builder: (context, boxConstrains){
+                    return SizedBox(
+                      width: boxConstrains.maxWidth - 96,
+                      child: LineChart(
+                          LineChartData(
+                            // 資料點
+                            lineBarsData: List.generate(
+                                2,  // two teams
+                                    (teamIndex) {
+                                  return LineChartBarData(
+                                    // xy值
+                                    spots: List.generate(
+                                        teamIndex == 0
+                                            ? match.quarterScore1?.length ?? 0  // return the value if it isn't null
+                                            : match.quarterScore2?.length ?? 0,
+                                            (quarterIndex){
+                                          return FlSpot(
+                                              quarterIndex * 1.0,
+                                              (teamIndex == 0
+                                                  ? match.quarterScore1![quarterIndex]
+                                                  : match.quarterScore2![quarterIndex]
+                                              ) * 1.0
+                                          );
+                                        }
+                                    ),
+                                    color: teamIndex == 0
                                         ? DuncColors.playoffs
                                         : DuncColors.pointsMatch,
-                                      strokeWidth: 1.5
+                                    barWidth: 1,
+                                    shadow: Shadow(
+                                        color: DuncColors.notSelectableText.withAlpha(41),
+                                        offset: const Offset(0, 10)
+                                    ),
+                                    // 資料點樣式
+                                    dotData: FlDotData(
+                                      // 要不要顯示資料點
+                                        checkToShowDot: (flSpot, _){
+                                          return flSpot.x.toInt().isEven;
+                                        },
+                                        getDotPainter: (_, __, ___, ____) => FlDotCirclePainter(
+                                            color: DuncColors.mainBackground,
+                                            radius: 1.5,
+                                            strokeColor: teamIndex == 0
+                                                ? DuncColors.playoffs
+                                                : DuncColors.pointsMatch,
+                                            strokeWidth: 1.5
+                                        )
+                                    ),
+                                  );
+                                },
+                                growable: false
+                            ),
+                            titlesData: FlTitlesData(
+                                leftTitles: AxisTitles(
+                                    sideTitles: SideTitles(
+                                        showTitles: true,
+                                        reservedSize: 21,
+                                        interval: 20,
+                                        getTitlesWidget: (value, meta) => Text(
+                                          value.toInt().toString(),
+                                          style: const TextStyle(
+                                              color: DuncColors.notSelectableText,
+                                              fontFamily: 'Lexend',
+                                              fontWeight: FontWeight.w400,
+                                              fontSize: 12
+                                          ),
+                                        )
                                     )
-                                  ),
-                                );
-                              },
-                              growable: false
+                                ),
+                                rightTitles: AxisTitles(sideTitles: SideTitles(showTitles: false,)),
+                                bottomTitles: AxisTitles(
+                                    sideTitles: SideTitles(
+                                        showTitles: true,
+                                        reservedSize: 33,
+                                        interval: 2,
+                                        getTitlesWidget: (value, meta) => Flexible(
+                                          child: Column(
+                                            children: [
+                                              const Spacer(),
+                                              Text(
+                                                'Q${value ~/ 2 + 1}',
+                                                style: const TextStyle(
+                                                    color: DuncColors.notSelectableText,
+                                                    fontFamily: 'Lexend',
+                                                    fontWeight: FontWeight.w400,
+                                                    fontSize: 12
+                                                ),
+                                              ),
+                                              const Spacer(flex: 2,)
+                                            ],
+                                          ),
+                                        )
+                                    )
+                                ),
+                                topTitles: AxisTitles(sideTitles: SideTitles(showTitles: false))
                             ),
-                          titlesData: FlTitlesData(
-                            leftTitles: AxisTitles(
-                              sideTitles: SideTitles(
-                                showTitles: true,
-                                reservedSize: 21,
-                                interval: 20,
-                                getTitlesWidget: (value, meta) => Text(
-                                  value.toInt().toString(),
-                                  style: const TextStyle(
-                                    color: DuncColors.notSelectableText,
-                                    fontFamily: 'Lexend',
-                                    fontWeight: FontWeight.w400,
-                                    fontSize: 12
-                                  ),
+                            borderData: FlBorderData(
+                                show: true,
+                                border: Border(
+                                    bottom: BorderSide(
+                                        color: DuncColors.notSelectableText.withAlpha(41),
+                                        width: 1
+                                    )
                                 )
-                              )
                             ),
-                            rightTitles: AxisTitles(sideTitles: SideTitles(showTitles: false,)),
-                            bottomTitles: AxisTitles(
-                              sideTitles: SideTitles(
-                                showTitles: true,
-                                reservedSize: 33,
-                                interval: 2,
-                                getTitlesWidget: (value, meta) => Flexible(
-                                  child: Column(
-                                    children: [
-                                      const Spacer(),
-                                      Text(
-                                        'Q${value ~/ 2 + 1}',
-                                        style: const TextStyle(
-                                            color: DuncColors.notSelectableText,
-                                            fontFamily: 'Lexend',
-                                            fontWeight: FontWeight.w400,
-                                            fontSize: 12
-                                        ),
-                                      ),
-                                      const Spacer(flex: 2,)
-                                    ],
-                                  ),
-                                )
-                              )
+                            // 點擊資料點後的樣式
+                            lineTouchData: LineTouchData(
+                              enabled: true,
+                              touchTooltipData: LineTouchTooltipData(
+                                tooltipBgColor: Colors.white,
+                                tooltipPadding: const EdgeInsets.all(12),
+                                tooltipRoundedRadius: 8,
+                              ),
                             ),
-                            topTitles: AxisTitles(sideTitles: SideTitles(showTitles: false))
-                          ),
-                          borderData: FlBorderData(
-                            show: true,
-                            border: Border(
-                              bottom: BorderSide(
-                                color: DuncColors.notSelectableText.withAlpha(41),
-                                width: 1
-                              )
-                            )
-                          ),
-                          // 點擊資料點後的樣式
-                          lineTouchData: LineTouchData(
-                            enabled: true,
-                            touchTooltipData: LineTouchTooltipData(
-                              tooltipBgColor: Colors.white,
-                              tooltipPadding: const EdgeInsets.all(12),
-                              tooltipRoundedRadius: 8,
-                            ),
-                          ),
-                          minX: 0,
-                          minY: 0,
-                          // 資料點的對齊線
-                          gridData: FlGridData(show: false),
-                        )
-                    ),
-                  );
-                },
-              ),
-            ),
-          ],
-        ),
-      ),
-    ),
-    summaryTitle('兩隊比較'),
-    Neumorphic(
-      style: summaryInfoCardStyle,
-      child: Stack(
-        alignment: Alignment.topCenter,
-        children: [
-          // 背景兩個大字
-          Row(
-            children: List.generate(
-              3,
-              (index){
-                if(index == 1){
-                  return const Spacer();
-                }
-                return ShaderMask(
-                  shaderCallback: (rect) => LinearGradient(
-                    begin: Alignment.topRight,
-                    end: Alignment.bottomLeft,
-                    colors: [
-                      DuncColors.mainCTAFrom.withAlpha(94),
-                      DuncColors.mainCTATo.withAlpha(120)
-                    ]
-                  ).createShader(rect),
-                  child: Text(
-                    index == 0 ? match.team1NickName : match.team2NickName,
-                    style: const TextStyle(
-                        fontFamily: 'Noto Sans TC',
-                        fontWeight: FontWeight.w700,
-                        fontSize: 105,
-                        color: Colors.white // required for gradient applying
-                    ),
-                  ),
-                );
-              }
-            ),
-          ),
-          // 隊伍的資訊
-          LayoutBuilder(
-            builder: (context, constraint) => SizedBox(
-              width: constraint.maxWidth - 50,
-              child: Column(
-                children: [
-                  const SizedBox(height: 67.87,),
-                  singleTeamInfo(
-                      '投籃數',
-                      match.teamCmp1?.shots ?? Fraction(0, 0),
-                      match.teamCmp2?.shots ?? Fraction(0, 0)
-                  ),
-                  singleTeamInfo(
-                      '三分球',
-                      match.teamCmp1?.triple ?? Fraction(0, 0),
-                      match.teamCmp2?.triple ?? Fraction(0, 0)
-                  ),
-                  singleTeamInfo(
-                      '罰球命中率',
-                      match.teamCmp1?.penalty ?? Fraction(0, 0),
-                      match.teamCmp2?.penalty ?? Fraction(0, 0)
-                  ),
-                  const SizedBox(height: 23,)
-                ],
-              ),
-            ),
-          )
-        ],
-      ),
-    ),
-    // 最佳球員、查看全部文字
-    Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        summaryTitle('最佳球員'),
-        const Spacer(),
-        // 最佳球員右邊的查看全部
-        Container(
-          height: 81,
-          padding: const EdgeInsets.only(right: 19),
-          child: Column(
-            children: [
-              const Spacer(flex: 40,),
-              LayoutBuilder(
-                builder: (context, rect) => RawMaterialButton(
-                  constraints: const BoxConstraints(
-                      minHeight: 15
-                  ),
-                  child: const Text(
-                    '查看全部',
-                    style: TextStyle(
-                        color: DuncColors.secondaryCTAPurple,
-                        fontFamily: 'Lexend',
-                        fontSize: 12,
-                        letterSpacing: 1.5
-                    ),
-                  ),
-                  onPressed: (){
-                    // todo: Figma上沒有相應的內容
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text("敬請期待"),
-                        duration: Duration(milliseconds: 1500),
-                      )
+                            minX: 0,
+                            minY: 0,
+                            // 資料點的對齊線
+                            gridData: FlGridData(show: false),
+                          )
+                      ),
                     );
                   },
                 ),
               ),
-              const Spacer(flex: 19,)
             ],
           ),
-        )
-      ],
-    ),
-    // 最佳球員
-    Column(
-      children: [
-        bestPlayerCard(
+        ),
+      ),
+      summaryTitle('兩隊比較'),
+      Neumorphic(
+        style: summaryInfoCardStyle,
+        child: Stack(
+          alignment: Alignment.topCenter,
+          children: [
+            // 背景兩個大字
+            Row(
+              children: List.generate(
+                  3,
+                      (index){
+                    if(index == 1){
+                      return const Spacer();
+                    }
+                    return ShaderMask(
+                      shaderCallback: (rect) => LinearGradient(
+                          begin: Alignment.topRight,
+                          end: Alignment.bottomLeft,
+                          colors: [
+                            DuncColors.mainCTAFrom.withAlpha(94),
+                            DuncColors.mainCTATo.withAlpha(120)
+                          ]
+                      ).createShader(rect),
+                      child: Text(
+                        index == 0 ? match.team1NickName : match.team2NickName,
+                        style: const TextStyle(
+                            fontFamily: 'Noto Sans TC',
+                            fontWeight: FontWeight.w700,
+                            fontSize: 105,
+                            color: Colors.white // required for gradient applying
+                        ),
+                      ),
+                    );
+                  }
+              ),
+            ),
+            // 隊伍的資訊
+            LayoutBuilder(
+              builder: (context, constraint) => SizedBox(
+                width: constraint.maxWidth - 50,
+                child: Column(
+                  children: [
+                    const SizedBox(height: 67.87,),
+                    singleTeamInfo(
+                        '投籃數',
+                        match.teamCmp1?.shots ?? Fraction(0, 0),
+                        match.teamCmp2?.shots ?? Fraction(0, 0)
+                    ),
+                    singleTeamInfo(
+                        '三分球',
+                        match.teamCmp1?.triple ?? Fraction(0, 0),
+                        match.teamCmp2?.triple ?? Fraction(0, 0)
+                    ),
+                    singleTeamInfo(
+                        '罰球命中率',
+                        match.teamCmp1?.penalty ?? Fraction(0, 0),
+                        match.teamCmp2?.penalty ?? Fraction(0, 0)
+                    ),
+                    const SizedBox(height: 23,)
+                  ],
+                ),
+              ),
+            )
+          ],
+        ),
+      ),
+      // 最佳球員、查看全部文字
+      Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          summaryTitle('最佳球員'),
+          const Spacer(),
+          // 最佳球員右邊的查看全部
+          Container(
+            height: 81,
+            padding: const EdgeInsets.only(right: 19),
+            child: Column(
+              children: [
+                const Spacer(flex: 40,),
+                LayoutBuilder(
+                  builder: (context, rect) => RawMaterialButton(
+                    constraints: const BoxConstraints(
+                        minHeight: 15
+                    ),
+                    child: const Text(
+                      '查看全部',
+                      style: TextStyle(
+                          color: DuncColors.secondaryCTAPurple,
+                          fontFamily: 'Lexend',
+                          fontSize: 12,
+                          letterSpacing: 1.5
+                      ),
+                    ),
+                    onPressed: (){
+                      // todo: Figma上沒有相應的內容
+                      ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text("敬請期待"),
+                            duration: Duration(milliseconds: 1500),
+                          )
+                      );
+                    },
+                  ),
+                ),
+                const Spacer(flex: 19,)
+              ],
+            ),
+          )
+        ],
+      ),
+      // 最佳球員
+      Column(
+        children: [
+          bestPlayerCard(
             players: maxScorePlayers,
             leftNum: maxScorePlayers.first?.score ?? 0,
             title: '得分',
             rightNum: maxScorePlayers.second?.score ?? 0,
-        ),
-        bestPlayerCard(
+          ),
+          bestPlayerCard(
             players: maxStealPlayers,
             leftNum: maxStealPlayers.first?.steal ?? 0,
             title: '抄截',
             rightNum: maxStealPlayers.second?.steal ?? 0,
-        ),
-        bestPlayerCard(
+          ),
+          bestPlayerCard(
             players: maxReboundPlayers,
             leftNum: maxReboundPlayers.first?.rebound ?? 0,
             title: '籃板',
             rightNum: maxReboundPlayers.second?.rebound ?? 0,
-        ),
-      ],
-    ),
-    const SizedBox(height: 40,),
-  ];
+          ),
+        ],
+      ),
+      const SizedBox(height: 40,),
+    ],
+  );
 }
 
-List<Widget> _boxScore(final Match match){
-  return [];
+Column _boxScore(final Match match){
+  return Column();
 }
