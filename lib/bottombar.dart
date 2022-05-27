@@ -16,6 +16,7 @@ class BottomBar extends StatefulWidget {
 
 class _BottomBarState extends State<BottomBar> {
   int _selectedIndex = 1;
+  bool _isvisible = true;
 
   List pages = [const SearchView(), const HomePage(), const ProfileView()];
 
@@ -27,97 +28,72 @@ class _BottomBarState extends State<BottomBar> {
           Center(
             child: pages[_selectedIndex],
           ),
-          Align(
-            alignment: Alignment(0, 0.72),
-            child: Container(
-              height: 60,
-              decoration: BoxDecoration(
-                color: DuncColors.mainBackground,
-                boxShadow: [
-                  BoxShadow(
-                    color: DuncColors.mainBackground,
-                    spreadRadius: 50,
-                    blurRadius: 30,
-                    offset: Offset(0, 3), // changes position of shadow
-                  ),
-                ],
+          Visibility(
+            visible: _isvisible,
+            child: Align(
+              alignment: Alignment(0, 0.72),
+              child: Container(
+                height: 60,
+                decoration: BoxDecoration(
+                  color: DuncColors.mainBackground,
+                  boxShadow: [
+                    BoxShadow(
+                      color: DuncColors.mainBackground,
+                      spreadRadius: 50,
+                      blurRadius: 30,
+                      offset: Offset(0, 3), // changes position of shadow
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
-          Align(
-            alignment: Alignment(0, 0.72),
-            child: Container(
-              height: 60,
-              width: 370,
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topRight,
-                  end: Alignment.bottomLeft,
-                  colors: [
-                    DuncColors.mainCTAFrom,
-                    DuncColors.mainCTATo,
-                  ],
-                ),
-                borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(12),
-                    topRight: Radius.circular(12),
-                    bottomLeft: Radius.circular(12),
-                    bottomRight: Radius.circular(12)),
-              ),
-              child: Column(
-                children: <Widget>[
-                  const SizedBox(
-                    height: 16,
+          Visibility(
+            visible: _isvisible,
+            child: Align(
+              alignment: Alignment(0, 0.723),
+              child: Container(
+                height: 60,
+                width: 370,
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.topRight,
+                    end: Alignment.bottomLeft,
+                    colors: [
+                      DuncColors.mainCTAFrom,
+                      DuncColors.mainCTATo,
+                    ],
                   ),
-                  Row(
-                    children: <Widget>[
-                      const SizedBox(
-                        width: 25,
-                      ),
-                      Container(
-                        padding: EdgeInsets.only(
-                            left: 10, right: 10, top: 3, bottom: 3),
-                        width: 62,
-                        decoration: BoxDecoration(
-                          color: Color.fromARGB(255, 146, 185, 143),
-                          borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(5),
-                              topRight: Radius.circular(5),
-                              bottomLeft: Radius.circular(5),
-                              bottomRight: Radius.circular(5)),
+                  borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(12),
+                      topRight: Radius.circular(12),
+                      bottomLeft: Radius.circular(12),
+                      bottomRight: Radius.circular(12)),
+                ),
+                child: Column(
+                  children: <Widget>[
+                    const SizedBox(
+                      height: 16,
+                    ),
+                    Row(
+                      children: <Widget>[
+                        const SizedBox(
+                          width: 25,
                         ),
-                        child: Text(
-                          '積分賽',
-                          style: TextStyle(
-                            color: DuncColors.mainBackground,
-                            fontSize: 14,
-                            fontFamily: 'Noto Sans TC',
-                            fontWeight: FontWeight.w700,
+                        Container(
+                          padding: EdgeInsets.only(
+                              left: 10, right: 10, top: 3, bottom: 3),
+                          width: 62,
+                          decoration: BoxDecoration(
+                            color: Color.fromARGB(255, 146, 185, 143),
+                            borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(5),
+                                topRight: Radius.circular(5),
+                                bottomLeft: Radius.circular(5),
+                                bottomRight: Radius.circular(5)),
                           ),
-                        ),
-                      ),
-                      const SizedBox(
-                        width: 15,
-                      ),
-                      Text(
-                        '地政 VS 心理',
-                        style: TextStyle(
-                          color: DuncColors.mainBackground,
-                          fontSize: 16,
-                          fontFamily: 'Noto Sans TC',
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
-                      const SizedBox(
-                        width: 110,
-                      ),
-                      Column(
-                        children: <Widget>[
-                          const SizedBox(
-                            height: 5,
-                          ),
-                          Text(
-                            '比賽中',
+                          child: Text(
+                            '積分賽',
                             style: TextStyle(
                               color: DuncColors.mainBackground,
                               fontSize: 14,
@@ -125,50 +101,81 @@ class _BottomBarState extends State<BottomBar> {
                               fontWeight: FontWeight.w700,
                             ),
                           ),
-                        ],
-                      )
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 12,
-                  ),
-                  Row(
-                    children: <Widget>[
-                      const SizedBox(
-                        width: 13.5,
-                      ),
-                      Container(
-                        width: 82,
-                        height: 2,
-                        color: DuncColors.mainBackground,
-                      ),
-                      const SizedBox(
-                        width: 5,
-                      ),
-                      Container(
-                        width: 82,
-                        height: 2,
-                        color: DuncColors.mainBackground,
-                      ),
-                      const SizedBox(
-                        width: 5,
-                      ),
-                      Container(
-                        width: 82,
-                        height: 2,
-                        color: DuncColors.mainBackground,
-                      ),
-                      const SizedBox(
-                        width: 5,
-                      ),
-                      Container(
-                        width: 82,
-                        height: 2,
-                        color: DuncColors.mainBackground,
-                      )
-                    ],
-                  )
-                ],
+                        ),
+                        const SizedBox(
+                          width: 16,
+                        ),
+                        Text(
+                          '地政 VS 心理',
+                          style: TextStyle(
+                            color: DuncColors.mainBackground,
+                            fontSize: 16,
+                            fontFamily: 'Noto Sans TC',
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                        const SizedBox(
+                          width: 110,
+                        ),
+                        Column(
+                          children: <Widget>[
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            Text(
+                              '比賽中',
+                              style: TextStyle(
+                                color: DuncColors.mainBackground,
+                                fontSize: 14,
+                                fontFamily: 'Noto Sans TC',
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
+                          ],
+                        )
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 12,
+                    ),
+                    Row(
+                      children: <Widget>[
+                        const SizedBox(
+                          width: 13.5,
+                        ),
+                        Container(
+                          width: 82,
+                          height: 2,
+                          color: DuncColors.mainBackground,
+                        ),
+                        const SizedBox(
+                          width: 5,
+                        ),
+                        Container(
+                          width: 82,
+                          height: 2,
+                          color: DuncColors.mainBackground,
+                        ),
+                        const SizedBox(
+                          width: 5,
+                        ),
+                        Container(
+                          width: 82,
+                          height: 2,
+                          color: DuncColors.mainBackground,
+                        ),
+                        const SizedBox(
+                          width: 5,
+                        ),
+                        Container(
+                          width: 82,
+                          height: 2,
+                          color: DuncColors.mainBackground,
+                        )
+                      ],
+                    )
+                  ],
+                ),
               ),
             ),
           ),
@@ -198,9 +205,14 @@ class _BottomBarState extends State<BottomBar> {
                 onChanged: (int index) {
                   setState(() {
                     _selectedIndex = index;
+                    if (index == 2) {
+                      _isvisible = false;
+                    } else {
+                      _isvisible = true;
+                    }
                   });
                 },
-                height: 73,
+                height: 70,
                 children: [
                   ToggleElement(
                     foreground: Center(
