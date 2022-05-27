@@ -913,21 +913,35 @@ class _BoxScoreState extends State<_BoxScore> {
       fontSize: 15,
       color: DuncColors.matchInfo.withAlpha(122)
   );
-  late final List<PlayerInfo> formalPlayers;
-  late final List<List<dynamic>> _formalPlayersFields;
+  late final Pair<List<PlayerInfo>, List<PlayerInfo>> formalPlayers;
+  late final Pair<List<List<dynamic>>, List<List<dynamic>>> _formalPlayersFields;
+  // late final List<PlayerInfo> formalPlayersOld;
+  // late final List<List<dynamic>> _formalPlayersFieldsOld;
   var scrollCtrl = ScrollController(keepScrollOffset: false);
   
   @override
   void initState(){
     super.initState();
-    formalPlayers = widget.match.playerInfo1?.where(
+    formalPlayers = Pair(
+        widget.match.playerInfo1?.where(
             (element) => element.isFormal
-    ).toList(growable: false) ?? [];
+        ).toList(growable: false) ?? [],
+        widget.match.playerInfo2?.where(
+            (element) => element.isFormal
+        ).toList(growable: false) ?? []
+    );
 
-    _formalPlayersFields = List.generate(
-      formalPlayers.length,
-      (index) => formalPlayers[index].fields,
-      growable: false
+    _formalPlayersFields = Pair(
+        List.generate(
+            formalPlayers.first.length,
+                (index) => formalPlayers.first[index].fields,
+            growable: false
+        ),
+        List.generate(
+            formalPlayers.second.length,
+                (index) => formalPlayers.second[index].fields,
+            growable: false
+        )
     );
   }
 
@@ -979,16 +993,16 @@ class _BoxScoreState extends State<_BoxScore> {
               )
             ] // 正式球員們
                 + List.generate(
-                    formalPlayers.length,
-                        (playerIndex) => SingleChildScrollView(
+                    selectedTeamIndex == 0 ? formalPlayers.first.length : formalPlayers.second.length,
+                    (playerIndex) => SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
                       controller: scrollCtrl,
                       child: _BoxScoreHorizontalData(
                         heightOfTitleBg: 32.43,
-                        title: formalPlayers[playerIndex].name,
+                        title: selectedTeamIndex == 0 ? formalPlayers.first[playerIndex].name : formalPlayers.second[playerIndex].name,
                         data: List.generate(
                             PlayerInfoFields.values.length - 1,
-                                (fieldIndex) => _formalPlayersFields[playerIndex][fieldIndex + 1],  // 去除姓名
+                                (fieldIndex) => selectedTeamIndex == 0 ? _formalPlayersFields.first[playerIndex][fieldIndex + 1] : _formalPlayersFields.second[playerIndex][fieldIndex + 1],  // 去除姓名
                             growable: false
                         ),
                         bgColor: playerIndex.isEven ? Colors.white : DuncColors.notSelectableText.withAlpha(30),

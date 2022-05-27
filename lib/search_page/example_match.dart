@@ -65,7 +65,7 @@ var exampleMatch = Match(
       number: 56,
       team: '政治',
       rebound: 7,
-      isFormal: false
+      isFormal: true
     )
   },
 );
