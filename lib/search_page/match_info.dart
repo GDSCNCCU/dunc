@@ -5,6 +5,7 @@ import 'lib_match_info.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'example_match.dart';
 import 'dart:math';
+import '../tools/grouped_text_radio_button.dart';
 
 Set<String> _track = {};
 Map<String, Match> matches = {'example': exampleMatch};
@@ -242,7 +243,7 @@ class _MatchInfoState extends State<MatchInfo> {
             ),
           ),
           // toggle下方的所有物件
-          summaryOrBoxScoreIndex == 0 ? _summary(match) : _boxScore(match)
+          summaryOrBoxScoreIndex == 0 ? _summary(match) : _BoxScore(match)
         ],
       ),
     );
@@ -844,6 +845,61 @@ Column _summary(final Match match){
   );
 }
 
-Column _boxScore(final Match match){
-  return Column();
+class _BoxScore extends StatefulWidget {
+  const _BoxScore(this.match, {Key? key}) : super(key: key);
+
+  final Match match;
+
+  @override
+  State<_BoxScore> createState() => _BoxScoreState();
+}
+
+class _BoxScoreState extends State<_BoxScore> {
+  int selectedTeamIndex = 0;
+  static const selectedTextStyle = TextStyle(
+      fontFamily: 'Lexend',
+      fontWeight: FontWeight.w600,
+      fontSize: 15,
+      color: DuncColors.secondaryCTAPurple
+  );
+  var unSelectedTextStyle = TextStyle(
+      fontFamily: 'Lexend',
+      fontWeight: FontWeight.w600,
+      fontSize: 15,
+      color: DuncColors.matchInfo.withAlpha(122)
+  );
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        // 兩隊選擇
+        GroupedTextRadioButton(
+          radioStyle: NeumorphicRadioStyle(
+              selectedDepth: -3,
+              unselectedDepth: 3,
+              selectedColor: DuncColors.mainBackground,
+              unselectedColor: DuncColors.mainBackground,
+              lightSource: LightSource.topLeft,
+              boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(8)),
+              shape: NeumorphicShape.flat
+          ),
+          padding: const EdgeInsets.only(
+              left: 12, right: 12, top: 8, bottom: 8),
+          onChanged: (index) {
+            setState(() {
+              if(index != null){
+                selectedTeamIndex = index;
+              }
+            });
+          },
+          selections: [widget.match.team1NickName, widget.match.team2NickName],
+          selectedTextStyle: selectedTextStyle,
+          unSelectedTextStyle: unSelectedTextStyle,
+          selectedIndex: selectedTeamIndex,
+        )
+      ],
+    );
+  }
 }
