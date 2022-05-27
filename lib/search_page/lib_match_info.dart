@@ -41,10 +41,13 @@ class Match{
   // just an initializer who gets them all
   ///一場比賽所有資訊
   Match({required this.team1, required this.team2, required this.team1NickName, required this.team2NickName, this.score1 = 0, this.score2 = 0, required this.date, required this.matchType, required this.place, this.quarterScore1, this.quarterScore2, this.teamCmp1, this.teamCmp2, this.playerInfo1, this.playerInfo2}){
+    assert(team1.isNotEmpty);
+    assert(team2.isNotEmpty);
     assert(team1NickName.length == 1);
     assert(team2NickName.length == 1);
     assert(score1 >= 0);
     assert(score2 >= 0);
+    assert(place.isNotEmpty);
   }
 
   Pair<PlayerInfo?, PlayerInfo?> get maxScorePlayers{
@@ -126,11 +129,10 @@ class MatchTeamInfo{
   Fraction? penalty;
 // todo: Figma看不到下面還有什麼
 
-  /// if there is null, it will be replaced with 0/0
   MatchTeamInfo({this.shots, this.triple, this.penalty}){
-    shots ??= Fraction(0, 0);
-    triple ??= Fraction(0, 0);
-    penalty ??= Fraction(0, 0);
+    assert(shots == null || (shots!.first >= 0 && shots!.second >= 0));
+    assert(triple == null || (triple!.first >= 0 && triple!.second >= 0));
+    assert(penalty == null || (penalty!.first >= 0 && penalty!.second >= 0));
   }
 }
 
@@ -147,8 +149,10 @@ class PlayerInfo{
   int rebound;
 
   PlayerInfo({required this.name, required this.number, this.fgma = 0, required this.team, this.score = 0, this.steal = 0, this.rebound = 0}){
+    assert(name.isNotEmpty);
     assert(number >= 0);
     assert(fgma >= 0);
+    assert(team.isNotEmpty);
     assert(score >= 0);
     assert(steal >= 0);
     assert(rebound >= 0);
@@ -156,5 +160,5 @@ class PlayerInfo{
 }
 
 class Fraction extends Pair<int, int>{
-  Fraction(int molecular, int denominator) : super(molecular, denominator);
+  const Fraction(int molecular, int denominator) : super(molecular, denominator);
 }
