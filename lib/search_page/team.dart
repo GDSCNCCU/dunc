@@ -185,7 +185,7 @@ List<Widget> teamWidgets(
                             disableDepth: true,
                             color: DuncColors.mainBackground
                         ),
-                        // 搜尋按鈕的漸層
+                        // 追蹤按鈕的漸層
                         child: ShaderMask(
                           shaderCallback: (bounds) => const LinearGradient(
                             begin: Alignment.topRight,
@@ -214,7 +214,7 @@ List<Widget> teamWidgets(
                     ],
                   ),
                   onPressed: (){
-                    //todo:
+                    //todo: 跳轉至科系頁面
                   },
                 ),
               );
