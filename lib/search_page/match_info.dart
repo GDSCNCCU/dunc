@@ -245,7 +245,8 @@ class _MatchInfoState extends State<MatchInfo> {
           // toggle下方的所有物件
           Container(
             child: summaryOrBoxScoreIndex == 0 ? _Summary(match) : _BoxScore(match),
-          )
+          ),
+          const SizedBox(height: 200,),
         ],
       ),
     );

@@ -232,6 +232,7 @@ class _TeamWidgetsState extends State<TeamWidgets> {
               ),
             ),
           ),
+          const SizedBox(height: 190,)
         ],
       ),
     );
