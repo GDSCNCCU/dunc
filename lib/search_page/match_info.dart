@@ -70,92 +70,98 @@ class _MatchInfoState extends State<MatchInfo> {
         padding: const EdgeInsets.only(left: 18, right: 18),
         children: [
           // toggle上方的所有物件
-          Container(
-            height: 151,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                const Spacer(flex: 2,),
-                // 隊伍及比數
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      match.team1,
-                      style: const TextStyle(
-                          color: DuncColors.indicatorImportant,
-                          fontSize: 43,
-                          fontWeight: FontWeight.w600,
-                          letterSpacing: 8,
-                          fontFamily: 'Noto Sans TC'
-                      ),
-                    ),
-                    Text(
-                      ' ${match.score1} : ${match.score2} ',
-                      style: const TextStyle(
-                          color: DuncColors.matchInfo,
-                          fontSize: 32,
-                          fontWeight: FontWeight.w600,
-                          fontFamily: 'Lexend'
-                      ),
-                    ),
-                    Text(
-                      match.team2,
-                      style: const TextStyle(
-                          color: DuncColors.indicatorImportant,
-                          fontSize: 43,
-                          fontWeight: FontWeight.w600,
-                          letterSpacing: 8,
-                          fontFamily: 'Noto Sans TC'
-                      ),
-                    )
-                  ],
-                ),
-                const Spacer(),
-                // 比賽類型
-                Container(
-                  width: 63,
-                  height: 26,
-                  decoration: BoxDecoration(
-                      borderRadius: const BorderRadius.all(Radius.circular(4.5)),
-                      color: match.matchType == MatchType.pointsMatch
-                          ? DuncColors.pointsMatch
-                          : (match.matchType == MatchType.allStar
-                          ? DuncColors.allStar
-                          : DuncColors.playoffs)
-                  ),
-                  alignment: Alignment.center,
-                  child: Text(
-                    match.matchType == MatchType.pointsMatch
-                        ? '積分賽'
-                        : (match.matchType == MatchType.allStar
-                        ? '明星賽'
-                        : '季後賽'),
-                    style: const TextStyle(
-                        color: Colors.white,
-                        fontFamily: 'Noto Sans TC',
-                        fontWeight: FontWeight.w400,
-                        fontSize: 13
-                    ),
-                  ),
-                ),
-                const Spacer(flex: 2,),
-                // 日期、地點
-                Text(
-                  '${match.date.month}/${match.date.day}‧${match.place}',
-                  style: const TextStyle(
-                      fontFamily: 'Lexend',
-                      fontWeight: FontWeight.w600,
-                      fontSize: 15,
-                      color: DuncColors.matchInfo
-                  ),
-                ),
-                const Spacer(flex: 4,)
-              ],
+          // todo: temporary border
+          Neumorphic(
+            style: NeumorphicStyle(
+              shadowLightColor: DuncColors.shadowLight,
+              shadowDarkColor: DuncColors.shadowDark,
+              boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(10)),
+              color: DuncColors.mainBackground,
+              depth: 3
             ),
-            // todo: temporary border
-            decoration: BoxDecoration(
-              border: Border.all(color: Colors.grey),
+            child: SizedBox(
+              height: 151,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  const Spacer(flex: 2,),
+                  // 隊伍及比數
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        match.team1,
+                        style: const TextStyle(
+                            color: DuncColors.indicatorImportant,
+                            fontSize: 43,
+                            fontWeight: FontWeight.w600,
+                            letterSpacing: 8,
+                            fontFamily: 'Noto Sans TC'
+                        ),
+                      ),
+                      Text(
+                        ' ${match.score1} : ${match.score2} ',
+                        style: const TextStyle(
+                            color: DuncColors.matchInfo,
+                            fontSize: 32,
+                            fontWeight: FontWeight.w600,
+                            fontFamily: 'Lexend'
+                        ),
+                      ),
+                      Text(
+                        match.team2,
+                        style: const TextStyle(
+                            color: DuncColors.indicatorImportant,
+                            fontSize: 43,
+                            fontWeight: FontWeight.w600,
+                            letterSpacing: 8,
+                            fontFamily: 'Noto Sans TC'
+                        ),
+                      )
+                    ],
+                  ),
+                  const Spacer(),
+                  // 比賽類型
+                  Container(
+                    width: 63,
+                    height: 26,
+                    decoration: BoxDecoration(
+                        borderRadius: const BorderRadius.all(Radius.circular(4.5)),
+                        color: match.matchType == MatchType.pointsMatch
+                            ? DuncColors.pointsMatch
+                            : (match.matchType == MatchType.allStar
+                            ? DuncColors.allStar
+                            : DuncColors.playoffs)
+                    ),
+                    alignment: Alignment.center,
+                    child: Text(
+                      match.matchType == MatchType.pointsMatch
+                          ? '積分賽'
+                          : (match.matchType == MatchType.allStar
+                          ? '明星賽'
+                          : '季後賽'),
+                      style: const TextStyle(
+                          color: Colors.white,
+                          fontFamily: 'Noto Sans TC',
+                          fontWeight: FontWeight.w400,
+                          fontSize: 13
+                      ),
+                    ),
+                  ),
+                  const Spacer(flex: 2,),
+                  // 日期、地點
+                  Text(
+                    '${match.date.month}/${match.date.day}‧${match.place}',
+                    style: const TextStyle(
+                        fontFamily: 'Lexend',
+                        fontWeight: FontWeight.w600,
+                        fontSize: 15,
+                        color: DuncColors.matchInfo
+                    ),
+                  ),
+                  const Spacer(flex: 4,)
+                ],
+              ),
             ),
           ),
           // 中央toggle
@@ -245,7 +251,8 @@ class _MatchInfoState extends State<MatchInfo> {
           // toggle下方的所有物件
           Container(
             child: summaryOrBoxScoreIndex == 0 ? _Summary(match) : _BoxScore(match),
-          )
+          ),
+          const SizedBox(height: 200,),
         ],
       ),
     );

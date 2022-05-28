@@ -1,10 +1,9 @@
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
-
 import '../tools/colors.dart';
 import './team.dart';
 import './match.dart';
 
-int searchTeamOrMatchToggleIndex = 0;
+int _searchTeamOrMatchToggleIndex = 0;
 
 class SearchView extends StatefulWidget {
   const SearchView({Key? key}) : super(key: key);
@@ -14,13 +13,11 @@ class SearchView extends StatefulWidget {
 }
 
 class _SearchViewState extends State<SearchView> {
-  NeumorphicTextStyle toggleTextStyle = NeumorphicTextStyle(
+  final NeumorphicTextStyle toggleTextStyle = NeumorphicTextStyle(
       fontFamily: "Lexend",
       fontSize: 16,
       fontWeight: FontWeight.w700
   );
-
-  var searchTeamTextCtrl = TextEditingController(text: "");
 
   @override
   Widget build(BuildContext context) {
@@ -45,10 +42,10 @@ class _SearchViewState extends State<SearchView> {
                 padding: const EdgeInsets.only(left: 7, top: 6, right: 7, bottom: 6),
                 movingCurve: Curves.easeInBack,
                 duration: const Duration(milliseconds: 500),
-                selectedIndex: searchTeamOrMatchToggleIndex,
+                selectedIndex: _searchTeamOrMatchToggleIndex,
                 onChanged: (int index) {
                   setState(() {
-                    searchTeamOrMatchToggleIndex = index;
+                    _searchTeamOrMatchToggleIndex = index;
                   });
                 },
                 children: [
@@ -92,10 +89,8 @@ class _SearchViewState extends State<SearchView> {
                   borderRadius: BorderRadius.all(Radius.circular(20)), // 選中項目
                 ),
               )),
-        ] +
-            (searchTeamOrMatchToggleIndex == 0
-                ? teamWidgets(searchTeamTextCtrl, this)
-                : matchWidgets()),
+          _searchTeamOrMatchToggleIndex == 0 ? const TeamWidgets() : const MatchWidgets()
+        ]
       ),
     );
   }
