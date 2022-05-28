@@ -878,18 +878,20 @@ class _SummaryBottomCloth extends StatelessWidget {
   Widget build(BuildContext context) => Stack(
     alignment: Alignment.center,
     children: [
-      // todo: 不曉得愷祐什麼時候會給我圖
-      const Icon(
-        Icons.accessibility_new_outlined,
-        color: DuncColors.secondaryCTAPurple,
-        size: 60,
+      Image.asset(
+        'assets/img/cloth.png',
+        height: 60,
       ),
-      Text(
-        '#$num',
-        style: const TextStyle(
-            color: Colors.black,
-            fontFamily: 'Lexend',
-            fontSize: 11
+      Container(
+        padding: const EdgeInsets.only(top: 6),
+        child: Text(
+          '#$num',
+          style: const TextStyle(
+              color: Colors.black,
+              fontFamily: 'Lexend',
+              fontSize: 11,
+              fontWeight: FontWeight.w600
+          ),
         ),
       )
     ],
