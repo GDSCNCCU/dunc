@@ -31,10 +31,10 @@ class _BottomBarState extends State<BottomBar> {
           Visibility(
             visible: _isvisible,
             child: Align(
-              alignment: Alignment(0, 0.72),
+              alignment: const Alignment(0, 0.72),
               child: Container(
                 height: 60,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   color: DuncColors.mainBackground,
                   boxShadow: [
                     BoxShadow(
@@ -51,11 +51,11 @@ class _BottomBarState extends State<BottomBar> {
           Visibility(
             visible: _isvisible,
             child: Align(
-              alignment: Alignment(0, 0.723),
+              alignment: const Alignment(0, 0.723),
               child: Container(
                 height: 60,
                 width: 370,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   gradient: LinearGradient(
                     begin: Alignment.topRight,
                     end: Alignment.bottomLeft,
@@ -81,18 +81,20 @@ class _BottomBarState extends State<BottomBar> {
                           width: 25,
                         ),
                         Container(
-                          padding: EdgeInsets.only(
-                              left: 10, right: 10, top: 3, bottom: 3),
+                          padding: const EdgeInsets.only(
+                              left: 10, right: 10, top: 3, bottom: 3
+                          ),
                           width: 62,
-                          decoration: BoxDecoration(
+                          decoration: const BoxDecoration(
                             color: Color.fromARGB(255, 146, 185, 143),
                             borderRadius: BorderRadius.only(
                                 topLeft: Radius.circular(5),
                                 topRight: Radius.circular(5),
                                 bottomLeft: Radius.circular(5),
-                                bottomRight: Radius.circular(5)),
+                                bottomRight: Radius.circular(5)
+                            ),
                           ),
-                          child: Text(
+                          child: const Text(
                             '積分賽',
                             style: TextStyle(
                               color: DuncColors.mainBackground,
@@ -105,7 +107,7 @@ class _BottomBarState extends State<BottomBar> {
                         const SizedBox(
                           width: 16,
                         ),
-                        Text(
+                        const Text(
                           '地政 VS 心理',
                           style: TextStyle(
                             color: DuncColors.mainBackground,
@@ -118,8 +120,8 @@ class _BottomBarState extends State<BottomBar> {
                           width: 110,
                         ),
                         Column(
-                          children: <Widget>[
-                            const SizedBox(
+                          children: const <Widget>[
+                            SizedBox(
                               height: 5,
                             ),
                             Text(
@@ -198,7 +200,7 @@ class _BottomBarState extends State<BottomBar> {
                 boxShape: NeumorphicBoxShape.stadium(),
               ),
               child: NeumorphicToggle(
-                duration: Duration(milliseconds: 350),
+                duration: const Duration(milliseconds: 350),
                 selectedIndex: _selectedIndex,
                 padding: const EdgeInsets.only(
                     top: 9, bottom: 9, left: 11, right: 11),
