@@ -1,3 +1,3 @@
 # dUNC
 
-After clone from github, use `flutter packages get` command to install packages
+After cloning from github, use `flutter pub get` command to install packages
