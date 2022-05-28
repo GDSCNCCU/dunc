@@ -6,27 +6,26 @@ import './profile_page/profile_view.dart';
 import '../tools/colors.dart';
 
 class BottomBar extends StatefulWidget {
-  const BottomBar({Key? key, required this.title}) : super(key: key);
+  BottomBar({Key? key, required this.title, required this.pageIndex, required this.searchIndex}) : super(key: key);
 
   final String title;
-
+  int searchIndex;
+  int pageIndex;
   @override
   State<BottomBar> createState() => _BottomBarState();
 }
 
 class _BottomBarState extends State<BottomBar> {
-  int _selectedIndex = 1;
   bool _isvisible = true;
-
-  List pages = [const SearchView(), const HomePage(), const ProfileView()];
-
   @override
   Widget build(BuildContext context) {
+    bool _isvisible = true;
+    List pages = [SearchView(searchTeamOrMatchToggleIndex: widget.searchIndex,), const HomePage(), const ProfileView()];
     return Scaffold(
       body: Stack(
         children: [
           Center(
-            child: pages[_selectedIndex],
+            child: pages[widget.pageIndex],
           ),
           Visibility(
             visible: _isvisible,
@@ -201,12 +200,12 @@ class _BottomBarState extends State<BottomBar> {
               ),
               child: NeumorphicToggle(
                 duration: const Duration(milliseconds: 350),
-                selectedIndex: _selectedIndex,
+                selectedIndex: widget.pageIndex,
                 padding: const EdgeInsets.only(
                     top: 9, bottom: 9, left: 11, right: 11),
                 onChanged: (int index) {
                   setState(() {
-                    _selectedIndex = index;
+                    widget.pageIndex = index;
                     if (index == 2) {
                       _isvisible = false;
                     } else {

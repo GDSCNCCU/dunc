@@ -1,5 +1,5 @@
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
-
+import 'package:dunc/bottombar.dart';
 import '../../tools/colors.dart';
 import '../../tools/gradient_text.dart';
 import '../../tools/gradient_icon.dart';
@@ -69,7 +69,7 @@ class _AddFollowingButtonState extends State<AddFollowingButton> {
                 child: TextButton(
                   onPressed: () {
                     isOpen = false;
-                    setState(() {});
+                    setState(() {Navigator.push(context, MaterialPageRoute(builder: (context) => BottomBar(title: "", pageIndex: 0, searchIndex: 1)));});
                   },
                   child: const GradientText(
                     '球賽',
@@ -91,7 +91,7 @@ class _AddFollowingButtonState extends State<AddFollowingButton> {
                 child: TextButton(
                   onPressed: () {
                     isOpen = false;
-                    setState(() {});
+                    setState(() {Navigator.push(context, MaterialPageRoute(builder: (context) => BottomBar(title: "", pageIndex: 0, searchIndex: 0)));});
                   },
                   child: const GradientText(
                     '球員',

@@ -1,11 +1,11 @@
+import 'package:dunc/search_page/game.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
-import '../tools/colors.dart';
 
 class MatchWidgets extends StatelessWidget {
   const MatchWidgets({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(); // todo
+    return Column(children: const [SizedBox(height: 10,), game()]);
   }
 }

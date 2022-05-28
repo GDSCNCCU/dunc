@@ -20,9 +20,8 @@ class gameCard extends StatelessWidget {
   Widget gametype(String s) {
     if (s == "季後賽") {
       return Container(
-        //padding: const EdgeInsets.only(left: 20),
+        decoration: BoxDecoration(borderRadius: BorderRadius.circular(4.5), color: DuncColors.playoffs,),
         width: 60,
-        color: Colors.orange,
         child: NeumorphicText(
           gameType,
           style: const NeumorphicStyle(
@@ -35,9 +34,8 @@ class gameCard extends StatelessWidget {
       );
     } else if (s == "積分賽") {
       return Container(
-        //padding: const EdgeInsets.only(left: 20),
+        decoration: BoxDecoration(borderRadius: BorderRadius.circular(4.5), color: DuncColors.pointsMatch,),
         width: 60,
-        color: Colors.green,
         child: NeumorphicText(
           gameType,
           style: const NeumorphicStyle(
@@ -50,9 +48,8 @@ class gameCard extends StatelessWidget {
       );
     } else {
       return Container(
-        //padding: const EdgeInsets.only(left: 20),
+        decoration: BoxDecoration(borderRadius: BorderRadius.circular(4.5), color: DuncColors.allStar,),
         width: 60,
-        color: Colors.blue,
         child: NeumorphicText(
           gameType,
           style: const NeumorphicStyle(

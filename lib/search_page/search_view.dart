@@ -3,11 +3,10 @@ import '../tools/colors.dart';
 import './team.dart';
 import './match.dart';
 
-int _searchTeamOrMatchToggleIndex = 0;
 
 class SearchView extends StatefulWidget {
-  const SearchView({Key? key}) : super(key: key);
-
+  SearchView({Key? key, required this.searchTeamOrMatchToggleIndex}) : super(key: key);
+  int searchTeamOrMatchToggleIndex;
   @override
   State<SearchView> createState() => _SearchViewState();
 }
@@ -42,10 +41,10 @@ class _SearchViewState extends State<SearchView> {
                 padding: const EdgeInsets.only(left: 7, top: 6, right: 7, bottom: 6),
                 movingCurve: Curves.easeInBack,
                 duration: const Duration(milliseconds: 500),
-                selectedIndex: _searchTeamOrMatchToggleIndex,
+                selectedIndex: widget.searchTeamOrMatchToggleIndex,
                 onChanged: (int index) {
                   setState(() {
-                    _searchTeamOrMatchToggleIndex = index;
+                   widget.searchTeamOrMatchToggleIndex = index;
                   });
                 },
                 children: [
@@ -89,7 +88,7 @@ class _SearchViewState extends State<SearchView> {
                   borderRadius: BorderRadius.all(Radius.circular(20)), // 選中項目
                 ),
               )),
-          _searchTeamOrMatchToggleIndex == 0 ? const TeamWidgets() : const MatchWidgets()
+              widget.searchTeamOrMatchToggleIndex == 0 ? const TeamWidgets() : const MatchWidgets()
         ]
       ),
     );
