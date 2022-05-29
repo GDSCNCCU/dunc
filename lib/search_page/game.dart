@@ -31,6 +31,7 @@ class _gameState extends State<game> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
+        const SizedBox(height: 10,),
         Row(
           children: <Widget>[
             Row(

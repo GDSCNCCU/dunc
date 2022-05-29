@@ -1,7 +1,7 @@
+import 'package:dunc/search_page/game.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import '../tools/colors.dart';
 import './team.dart';
-import './match.dart';
 
 
 class SearchView extends StatefulWidget {
@@ -88,7 +88,7 @@ class _SearchViewState extends State<SearchView> {
                   borderRadius: BorderRadius.all(Radius.circular(20)), // 選中項目
                 ),
               )),
-              widget.searchTeamOrMatchToggleIndex == 0 ? const TeamWidgets() : const MatchWidgets()
+              widget.searchTeamOrMatchToggleIndex == 0 ? const TeamWidgets() : const game()
         ]
       ),
     );
