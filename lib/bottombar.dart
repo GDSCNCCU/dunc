@@ -19,7 +19,6 @@ class _BottomBarState extends State<BottomBar> {
   bool _isvisible = true;
   @override
   Widget build(BuildContext context) {
-    bool _isvisible = true;
     List pages = [SearchView(searchTeamOrMatchToggleIndex: widget.searchIndex,), const HomePage(), const ProfileView()];
     return Scaffold(
       body: Stack(
