@@ -69,7 +69,15 @@ class _AddFollowingButtonState extends State<AddFollowingButton> {
                 child: TextButton(
                   onPressed: () {
                     isOpen = false;
-                    setState(() {Navigator.push(context, MaterialPageRoute(builder: (context) => BottomBar(title: "", pageIndex: 0, searchIndex: 1)));});
+                    setState(() {
+                      Navigator.push(
+                        context, 
+                        MaterialPageRoute(
+                          builder: (context) => 
+                            BottomBar(title: "", pageIndex: 0, searchIndex: 1)
+                        )
+                      );
+                    });
                   },
                   child: const GradientText(
                     '球賽',
@@ -91,7 +99,15 @@ class _AddFollowingButtonState extends State<AddFollowingButton> {
                 child: TextButton(
                   onPressed: () {
                     isOpen = false;
-                    setState(() {Navigator.push(context, MaterialPageRoute(builder: (context) => BottomBar(title: "", pageIndex: 0, searchIndex: 0)));});
+                    setState(() {
+                      Navigator.push(
+                        context, 
+                        MaterialPageRoute(
+                          builder: (context) => 
+                            BottomBar(title: "", pageIndex: 0, searchIndex: 0)
+                        )
+                      );
+                    });
                   },
                   child: const GradientText(
                     '球員',
@@ -116,7 +132,7 @@ class _AddFollowingButtonState extends State<AddFollowingButton> {
                     setState(() {});
                   },
                   child: const GradientText(
-                    '球賽',
+                    '球隊',
                     gradient: LinearGradient(
                       colors: [DuncColors.mainCTAFrom, DuncColors.mainCTATo],
                     ),
