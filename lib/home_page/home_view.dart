@@ -1,3 +1,4 @@
+import 'package:dunc/bottombar.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import './widget/Carousel.dart';
 import './widget/gameCard.dart';
@@ -165,7 +166,7 @@ class _HomePageState extends State<HomePage> {
                               Container(
                                 height: 20,
                                 width: 20,
-                                color: Colors.orange,
+                                color: DuncColors.playoffs,
                               ),
                               const SizedBox(
                                 width: 10,
@@ -186,7 +187,7 @@ class _HomePageState extends State<HomePage> {
                               Container(
                                 height: 20,
                                 width: 20,
-                                color: Colors.green,
+                                color: DuncColors.pointsMatch,
                               ),
                               const SizedBox(
                                 width: 10,
@@ -207,7 +208,7 @@ class _HomePageState extends State<HomePage> {
                               Container(
                                 height: 20,
                                 width: 20,
-                                color: Colors.blue,
+                                color: DuncColors.allStar,
                               ),
                               const SizedBox(
                                 width: 10,
@@ -243,17 +244,22 @@ class _HomePageState extends State<HomePage> {
                               homeTeam: "傳院",
                               gameColor: "blue"),
                           Container(
-                            padding: const EdgeInsets.only(left: 30, top: 10),
-                            child: NeumorphicText(
-                              "查看更多...",
-                              style: const NeumorphicStyle(
-                                depth: 4, //customize depth here
-                                color: Color.fromARGB(
-                                    255, 59, 58, 59), //customize color here
-                              ),
-                              textStyle: NeumorphicTextStyle(
-                                  fontSize: 15, fontWeight: FontWeight.w900),
+                            padding: const EdgeInsets.only(
+                              left: 30,
                             ),
+                            child: TextButton(
+                    child: NeumorphicText(
+                                "查看更多...",
+                                style: const NeumorphicStyle(
+                                  depth: 4, //customize depth here
+                                  color: Color.fromARGB(
+                                      255, 59, 58, 59), //customize color here
+                                ),
+                                textStyle: NeumorphicTextStyle(
+                                    fontSize: 15, fontWeight: FontWeight.w900),
+                              ),
+                    onPressed: () {Navigator.push(context, MaterialPageRoute(builder: (context) => BottomBar(title: "", pageIndex: 0, searchIndex: 1)));},
+                          )
                           )
                         ],
                       ),
@@ -344,16 +350,19 @@ class _HomePageState extends State<HomePage> {
                             padding: const EdgeInsets.only(
                               left: 30,
                             ),
-                            child: NeumorphicText(
-                              "查看更多...",
-                              style: const NeumorphicStyle(
-                                depth: 4, //customize depth here
-                                color: Color.fromARGB(
-                                    255, 59, 58, 59), //customize color here
+                            child: TextButton(
+                    child: NeumorphicText(
+                                "查看更多...",
+                                style: const NeumorphicStyle(
+                                  depth: 4, //customize depth here
+                                  color: Color.fromARGB(
+                                      255, 59, 58, 59), //customize color here
+                                ),
+                                textStyle: NeumorphicTextStyle(
+                                    fontSize: 15, fontWeight: FontWeight.w900),
                               ),
-                              textStyle: NeumorphicTextStyle(
-                                  fontSize: 15, fontWeight: FontWeight.w900),
-                            ),
+                    onPressed: () {Navigator.push(context, MaterialPageRoute(builder: (context) => BottomBar(title: "", pageIndex: 0, searchIndex: 0)));},
+                          )
                           )
                         ],
                       )),
